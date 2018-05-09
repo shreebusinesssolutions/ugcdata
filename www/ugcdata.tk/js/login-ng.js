@@ -14,7 +14,7 @@ var LoginCtrl = (function() {
         };
     }
 
-    LoginCtrl.prototype.showNotif = function(message, timeout = 3000, errorToast = false) { // type=info/error
+    LoginCtrl.prototype.showNotif = function(message, timeout = 3000, errorToast = false) {
         var _this = this;
         if (!errorToast) {
             var toast = _this.$mdToast.simple()
