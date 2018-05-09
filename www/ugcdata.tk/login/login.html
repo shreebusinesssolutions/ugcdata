@@ -45,7 +45,6 @@
 </head>
 
 <body class="w3-theme-primary w3-center">
-
     <div id="ng-app" ng-app="LoginApp" ng-controller="LoginCtrl as vm" ng-cloak>
         <div class="w3-card w3-top w3-white w3-text-theme-primary w3-padding w3-left-align w3-xxlarge">
             <img src="/img/logo-512x512.png" style="width: 70px;" /> UGC
@@ -201,8 +200,9 @@
                     </svg>
                 </div>
 
-                <md-button class="md-primary md-raised" ng-disabled="form_login.$invalid">Login&nbsp;
-                    <i class="fas fa-sign-in-alt"></i>
+                <md-button id="login-btn" class="md-primary md-raised w3-large" ng-disabled="form_login.$invalid || vm.mode.loggingIn" ng-click="vm.loginUser()">
+                    Login&nbsp;
+                    <i id="login-icon" class="fas fa-sign-in-alt fa-fw"></i>
                 </md-button>
             </form>
         </div>
