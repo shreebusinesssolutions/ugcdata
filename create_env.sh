@@ -36,7 +36,7 @@ create_server() {
 	fi
 	echo "* Creating {server} in $SERVER_DIR *"
 	mkdir $SERVER_DIR
-	cp -rv ugd_serv/* $SERVER_DIR/
+	cp -rv ugc_serv/* $SERVER_DIR/
 }
 
 echo " "
