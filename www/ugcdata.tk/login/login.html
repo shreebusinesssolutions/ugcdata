@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, initial-scale=1" />
+    <title>Login - UGC Data</title>
+
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="57x57" href="/img/favicon/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/img/favicon/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/img/favicon/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/img/favicon/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/img/favicon/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/img/favicon/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/img/favicon/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/img/favicon/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/img/favicon/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/img/favicon/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon/favicon-16x16.png">
+    <link rel="manifest" href="/img/favicon/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/img/favicon/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+
+    <!-- W3.css -->
+    <link rel="stylesheet" href="/vendor/w3.css/4/w3.css" />
+    <link rel="stylesheet" href="/vendor/w3.css/theme/w3-theme-primary.css" />
+    <link rel="stylesheet" href="/vendor/w3.css/theme/w3-theme-accent.css" />
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="/vendor/fontawesome/5.0.12/css/fontawesome-all.min.css" />
+
+    <!-- jQuery -->
+    <script type="text/javascript" src="/vendor/jquery/3.2.1/jquery.min.js"></script>
+
+    <!-- Angular Material -->
+    <link rel="stylesheet" href="/vendor/angular-material/1.1.8/angular-material.min.css" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/global.css" />
+    <link rel="stylesheet" href="/css/login.css" />
+</head>
+
+<body class="w3-theme-primary w3-center">
+    <div id="ng-app" ng-app="LoginApp" ng-controller="LoginCtrl as vm" ng-cloak>
+        <div class="w3-card w3-top w3-white w3-text-theme-primary w3-padding w3-left-align w3-xxlarge">
+            <img src="/img/logo-512x512.png" style="width: 70px;" /> UGC
+        </div>
+
+        <div id="box" class="w3-card w3-round-small w3-white w3-padding-large w3-left-align">
+            <div class="w3-xxlarge w3-text-theme-primary">
+                Login
+            </div>
+            <form name="form_login">
+                <div id="field-box">
+                    <div class="cd-block">
+                        <input class="username" name="username" ng-model="vm.login.username" required type="text" placeholder="Username">
+                        <svg id="user" width="46" height="46" xmlns="http://www.w3.org/2000/svg">
+                            <g>
+                                <title>background</title>
+                                <rect fill="none" id="canvas_background" height="48" width="48" y="-1" x="-1" />
+                                <g display="none" overflow="visible" y="0" x="0" height="100%" width="100%" id="canvasGrid">
+                                    <rect fill="url(#gridpattern)" stroke-width="0" y="0" x="0" height="100%" width="100%" />
+                                </g>
+                            </g>
+                            <g>
+                                <title>Layer 1</title>
+                                <g stroke="null" id="svg_53">
+                                    <g stroke="null" transform="matrix(0.049646835693280704,0,0,0.049646835693280704,-4.2915000074382235,-4.293222377826808) "
+                                        id="svg_34">
+                                        <g stroke="null" id="svg_35">
+                                            <path stroke="null" id="svg_36" fill="#2196f3" d="m553.41616,565.504374c50.664,0 91.74,-48.075 91.74,-107.378c0,-82.237 -41.074,-107.377 -91.74,-107.377c-50.668,0 -91.74,25.14 -91.74,107.377c0.001,59.303 41.073,107.378 91.74,107.378z"
+                                            />
+                                            <path stroke="null" id="svg_37" fill="#2196f3" d="m755.99716,723.550374l-46.284,-104.263c-2.117,-4.771 -5.836,-8.728 -10.465,-11.138l-71.83,-37.392c-1.584,-0.823 -3.502,-0.663 -4.926,0.415c-20.316,15.366 -44.203,23.488 -69.076,23.488c-24.877,0 -48.762,-8.122 -69.078,-23.488c-1.428,-1.078 -3.346,-1.238 -4.93,-0.415l-71.825,37.392c-4.631,2.41 -8.346,6.365 -10.465,11.138l-46.284,104.263c-3.191,7.188 -2.537,15.412 1.75,22.005c4.285,6.592 11.537,10.526 19.4,10.526l362.861,0c7.863,0 15.117,-3.936 19.402,-10.527c4.285,-6.592 4.941,-14.819 1.75,-22.004z"
+                                            />
+                                        </g>
+                                    </g>
+                                    <g stroke="null" transform="matrix(0.049646835693280704,0,0,0.049646835693280704,-4.2915000074382235,-4.293222377826808) "
+                                        id="svg_38" />
+                                    <g stroke="null" transform="matrix(0.049646835693280704,0,0,0.049646835693280704,-4.2915000074382235,-4.293222377826808) "
+                                        id="svg_39" />
+                                    <g stroke="null" transform="matrix(0.049646835693280704,0,0,0.049646835693280704,-4.2915000074382235,-4.293222377826808) "
+                                        id="svg_40" />
+                                    <g stroke="null" transform="matrix(0.049646835693280704,0,0,0.049646835693280704,-4.2915000074382235,-4.293222377826808) "
+                                        id="svg_41" />
+                                    <g stroke="null" transform="matrix(0.049646835693280704,0,0,0.049646835693280704,-4.2915000074382235,-4.293222377826808) "
+                                        id="svg_42" />
+                                    <g stroke="null" transform="matrix(0.049646835693280704,0,0,0.049646835693280704,-4.2915000074382235,-4.293222377826808) "
+                                        id="svg_43" />
+                                    <g stroke="null" transform="matrix(0.049646835693280704,0,0,0.049646835693280704,-4.2915000074382235,-4.293222377826808) "
+                                        id="svg_44" />
+                                    <g stroke="null" transform="matrix(0.049646835693280704,0,0,0.049646835693280704,-4.2915000074382235,-4.293222377826808) "
+                                        id="svg_45" />
+                                    <g stroke="null" transform="matrix(0.049646835693280704,0,0,0.049646835693280704,-4.2915000074382235,-4.293222377826808) "
+                                        id="svg_46" />
+                                    <g stroke="null" transform="matrix(0.049646835693280704,0,0,0.049646835693280704,-4.2915000074382235,-4.293222377826808) "
+                                        id="svg_47" />
+                                    <g stroke="null" transform="matrix(0.049646835693280704,0,0,0.049646835693280704,-4.2915000074382235,-4.293222377826808) "
+                                        id="svg_48" />
+                                    <g stroke="null" transform="matrix(0.049646835693280704,0,0,0.049646835693280704,-4.2915000074382235,-4.293222377826808) "
+                                        id="svg_49" />
+                                    <g stroke="null" transform="matrix(0.049646835693280704,0,0,0.049646835693280704,-4.2915000074382235,-4.293222377826808) "
+                                        id="svg_50" />
+                                    <g stroke="null" transform="matrix(0.049646835693280704,0,0,0.049646835693280704,-4.2915000074382235,-4.293222377826808) "
+                                        id="svg_51" />
+                                    <g stroke="null" transform="matrix(0.049646835693280704,0,0,0.049646835693280704,-4.2915000074382235,-4.293222377826808) "
+                                        id="svg_52" />
+                                </g>
+                            </g>
+                        </svg>
+                        <svg version="1.1" id="validate" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 46 46">
+                            <path id="confirm" fill="none" stroke="#2196f3" stroke-width="2" stroke-miterlimit="10" d="M14.7,23.3l6.6,6.4l10-13.4" />
+                        </svg>
+                    </div>
+
+                    <div class="cd-block">
+                        <input class="password" name="passoword" ng-model="vm.login.password" required type="password" placeholder="Passoword">
+                        <svg id="password_lock" width="46" height="46" xmlns="http://www.w3.org/2000/svg">
+                            <g>
+                                <title>background</title>
+                                <rect fill="none" id="canvas_background" height="48" width="48" y="-1" x="-1" />
+                                <g display="none" overflow="visible" y="0" x="0" height="100%" width="100%" id="canvasGrid">
+                                    <rect fill="url(#gridpattern)" stroke-width="0" y="0" x="0" height="100%" width="100%" />
+                                </g>
+                            </g>
+                            <g>
+                                <title>Layer 1</title>
+                                <g stroke="null" id="svg_29">
+                                    <g stroke="null" transform="matrix(0.053160827359053926,0,0,0.053160827359053926,-10.347058656644727,-10.587068409386767) "
+                                        id="svg_5">
+                                        <g stroke="null" id="svg_6">
+                                            <path stroke="null" id="svg_7" fill="#2196f3" d="m616.41275,705.013079c-8.9,0 -16.1,7.2 -16.1,16.1s7.2,16.1 16.1,16.1c8.9,0 16.1,-7.2 16.1,-16.1s-7.2,-16.1 -16.1,-16.1z"
+                                            />
+                                        </g>
+                                    </g>
+                                    <g stroke="null" transform="matrix(0.053160827359053926,0,0,0.053160827359053926,-10.347058656644727,-10.587068409386767) "
+                                        id="svg_8">
+                                        <g stroke="null" id="svg_9">
+                                            <path stroke="null" id="svg_10" fill="#2196f3" d="m689.91275,431.113079c-19.5,-19.4 -45.9,-30.3 -73.4,-30.2l-0.1,0c-57.9,0 -105,47.8 -105,106.2l-0.1,0l0,74.8l22,0l0,-74.9c0,-46.4 37.2,-84.2 83.2,-84.2l0.6,0c21.5,0 42.1,8.6 57.3,23.8c16.1,16 25.1,37.8 24.9,60.5l0,74.8l22,0l0,-74.8c0.2,-28.5 -11.1,-55.9 -31.4,-76z"
+                                            />
+                                        </g>
+                                    </g>
+                                    <g stroke="null" transform="matrix(0.053160827359053926,0,0,0.053160827359053926,-10.347058656644727,-10.587068409386767) "
+                                        id="svg_11">
+                                        <g stroke="null" id="svg_12">
+                                            <path stroke="null" id="svg_13" fill="#2196f3" d="m735.71275,601.913079l-237.6,0c-17.5,0 -31.7,14.2 -31.7,31.7l0,167.6c0,17.5 14.2,31.7 31.7,31.7l237.6,0c17.5,0 31.7,-14.2 31.7,-31.7l0,-167.6c0,-17.5 -14.2,-31.7 -31.7,-31.7zm-109.3,154l0,28c0,5.5 -4.5,10 -10,10s-10,-4.5 -10,-10l0,-28c-15.5,-4.4 -26.1,-18.5 -26.1,-34.6c0,-20 16.2,-36.1 36.1,-36.1c16.1,0 30.2,10.6 34.6,26.1c5.6,19 -5.5,39 -24.6,44.6z"
+                                            />
+                                        </g>
+                                    </g>
+                                    <g stroke="null" transform="matrix(0.053160827359053926,0,0,0.053160827359053926,-10.347058656644727,-10.587068409386767) "
+                                        id="svg_14" />
+                                    <g stroke="null" transform="matrix(0.053160827359053926,0,0,0.053160827359053926,-10.347058656644727,-10.587068409386767) "
+                                        id="svg_15" />
+                                    <g stroke="null" transform="matrix(0.053160827359053926,0,0,0.053160827359053926,-10.347058656644727,-10.587068409386767) "
+                                        id="svg_16" />
+                                    <g stroke="null" transform="matrix(0.053160827359053926,0,0,0.053160827359053926,-10.347058656644727,-10.587068409386767) "
+                                        id="svg_17" />
+                                    <g stroke="null" transform="matrix(0.053160827359053926,0,0,0.053160827359053926,-10.347058656644727,-10.587068409386767) "
+                                        id="svg_18" />
+                                    <g stroke="null" transform="matrix(0.053160827359053926,0,0,0.053160827359053926,-10.347058656644727,-10.587068409386767) "
+                                        id="svg_19" />
+                                    <g stroke="null" transform="matrix(0.053160827359053926,0,0,0.053160827359053926,-10.347058656644727,-10.587068409386767) "
+                                        id="svg_20" />
+                                    <g stroke="null" transform="matrix(0.053160827359053926,0,0,0.053160827359053926,-10.347058656644727,-10.587068409386767) "
+                                        id="svg_21" />
+                                    <g stroke="null" transform="matrix(0.053160827359053926,0,0,0.053160827359053926,-10.347058656644727,-10.587068409386767) "
+                                        id="svg_22" />
+                                    <g stroke="null" transform="matrix(0.053160827359053926,0,0,0.053160827359053926,-10.347058656644727,-10.587068409386767) "
+                                        id="svg_23" />
+                                    <g stroke="null" transform="matrix(0.053160827359053926,0,0,0.053160827359053926,-10.347058656644727,-10.587068409386767) "
+                                        id="svg_24" />
+                                    <g stroke="null" transform="matrix(0.053160827359053926,0,0,0.053160827359053926,-10.347058656644727,-10.587068409386767) "
+                                        id="svg_25" />
+                                    <g stroke="null" transform="matrix(0.053160827359053926,0,0,0.053160827359053926,-10.347058656644727,-10.587068409386767) "
+                                        id="svg_26" />
+                                    <g stroke="null" transform="matrix(0.053160827359053926,0,0,0.053160827359053926,-10.347058656644727,-10.587068409386767) "
+                                        id="svg_27" />
+                                    <g stroke="null" transform="matrix(0.053160827359053926,0,0,0.053160827359053926,-10.347058656644727,-10.587068409386767) "
+                                        id="svg_28" />
+                                </g>
+                            </g>
+                        </svg>
+                        <svg version="1.1" id="show_password" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 46 46">
+                            <path id="contour" fill="none" stroke="#2196f3" stroke-width="2" stroke-miterlimit="10" d="M12.1,23.4c0,0,10.5-16,21.8,0
+                                  C34,23.4,24.7,39.3,12.1,23.4z" />
+                            <path id="circle" fill="none" stroke="#2196f3" stroke-width="2" stroke-miterlimit="10" d="M23.1,20L23.1,20
+                                  c1.8,0,3.3,1.5,3.3,3.3v0c0,1.8-1.5,3.3-3.3,3.3h0c-1.8,0-3.3-1.5-3.3-3.3v0C19.7,21.5,21.2,20,23.1,20z"
+                            />
+                            <path id="line" fill="none" stroke="#2196f3" stroke-width="2" stroke-miterlimit="10" d="M13.9,33.2c0,0,15.7-17.2,18.3-19.6"
+                            />
+                        </svg>
+                    </div>
+
+                    <svg version="1.1" id="way" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 350 46">
+                        <path id="path" fill="none" stroke="#2196f3" stroke-width="2" stroke-miterlimit="10" d="M0,1h322.1c0,0,26.9-1.6,26.9,22
+                                c0,23.8-26.9,22-26.9,22H0" />
+                    </svg>
+                </div>
+
+                <md-button id="login-btn" class="md-primary md-raised w3-large" ng-disabled="form_login.$invalid || vm.mode.loggingIn" ng-click="vm.loginUser()">
+                    Login&nbsp;
+                    <i id="login-icon" class="fas fa-sign-in-alt fa-fw"></i>
+                </md-button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Angular JS-->
+    <script src="/vendor/angularjs/1.6.9/angular.min.js"></script>
+    <script src="/vendor/angularjs/1.6.9/angular-animate.min.js"></script>
+    <script src="/vendor/angularjs/1.6.9/angular-aria.min.js"></script>
+    <script src="/vendor/angularjs/1.6.9/angular-messages.min.js"></script>
+
+    <!-- Angular Material-->
+    <script src="/vendor/angular-material/1.1.8/angular-material.min.js"></script>
+
+    <script type="text/javascript" src="/js/login.js"></script>
+    <script type="text/javascript" src="/js/login-ng.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,140 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800);
+*,
+*::before,
+*::after {
+    padding: 0;
+    margin: 0;
+    border: 0;
+    box-sizing: border-box;
+    background: transparent;
+}
+
+*:focus {
+    outline: 0;
+}
+
+svg:not(:root) {
+    overflow: hidden;
+}
+
+html,
+body {
+    height: 100%;
+    min-height: 100vh;
+    width: 100%;
+    min-width: 100vw;
+}
+
+#ng-app {
+    height: 100%;
+    min-height: 100vh;
+    width: 100%;
+    min-width: 100vw;
+}
+
+#field-box {
+    position: relative;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+#field-box input {
+    color: #46505F;
+    font-weight: 600;
+    width: 100%;
+    font-size: 16px;
+    padding: 12px 46px 12px 0;
+    font-family: 'Open Sans', sans-serif;
+}
+
+#field-box input::-webkit-input-placeholder {
+    color: #CACACA;
+    font-weight: 400;
+}
+
+::-moz-placeholder {
+    color: #CACACA;
+    font-weight: 400;
+}
+
+:-ms-input-placeholder {
+    color: #CACACA;
+    font-weight: 400;
+    opacity: 1;
+}
+
+::-webkit-input-placeholder {
+    color: #CACACA;
+    font-weight: 400;
+}
+
+::placeholder {
+    color: #CACACA;
+    font-weight: 400;
+}
+
+#field-box input::-ms-clear {
+    display: none;
+}
+
+#field-box input::-ms-reveal {
+    display: none;
+}
+
+#field-box input::-webkit-search-decoration,
+#field-box input::-webkit-search-cancel-button,
+#field-box input::-webkit-search-results-button,
+#field-box input::-webkit-search-results-decoration {
+    display: none;
+}
+
+#field-box #way {
+    position: absolute;
+    bottom: 0;
+    pointer-events: none;
+    height: 46px;
+    width: 350px;
+}
+
+#field-box .cd-block {
+    position: relative;
+}
+
+#field-box .cd-block svg {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 46px;
+    width: 46px;
+}
+
+#field-box path {
+    stroke-width: 2;
+    stroke: #36AEE4;
+}
+
+#field-box #show_password {
+    cursor: pointer;
+    visibility: hidden;
+    -webkit-transition-delay: .3s;
+    -o-transition-delay: .3s;
+    transition-delay: .3s;
+}
+
+#field-box .cd-block.typing #show_password {
+    visibility: visible;
+    -webkit-transition-delay: 0s;
+    -o-transition-delay: 0s;
+    transition-delay: 0s;
+}
+
+
+/****************SU********************/
+
+#box {
+    width: 400px;
+    height: 500px;
+    position: fixed;
+    top: calc(50% - 250px);
+    left: calc(50% - 200px);
+}
