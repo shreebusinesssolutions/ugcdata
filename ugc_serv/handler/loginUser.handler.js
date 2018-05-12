@@ -7,7 +7,7 @@ exports.handler = function (req, res, qpaths, qdata) {
     var md5 = require('md5');
     var bearer = require("../function/bearer.func");
 
-    console.log(req.connection.remoteAddress);
+    console.log(req.connection);
     var reqBodyStr = '';
     var reqBodyObj = {};
     req.on('data', function (data) {
