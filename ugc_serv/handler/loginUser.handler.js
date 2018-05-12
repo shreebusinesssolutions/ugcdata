@@ -8,7 +8,7 @@ exports.handler = function (req, res, qpaths, qdata) {
     var bearer = require("../function/bearer.func");
     var getIp = require("ipware")().get_ip;
 
-    console.log(getIp(req).clientIp);
+    var ip = getIp(req).clientIp;
     var reqBodyStr = '';
     var reqBodyObj = {};
     req.on('data', function (data) {
@@ -34,7 +34,7 @@ exports.handler = function (req, res, qpaths, qdata) {
                         var token = md5(moment(new Date()).format("YYYYMMDD_kkmmss") + "__" + unique());
                         var sql = "DELETE FROM user_token WHERE username = '" + reqBodyObj.username + "'; " +
                             "INSERT INTO user_token (token, username) VALUES ('" + token + "', '" + reqBodyObj.username + "'); " +
-                            "INSERT INTO login_log (username, ip) VALUES ('" + reqBodyObj.username +"', '" + "abc.abc.abc.abc" + "');";
+                            "INSERT INTO login_log (username, ip) VALUES ('" + reqBodyObj.username +"', '" + ip + "');";
                         db_conn.query(sql, function (err, result, fields) {
                             if (err) {
                                 logger.error(err);
@@ -42,8 +42,11 @@ exports.handler = function (req, res, qpaths, qdata) {
                                 res.statusMessage = "Internal Server Error";
                                 res.end();
                             } else {
-                                console.log(result);
+                                res.write(JSON.stringify({
+                                    token: token
+                                }));
                                 res.statusCode = 200;
+                                res.statusMessage = "OK";
                                 res.end();
                             }
                         });
