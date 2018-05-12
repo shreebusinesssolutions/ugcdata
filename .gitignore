@@ -57,3 +57,4 @@ typings/
 # dotenv environment variables file
 .env
 
+ugc_serv/handler/eg.handler.js
