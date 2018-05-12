@@ -6,8 +6,9 @@ exports.handler = function (req, res, qpaths, qdata) {
     var moment = require('moment');
     var md5 = require('md5');
     var bearer = require("../function/bearer.func");
+    var getIp = require("ipware")().get_ip;
 
-    console.log(req.connection);
+    console.log(getIp(req).clientIp);
     var reqBodyStr = '';
     var reqBodyObj = {};
     req.on('data', function (data) {

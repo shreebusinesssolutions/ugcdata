@@ -37,6 +37,11 @@ create_server() {
 	echo "* Creating {server} in $SERVER_DIR *"
 	mkdir $SERVER_DIR
 	cp -rv ugc_serv/* $SERVER_DIR/
+	mkdir $SERVER_DIR/logs
+	touch $SERVER_DIR/logs/log.log
+	touch $SERVER_DIR/logs/error.log
+	touch $SERVER_DIR/logs/info.log
+	touch $SERVER_DIR/logs/time.log
 }
 
 echo " "
