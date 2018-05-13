@@ -67,7 +67,7 @@ var LoginCtrl = (function () {
         loginIcon.classList.add("fa-circle-notch");
         loginIcon.classList.add("fa-spin");
         var xhr = new XMLHttpRequest();
-        xhr.onreadystatechange == function () {
+        xhr.onreadystatechange = function () {
             if (this.readyState == 4) {
                 loginBtn.classList.remove("w3-theme-primary-dark");
                 _this.mode.loggingIn = false;
