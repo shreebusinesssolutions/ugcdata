@@ -78,13 +78,14 @@ var LoginCtrl = (function () {
                     console.log((this.responseText));
                 } else if (this.status == 403) {
                     _this.showNotif(message = "Invalid Username and/or Password.", errorToast = true);
-                }
-                else if(this.status == 500) {
+                } else if (this.status == 500) {
+                    _this.showNotif(message = "Something went wrong on our side. Please try again.", errorToast = true);
+                } else {
                     _this.showNotif(message = "Something went wrong. Please try again.", errorToast = true);
                 }
             }
         };
-        xhr.open("POST", "/ugc_ser/user/login/");
+        xhr.open("POST", "/ugc_serv/user/login/");
         xhr.send(JSON.stringify({
             username: _this.login.username,
             password: _this.login.password
