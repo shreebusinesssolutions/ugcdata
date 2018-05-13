@@ -66,6 +66,19 @@ var LoginCtrl = (function () {
         loginIcon.classList.remove("fa-sign-in-alt");
         loginIcon.classList.add("fa-circle-notch");
         loginIcon.classList.add("fa-spin");
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange == function () {
+            if (this.readyState == 4) {
+                if (this.status == 200) {
+                    console.log((this.responseText));
+                } else if (this.status == 403) {
+                    _this.showNotif(message = "Invalid Username and/or Password.", errorToast = true);
+                }
+                else if(this.status == 500) {
+                    _this.showNotif(message = "Something went wrong. Please try again.", errorToast = true);
+                }
+            }
+        }
     };
 
     LoginCtrl.$inject = [
