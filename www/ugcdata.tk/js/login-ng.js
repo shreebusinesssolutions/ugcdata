@@ -79,11 +79,11 @@ var LoginCtrl = (function () {
                     cust_localStorage.setItem("username", JSON.parse(this.responseText).token);
                     window.location.href = "/main";
                 } else if (this.status == 403) {
-                    _this.showNotif(message = "Invalid Username and/or Password.", errorToast = true);
+                    _this.showNotif("Invalid Username and/or Password.", 9000, true);
                 } else if (this.status == 500) {
-                    _this.showNotif(message = "Something went wrong on our side. Please try again.", errorToast = true);
+                    _this.showNotif("Something went wrong on our side. Please try again.", 9000, true);
                 } else {
-                    _this.showNotif(message = "Something went wrong. Please try again.", errorToast = true);
+                    _this.showNotif("Something went wrong. Please try again.", 9000, true);
                 }
             }
         };
