@@ -66,6 +66,32 @@ var LoginCtrl = (function () {
         loginIcon.classList.remove("fa-sign-in-alt");
         loginIcon.classList.add("fa-circle-notch");
         loginIcon.classList.add("fa-spin");
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+            if (this.readyState == 4) {
+                loginBtn.classList.remove("w3-theme-primary-dark");
+                _this.mode.loggingIn = false;
+                loginIcon.classList.add("fa-sign-in-alt");
+                loginIcon.classList.remove("fa-circle-notch");
+                loginIcon.classList.remove("fa-spin");
+                if (this.status == 200) {
+                    cust_sessionStorage.setItem("token", JSON.parse(this.responseText).token);
+                    cust_localStorage.setItem("username", JSON.parse(this.responseText).token);
+                    window.location.href = "/main";
+                } else if (this.status == 403) {
+                    _this.showNotif(message = "Invalid Username and/or Password.", errorToast = true);
+                } else if (this.status == 500) {
+                    _this.showNotif(message = "Something went wrong on our side. Please try again.", errorToast = true);
+                } else {
+                    _this.showNotif(message = "Something went wrong. Please try again.", errorToast = true);
+                }
+            }
+        };
+        xhr.open("POST", "/ugc_serv/user/login/");
+        xhr.send(JSON.stringify({
+            username: _this.login.username,
+            password: _this.login.password
+        }));
     };
 
     LoginCtrl.$inject = [

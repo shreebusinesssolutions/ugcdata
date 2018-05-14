@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <title>Login - UGC Data</title>
 
     <!-- Favicon -->
@@ -39,12 +39,17 @@
     <!-- Angular Material -->
     <link rel="stylesheet" href="/vendor/angular-material/1.1.8/angular-material.min.css" />
 
+    <!-- Outdatedbrowser -->
+    <link rel- "stylesheet" href="/vendor/outdatedbrowser/outdatedbrowser.min.css" />
+
     <!-- Custom CSS -->
     <link rel="stylesheet" href="/css/global.css" />
     <link rel="stylesheet" href="/css/login.css" />
 </head>
 
 <body class="w3-theme-primary w3-center">
+    <div id="outdated"></div>
+
     <div id="ng-app" ng-app="LoginApp" ng-controller="LoginCtrl as vm" ng-cloak>
         <div class="w3-card w3-top w3-white w3-text-theme-primary w3-padding w3-left-align w3-xxlarge">
             <img src="/img/logo-512x512.png" style="width: 70px;" /> UGC
@@ -207,6 +212,34 @@
             </form>
         </div>
     </div>
+
+    <!-- Outdatedbrowser -->
+    <script src="/vendor/outdatedbrowser/outdatedbrowser.min.js"></script>
+    <script>
+        //event listener form DOM ready
+        function addLoadEvent(func) {
+            var oldonload = window.onload;
+            if (typeof window.onload != 'function') {
+                window.onload = func;
+            } else {
+                window.onload = function () {
+                    if (oldonload) {
+                        oldonload();
+                    }
+                    func();
+                }
+            }
+        }
+        //call function after DOM ready
+        addLoadEvent(function () {
+            outdatedBrowser({
+                bgColor: '#f25648',
+                color: '#ffffff',
+                lowerThan: 'transform',
+                languagePath: '/vendor/outdatedbrowser/lang/en.html'
+            })
+        });
+    </script>
 
     <!-- Angular JS-->
     <script src="/vendor/angularjs/1.6.9/angular.min.js"></script>
