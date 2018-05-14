@@ -76,7 +76,7 @@ var LoginCtrl = (function () {
                 loginIcon.classList.remove("fa-spin");
                 if (this.status == 200) {
                     cust_sessionStorage.setItem("token", JSON.parse(this.responseText).token);
-                    cust_localStorage.setItem("username", JSON.parse(this.responseText).token);
+                    cust_localStorage.setItem("username", _this.login.username);
                     window.location.href = "/main";
                 } else if (this.status == 403) {
                     _this.showNotif("Invalid Username and/or Password.", 9000, true);
