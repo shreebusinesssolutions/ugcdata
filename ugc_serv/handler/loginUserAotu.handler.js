@@ -30,7 +30,7 @@ exports.handler = function (req, res, qpaths, qdata) {
                 console.log(currTime.format("YYYY-MM-DDTHH:mm:ss.SSSZZ"));
                 console.log(createdTime.format("YYYY-MM-DDTHH:mm:ss.SSSZZ"));
                 console.log(result[0].timeout_mins);
-                console.log(currTime, createdTime.add({minutes: result[0].timeout_mins}), currTime.isSameOrBefore(createdTime.add(result[0].timeout_mins, 'm')));
+                console.log(currTime, createdTime.add({minutes: 30}), currTime.isSameOrBefore(createdTime.add(result[0].timeout_mins, 'm')));
             }
         });
     });
