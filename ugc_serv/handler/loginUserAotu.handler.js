@@ -3,7 +3,7 @@ exports.handler = function (req, res, qpaths, qdata) {
     var request = require('request');
     var fs = require('fs');
     var unique = require('uniqid');
-    var moment = require('moment');
+    var moment = require('moment-timezone');
     var md5 = require('md5');
     var bearer = require("../function/bearer.func");
 
@@ -24,10 +24,12 @@ exports.handler = function (req, res, qpaths, qdata) {
                 res.statusMessage = "Internal Server Error";
                 res.end();
             } else {
-                console.log(result);
+                console.log(result[0]);
                 var createdTime = moment(result[0].created_time);
                 var currTime = moment();
-                console.log(currTime.isSameOrBefore(createdTime.add(result[0].timeout_mins), 'm'));
+                console.log(currTime.format("YYYY-MM-DDTHH:mm:ss.SSSZZ"));
+                console.log(createdTime.format("YYYY-MM-DDTHH:mm:ss.SSSZZ"));
+                console.log(currTime, createdTime.add(result[0].timeout_mins, 'm'), currTime.isSameOrBefore(createdTime.add(result[0].timeout_mins, 'm')));
             }
         });
     });
