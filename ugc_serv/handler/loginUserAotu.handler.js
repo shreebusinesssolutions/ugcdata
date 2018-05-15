@@ -29,8 +29,7 @@ exports.handler = function (req, res, qpaths, qdata) {
                 console.log(createdTime.format("YYYY-MM-DDTHH:mm:ss.SSSZZ"));
                 createdTime.utcOffset("+5:30");
                 console.log(createdTime.format("YYYY-MM-DDTHH:mm:ss.SSSZZ"));
-                var currTime = moment();
-                currTime.utcOffset("+5:30");
+                var currTime = moment().utcOffset(360);
                 console.log(currTime.format("YYYY-MM-DDTHH:mm:ss.SSSZZ"));
             }
         });
