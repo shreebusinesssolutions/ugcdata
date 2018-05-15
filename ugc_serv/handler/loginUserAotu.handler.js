@@ -14,7 +14,7 @@ exports.handler = function (req, res, qpaths, qdata) {
     });
     req.on('end', function () {
         reqBodyObj = JSON.parse(reqBodyStr);
-        var sql = "SELECT * FROM user_credentials t1, user_token t2 " +
+        var sql = "SELECT t2.created_time, t2.timeout_mins FROM user_credentials t1, user_token t2 " +
             "WHERE t1.username = '" + reqBodyObj.username + "' AND t2.token = '" + reqBodyObj.token + "'  " +
             "AND t1.username = t2.username";
         db_conn.query(sql, function (err, result, fields) {
@@ -25,8 +25,12 @@ exports.handler = function (req, res, qpaths, qdata) {
                 res.end();
             } else {
                 console.log(result);
-                var currTime=moment();
-                //currTime.utcOffset("+5:30");
+                var createdTime = moment(result[0].created_time);
+                console.log(createdTime.format("YYYY-MM-DDTHH:mm:ss.SSSZZ"));
+                createdTime.utcOffset("+5:30");
+                console.log(createdTime.format("YYYY-MM-DDTHH:mm:ss.SSSZZ"));
+                var currTime = moment();
+                currTime.utcOffset("+5:30");
                 console.log(currTime.format("YYYY-MM-DDTHH:mm:ss.SSSZZ"));
             }
         });
