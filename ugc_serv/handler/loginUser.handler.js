@@ -6,9 +6,7 @@ exports.handler = function (req, res, qpaths, qdata) {
     var moment = require('moment');
     var md5 = require('md5');
     var bearer = require("../function/bearer.func");
-    var getIp = require("ipware")().get_ip;
 
-    var ip = getIp(req).clientIp;
     var reqBodyStr = '';
     var reqBodyObj = {};
     req.on('data', function (data) {
@@ -61,29 +59,4 @@ exports.handler = function (req, res, qpaths, qdata) {
             }
         });
     });
-
-    // bearer.getToken(req, function (err, token) {
-    //     bearer.verify(token, function (err) {
-    //         if (err) {
-    //             logger.error(err);
-    //             res.statusCode = 401;
-    //             res.statusMessage = "Unauthorized";
-    //             res.setHeader("WWW-Authenticate", "Bearer");
-    //             res.end();
-    //         } else {
-    //             var reqBodyStr = '';
-    //             var reqBodyObj = {};
-    //             req.on('data', function (data) {
-    //                 reqBodyStr += data;
-    //             });
-    //             req.on('end', function () {
-    //                 reqBodyObj = JSON.parse(reqBodyStr);
-    //                 console.log(reqBodyObj);
-    //             });
-
-    //             res.statusCode = 200;
-    //             res.end();
-    //         }
-    //     });
-    // });
 };
