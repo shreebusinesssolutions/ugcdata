@@ -26,11 +26,8 @@ exports.handler = function (req, res, qpaths, qdata) {
             } else {
                 console.log(result);
                 var createdTime = moment(result[0].created_time);
-                console.log(createdTime.format("YYYY-MM-DDTHH:mm:ss.SSSZZ"));
-                createdTime.utcOffset(330);
-                console.log(createdTime.format("YYYY-MM-DDTHH:mm:ss.SSSZZ"));
-                var currTime = moment().utcOffset(330);
-                console.log(currTime.format("YYYY-MM-DDTHH:mm:ss.SSSZZ"));
+                var currTime = moment();
+                console.log(currTime.isSameOrBefore(createdTime.add(result[0].timeout_mins), 'm'));
             }
         });
     });
