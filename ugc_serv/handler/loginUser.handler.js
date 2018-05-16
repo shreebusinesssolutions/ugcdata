@@ -32,7 +32,7 @@ exports.handler = function (req, res, qpaths, qdata) {
                         var token = md5(moment(new Date()).format("YYYYMMDD_kkmmss") + "__" + unique());
                         var sql = "DELETE FROM user_token WHERE username = '" + reqBodyObj.username + "'; " +
                             "INSERT INTO user_token (token, username) VALUES ('" + token + "', '" + reqBodyObj.username + "'); " +
-                            "INSERT INTO login_log (username, login_token) VALUES ('" + reqBodyObj.username +"', '" + token + "');";
+                            "INSERT INTO login_log (username, login_token, using_token) VALUES ('" + reqBodyObj.username +"', '" + token + "', 0);";
                         db_conn.query(sql, function (err, result, fields) {
                             if (err) {
                                 logger.error(err);
