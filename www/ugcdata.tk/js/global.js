@@ -1,4 +1,32 @@
-cust_localStorage = {
+$(window).ready(function () {
+    if (cust_localStorage.getItem("token") && cust_localStorage.getItem("username")) {
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+            if (this.readyState == 4) {
+                switch (this.status) {
+                    case 200:
+                        if (info.page == "login.html")
+                            window.location.href = "/main";
+                        break;
+                    default:
+                        window.location.href = "/";
+                        cust_localStorage.removeItem("token");
+                        break;
+                }
+            }
+        };
+        xhr.open("POST", "/ugc_serv/user/login/auto/");
+        xhr.send(JSON.stringify({
+            username: cust_localStorage.getItem("username"),
+            token: cust_localStorage.getItem("token")
+        }));
+    } else {
+        if (info.page != "login.html")
+            window.location.href = "/";
+    }
+});
+
+const cust_localStorage = {
     setItem: function (key, value) {
         if (typeof (Storage) !== "undefined") {
             window.localStorage.setItem(key, value);
@@ -22,7 +50,7 @@ cust_localStorage = {
     }
 };
 
-cust_sessionStorage = {
+const cust_sessionStorage = {
     setItem: function (key, value) {
         if (typeof (Storage) !== "undefined") {
             window.sessionStorage.setItem(key, value);
@@ -45,6 +73,3 @@ cust_sessionStorage = {
         }
     }
 };
-
-Object.freeze(cust_localStorage);
-Object.freeze(cust_sessionStorage);
