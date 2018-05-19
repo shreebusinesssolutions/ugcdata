@@ -6,6 +6,7 @@ exports.handler = function (req, res, qpaths, qdata) {
     var moment = require('moment-timezone');
     var md5 = require('md5');
     var useToken = require("../function/dba_func/tokenUsed.dba_func");
+    var sanitizeJson = require("../function/sanitizeJson.func");
 
     var reqBodyStr = '';
     var reqBodyObj = {};
@@ -13,7 +14,7 @@ exports.handler = function (req, res, qpaths, qdata) {
         reqBodyStr += data;
     });
     req.on('end', function () {
-        reqBodyObj = JSON.parse(reqBodyStr);
+        reqBodyObj = sanitizeJson(reqBodyStr, ["username", "token"]);
         var sql = "SELECT t2.last_request_time, t2.timeout_mins " +
             "FROM user_credentials t1, user_token t2 " +
             "WHERE t1.username = '" + reqBodyObj.username + "' AND t2.token = '" + reqBodyObj.token + "'  " +
