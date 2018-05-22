@@ -54,6 +54,11 @@ create_dataup() {
 	echo "* Creating {data_uploader} in $DATAUP_DIR *"
 	mkdir $DATAUP_DIR
 	cp -rv data_uploader/* $DATAUP_DIR/
+	mkdir $SERVER_DIR/logs
+	touch $SERVER_DIR/logs/log.log
+	touch $SERVER_DIR/logs/error.log
+	touch $SERVER_DIR/logs/info.log
+	touch $SERVER_DIR/logs/time.log
 }
 
 echo " "

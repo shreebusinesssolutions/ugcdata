@@ -31,10 +31,10 @@ db_conn.connect(function (err) {
                     sql += "'" + college_data[i][0] + "', ";
                     sql += "'" + college_data[i][1] + "', ";
                     sql += "'" + college_data[i][2] + "', ";
-                    sql += (college_data[i][3] ? ("'" + college_data[i][3] + "', ") : "null ");
-                    sql += (college_data[i][4] ? ("'" + college_data[i][4] + "', ") : "null ");
-                    sql += (college_data[i][5] ? ("'" + college_data[i][5] + "', ") : "null ");
-                    sql += (college_data[i][6] ? ("'" + moment(college_data[i][6]).format("YYYY-MM-DD") + "', ") : "null ");
+                    sql += (college_data[i][3] ? ("'" + college_data[i][3] + "', ") : "null, ");
+                    sql += (college_data[i][4] ? ("" + college_data[i][4].replace(/\s/g, "") + ", ") : "null, ");
+                    sql += (college_data[i][5] ? ("'" + college_data[i][5] + "', ") : "null, ");
+                    sql += (college_data[i][6] ? ("'" + moment(college_data[i][6]).format("YYYY-MM-DD") + "', ") : "null, ");
                     sql += (college_data[i][7] ? ("'" + college_data[i][7] + "'") : "null");
                     sql += "); ";
                 }
