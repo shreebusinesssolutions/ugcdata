@@ -24,6 +24,7 @@ db_conn.connect(function (err) {
 
             resp.on('end', () => {
                 var sql = "";
+                var passed = 0, failed = 0;
                 var college_data = JSON.parse(data).values;
                 for (var i = 0; i < college_data.length; i++) {
                     sql = "INSERT INTO college (college_id, college_name, addr1, addr2, pin, pfms_unique_code, naac_validity, bsr_intrest_paid_and_intrest) ";
@@ -40,10 +41,14 @@ db_conn.connect(function (err) {
                     var college_id = college_data[i][0]
                     db_conn.query(sql, function (err, result, fields) {
                         if (err) {
-                            logger.error(err, {college_id: college_id});
+                            logger.error(err, { college_id: college_id });
+                            failed++;
                         } else {
-                            logger.log("Query OK", {college_id: college_id});
+                            logger.log("Query OK", { college_id: college_id });
+                            passed++;
                         }
+                        if (i == college_data.length)
+                            console.log({ failed: failed, passed: passed });
                     });
                 }
                 // db_conn.query(sql, function (err, result, fields) {
