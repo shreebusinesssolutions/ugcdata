@@ -41,10 +41,10 @@ db_conn.connect(function (err) {
                     var college_id = college_data[i][0]
                     db_conn.query(sql, function (err, result, fields) {
                         if (err) {
-                            logger.error(err, { college_id: college_id });
+                            logger.error(err);
                             failed++;
                         } else {
-                            logger.log("Query OK", { college_id: college_id });
+                            logger.log("Query OK");
                             passed++;
                         }
                         if (i == college_data.length)
