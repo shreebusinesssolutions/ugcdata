@@ -25,8 +25,8 @@ db_conn.connect(function (err) {
             resp.on('end', () => {
                 var sql = "";
                 var college_data = JSON.parse(data).values;
-                for (var i = 0; i < 10; i++) {
-                    sql += "INSERT INTO college (college_id, college_name, addr1, addr2, pin, pfms_unique_code, naac_validity, bsr_intrest_paid_and_intrest) ";
+                for (var i = 0; i < college_data.length; i++) {
+                    sql = "INSERT INTO college (college_id, college_name, addr1, addr2, pin, pfms_unique_code, naac_validity, bsr_intrest_paid_and_intrest) ";
                     sql += "VALUES (";
                     sql += "'" + college_data[i][0] + "', ";
                     sql += "'" + college_data[i][1] + "', ";
@@ -37,14 +37,21 @@ db_conn.connect(function (err) {
                     sql += (college_data[i][6] ? ("'" + moment(college_data[i][6]).format("YYYY-MM-DD") + "', ") : "null, ");
                     sql += (college_data[i][7] ? ("'" + college_data[i][7] + "'") : "null");
                     sql += "); ";
+                    db_conn.query(sql, function (err, result, fields) {
+                        if (err) {
+                            logger.error(err);
+                        } else {
+                            logger.log(result);
+                        }
+                    });
                 }
-                db_conn.query(sql, function (err, result, fields) {
-                    if (err) {
-                        logger.error(err);
-                    } else {
-                        logger.log(result);
-                    }
-                });
+                // db_conn.query(sql, function (err, result, fields) {
+                //     if (err) {
+                //         logger.error(err);
+                //     } else {
+                //         logger.log(result);
+                //     }
+                // });
             });
 
         }).on("error", (err) => {
