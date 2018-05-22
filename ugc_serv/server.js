@@ -33,5 +33,17 @@ db_conn.connect(function (err) {
         }).listen(8888);
 
         logger.log('Server running on port 8888');
+        logger.log("Settting DB heartbeat with interval = " + dba.heartbeat_interval);
+        setInterval(function() {
+            logger.log("DB Heartbeat req: SELECT 1;");
+            db_conn.query("SELECT 1;", function (err, result, fields) {
+                if(err) {
+                    logger.error(err);
+                }
+                else {
+                    logger.log("DB Heartbeat resp: " + JSON.stringify(result));
+                }
+            });
+        }, dba.heartbeat_interval);
     }
 });

@@ -27,7 +27,7 @@ exports.handler = function (req, res, qpaths, qdata) {
                 res.end();
             } else {
                 if (result.length != 1) {
-                    logger.err(reqBodyObj.username + ", " + reqBodyObj.token + " not found.");
+                    logger.error(reqBodyObj.username + ", " + reqBodyObj.token + " not found.");
                     res.statusCode = 403;
                     res.statusMessage = "Forbidden";
                     res.end();
