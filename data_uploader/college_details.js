@@ -47,8 +47,7 @@ db_conn.connect(function (err) {
                             logger.log("Query OK", result);
                             passed++;
                         }
-                        if (i == college_data.length)
-                            console.log({ failed: failed, passed: passed });
+                        console.log({ failed: failed, passed: passed });
                     });
                 }
                 // db_conn.query(sql, function (err, result, fields) {
