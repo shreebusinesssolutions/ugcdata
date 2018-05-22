@@ -39,9 +39,9 @@ db_conn.connect(function (err) {
                     sql += "); ";
                     db_conn.query(sql, function (err, result, fields) {
                         if (err) {
-                            logger.error(err);
+                            logger.error(err, {college_id: college_data[i][0]});
                         } else {
-                            logger.log(result);
+                            logger.log("Query OK", {college_id: college_data[i][0]});
                         }
                     });
                 }
