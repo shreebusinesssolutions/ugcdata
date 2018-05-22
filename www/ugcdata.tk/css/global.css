@@ -1,0 +1,18 @@
+.clr {
+    clear: both;
+}
+
+#sideBar {
+    width: 250px;
+    display: none;
+    z-index: 500;
+}
+
+.hamburger {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    z-index: 500;
+    -webkit-transition: all 0.4s !important;
+    transition: all 0.4s !important;
+}
