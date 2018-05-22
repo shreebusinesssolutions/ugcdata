@@ -37,11 +37,12 @@ db_conn.connect(function (err) {
                     sql += (college_data[i][6] ? ("'" + moment(college_data[i][6]).format("YYYY-MM-DD") + "', ") : "null, ");
                     sql += (college_data[i][7] ? ("'" + college_data[i][7] + "'") : "null");
                     sql += "); ";
+                    var college_id = college_data[i][0]
                     db_conn.query(sql, function (err, result, fields) {
                         if (err) {
-                            logger.error(err, {college_id: college_data[i][0]});
+                            logger.error(err, {college_id: college_id});
                         } else {
-                            logger.log("Query OK", {college_id: college_data[i][0]});
+                            logger.log("Query OK", {college_id: college_id});
                         }
                     });
                 }
