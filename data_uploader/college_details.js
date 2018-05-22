@@ -15,15 +15,16 @@ https.get('https://sheets.googleapis.com/v4/spreadsheets/1gpEvB_KxXoF1E06FW7EjkX
         var college_data = JSON.parse(data).values;
         for (var i = 0; i < 10; i++) {
             var sql = "INSERT INTO college (college_id, colelge_name, addr1, addr2, pin, pfms_unique_code, naac_validity, bsr_intrest_paid_and_intrest) ";
-            sql+="VALUES (";
-            sql+="'" + college_data[i][0] + "', ";
-            sql+="'" + college_data[i][1] + "', ";
-            sql+="'" + college_data[i][2] + "', ";
-            sql+=(college_data[i][3]?("'" + college_data[i][3] + "', "): "null ");
-            sql+=(college_data[i][4]?("'" + college_data[i][4] + "', "): "null ");
-            sql+=(college_data[i][5]?("'" + college_data[i][5] + "', "): "null ");
-            sql+=(college_data[i][6]?("'" + moment(college_data[i][6]).format("YYYY-MM-DD") + "', "): "null ");
-            sql+=(college_data[i][7]?("'" + college_data[i][7] + "', "): "null ");
+            sql += "VALUES (";
+            sql += "'" + college_data[i][0] + "', ";
+            sql += "'" + college_data[i][1] + "', ";
+            sql += "'" + college_data[i][2] + "', ";
+            sql += (college_data[i][3] ? ("'" + college_data[i][3] + "', ") : "null ");
+            sql += (college_data[i][4] ? ("'" + college_data[i][4] + "', ") : "null ");
+            sql += (college_data[i][5] ? ("'" + college_data[i][5] + "', ") : "null ");
+            sql += (college_data[i][6] ? ("'" + moment(college_data[i][6]).format("YYYY-MM-DD") + "', ") : "null ");
+            sql += (college_data[i][7] ? ("'" + college_data[i][7] + "'") : "null");
+            sql += ")";
             console.log(sql)
         }
     });
