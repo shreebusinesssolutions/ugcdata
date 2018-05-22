@@ -1,0 +1,12 @@
+{
+    "content": [
+        "<div class='w3-sidebar w3-bar-block w3-card w3-animate-left w3-theme-primary' id='sideBar'>",
+        "<div href='#' class='w3-bar-item w3-button w3-hover-text-theme-primary w3-hover-white w3-padding-large'>Link 1</div>",
+        "<a href='#' class='w3-bar-item w3-button'>Link 2</a>",
+        "<a href='#' class='w3-bar-item w3-button'>Link 3</a>",
+        "</div>",
+        "<div class='hamburger hamburger--spin' onclick='sideBar.toggle()'><div class='hamburger-box'><div class='hamburger-inner'></div></div></div>",
+        "<div class='w3-overlay w3-animate-opacity' onclick='sideBar.close()'></div>"
+    ],
+    "class_list": []
+}
