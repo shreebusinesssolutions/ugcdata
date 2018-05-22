@@ -26,7 +26,7 @@ db_conn.connect(function (err) {
                 var sql = "";
                 var college_data = JSON.parse(data).values;
                 for (var i = 0; i < 10; i++) {
-                    sql += "INSERT INTO college (college_id, colelge_name, addr1, addr2, pin, pfms_unique_code, naac_validity, bsr_intrest_paid_and_intrest) ";
+                    sql += "INSERT INTO college (college_id, college_name, addr1, addr2, pin, pfms_unique_code, naac_validity, bsr_intrest_paid_and_intrest) ";
                     sql += "VALUES (";
                     sql += "'" + college_data[i][0] + "', ";
                     sql += "'" + college_data[i][1] + "', ";
