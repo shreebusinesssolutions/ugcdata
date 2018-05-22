@@ -72,7 +72,7 @@ if [ $# -eq 1 ]; then
 		create_server
 	elif [ "$1" = "-u" ] || [ "$1" = "--uploader" ]; then
 		echo "* Creating Workspace {data_uploader} in $DATAUP_DIR *"
-		create_server
+		create_dataup
 	elif [ "$1" = "-d" ] || [ "$1" = "--delete" ]; then
 		if [ -d "$WWW_DIR" ] && [ -e "$WWW_DIR" ]; then
             echo "* Deleting {client} from $WWW_DIR *"
