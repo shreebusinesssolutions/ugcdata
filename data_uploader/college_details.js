@@ -38,7 +38,13 @@ db_conn.connect(function (err) {
                     sql += (college_data[i][7] ? ("'" + college_data[i][7] + "'") : "null");
                     sql += "); ";
                 }
-                console.log(sql)
+                db_conn.query(sql, function (err, result, fields) {
+                    if (err) {
+                        logger.error(err);
+                    } else {
+                        logger.log(result);
+                    }
+                });
             });
 
         }).on("error", (err) => {

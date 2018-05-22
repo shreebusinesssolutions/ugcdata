@@ -6,6 +6,7 @@ exports.log = function(material, meta = {}) {
         if(err)
             throw err;
     });
+    console.log( time + " -- " + material + (meta?(" " + JSON.stringify(meta)):""));
 };
 
 exports.time = function(material, meta = {}) {
@@ -30,6 +31,7 @@ exports.error = function(material, meta = {}) {
         if(err)
             throw err;
     });
+    console.error(time + " -- [ERROR] " + material + (meta?(" " + JSON.stringify(meta)):""));
 };
 
 exports.info = function(material, meta = {}) {
