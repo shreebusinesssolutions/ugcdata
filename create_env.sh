@@ -2,15 +2,17 @@
 
 SERVER_DIR="$HOME/ugc_serv"
 WWW_DIR="/var/www/ugcdata.tk"
+DATAUP_DIR="$HOME/data_uploader"
 
 print_help() {
 	echo "Usage:"
 	echo "	sh create_env.sh <option>"
 	echo "Options:"
-	echo "	-a, --all               Create all workspaces"
-	echo "	-c, --client            Create {client} workspace in \$WWW_DIR"
-	echo "	-s, --server            Create {stt} workspace in \$SERVER_DIR"
-	echo "	-d, --delete	        Delete {client, stt}"
+	#echo "	-a, --all               Create all workspaces"
+	echo "	-c, --client            Create {client} workspace in $WWW_DIR"
+	echo "	-s, --server            Create {server} workspace in $SERVER_DIR"
+	echo "	-u, --uploader			Create {data_uploader} workspace in $DATAUP_DIR"
+	echo "	-d, --delete	        Delete {client, server}"
 	echo "	-h, --usage, --help     Usage guide"
 }
 
@@ -44,19 +46,32 @@ create_server() {
 	touch $SERVER_DIR/logs/time.log
 }
 
+create_dataup() {
+	if [ -d "$DATAUP_DIR" ] && [ -e "$DATAUP_DIR" ]; then
+		echo "* Deleting {data_uploader} from $DATAUP_DIR *"
+		rm -rfv $DATAUP_DIR/
+	fi
+	echo "* Creating {data_uploader} in $DATAUP_DIR *"
+	mkdir $DATAUP_DIR
+	cp -rv data_uploader/* $DATAUP_DIR/
+}
+
 echo " "
 echo " "
 
 if [ $# -eq 1 ]; then
-	if [ "$1" = "-a" ] || [ "$1" = "--all" ]; then
-		echo "* Creating Workspace {client, stt} *"
-		create_client
-		create_server
-	elif [ "$1" = "-c" ] || [ "$1" = "--client" ]; then
+	# if [ "$1" = "-a" ] || [ "$1" = "--all" ]; then
+	# 	echo "* Creating Workspace {client, server} *"
+	# 	create_client
+	# 	create_server
+	if [ "$1" = "-c" ] || [ "$1" = "--client" ]; then
 		echo "* Creating Workspace {client} in $WWW_DIR *"
 		create_client
-	elif [ "$1" = "-s" ] || [ "$1" = "--stt" ]; then
-		echo "* Creating Workspace {stt} in $SERVER_DIR *"
+	elif [ "$1" = "-s" ] || [ "$1" = "--server" ]; then
+		echo "* Creating Workspace {server} in $SERVER_DIR *"
+		create_server
+	elif [ "$1" = "-u" ] || [ "$1" = "--uploader" ]; then
+		echo "* Creating Workspace {data_uploader} in $DATAUP_DIR *"
 		create_server
 	elif [ "$1" = "-d" ] || [ "$1" = "--delete" ]; then
 		if [ -d "$WWW_DIR" ] && [ -e "$WWW_DIR" ]; then
@@ -70,6 +85,12 @@ if [ $# -eq 1 ]; then
 		rm -rfv $SERVER_DIR/
 		else
 			echo "* $SERVER_DIR is not a directory or does not exist *"
+		fi
+		if [ -d "$DATAUP_DIR" ] && [ -e "$DATAUP_DIR" ]; then
+		echo "* Deleting {data_uploader} from $DATAUP_DIR *"
+		rm -rfv $DATAUP_DIR/
+		else
+			echo "* $DATAUP_DIR is not a directory or does not exist *"
 		fi
 	elif [ "$1" = "--usage" ] || [ "$1" = "--help" ]; then
 		print_help
