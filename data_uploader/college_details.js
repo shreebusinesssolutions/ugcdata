@@ -21,7 +21,7 @@ db_conn.connect(function (err) {
             resp.on('data', (chunk) => {
                 data += chunk;
             });
-v
+
             resp.on('end', () => {
                 var sql = "";
                 var college_data = JSON.parse(data).values;
