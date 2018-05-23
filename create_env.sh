@@ -44,6 +44,7 @@ create_server() {
 	touch $SERVER_DIR/logs/error.log
 	touch $SERVER_DIR/logs/info.log
 	touch $SERVER_DIR/logs/time.log
+	npm --prefix $SERVER_DIR install $SERVER_DIR
 }
 
 create_dataup() {
@@ -59,6 +60,7 @@ create_dataup() {
 	touch $DATAUP_DIR/logs/error.log
 	touch $DATAUP_DIR/logs/info.log
 	touch $DATAUP_DIR/logs/time.log
+	npm --prefix $DATAUP_DIR install $DATAUP_DIR
 }
 
 echo " "
