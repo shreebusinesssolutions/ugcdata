@@ -27,7 +27,7 @@ create_client() {
 		rm -rfv $WWW_DIR/
 	fi
 	echo "* Creating {client} in $WWW_DIR *"
-	mkdir $WWW_DIR
+	mkdir -v $WWW_DIR
 	cp -rv www/ugcdata.tk/* $WWW_DIR/
 }
 
@@ -37,9 +37,9 @@ create_server() {
 		rm -rfv $SERVER_DIR/
 	fi
 	echo "* Creating {server} in $SERVER_DIR *"
-	mkdir $SERVER_DIR
+	mkdir -v $SERVER_DIR
 	cp -rv ugc_serv/* $SERVER_DIR/
-	mkdir $SERVER_DIR/logs
+	mkdir -v $SERVER_DIR/logs
 	touch $SERVER_DIR/logs/log.log
 	touch $SERVER_DIR/logs/error.log
 	touch $SERVER_DIR/logs/info.log
@@ -52,9 +52,9 @@ create_dataup() {
 		rm -rfv $DATAUP_DIR/
 	fi
 	echo "* Creating {data_uploader} in $DATAUP_DIR *"
-	mkdir $DATAUP_DIR
+	mkdir -v $DATAUP_DIR
 	cp -rv data_uploader/* $DATAUP_DIR/
-	mkdir $DATAUP_DIR/logs
+	mkdir -v $DATAUP_DIR/logs
 	touch $DATAUP_DIR/logs/log.log
 	touch $DATAUP_DIR/logs/error.log
 	touch $DATAUP_DIR/logs/info.log
