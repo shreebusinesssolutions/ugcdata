@@ -28,7 +28,7 @@ db_conn.connect(function (err) {
                 var sql = "";
                 var passed = 0, failed = 0, number = 0;
                 for (var i = 0; i < data_obj.length; i++) {
-                    sql = "INSERT INTO plan_11_12 (file_num, master_file_num, college_id, year, paid, uc, scheme_id, subscheme_name, plan_files) ";
+                    sql = "INSERT INTO plan_11_12_paid (file_num, master_file_num, college_id, year, paid, uc, scheme_id, subscheme_name, plan_files) ";
                     sql += "VALUES (";
                     sql += (data_obj[i][0] ? ("'" + data_obj[i][0].replace(/'/g, "\\'") + "', ") : "null, ");
                     sql += "'" + data_obj[i][1].replace(/'/g, "\\'") + "', ";
