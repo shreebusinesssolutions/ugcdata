@@ -30,15 +30,15 @@ db_conn.connect(function (err) {
                 for (var i = 0; i < data_obj.length; i++) {
                     sql = "INSERT INTO college (file_num, master_file_num, college_id, year, paid, uc, scheme_id, subscheme_name, plan_files) ";
                     sql += "VALUES (";
-                    sql += (college_data[i][0] ? ("'" + college_data[i][0].replace(/'/g, "\\'") + "', ") : "null, ");
-                    sql += "'" + college_data[i][1].replace(/'/g, "\\'") + "', ";
-                    sql += "'" + college_data[i][2].replace(/'/g, "\\'") + "', ";
-                    sql += "'" + college_data[i][3].replace(/'/g, "\\'").toUpperCase() + "', ";
-                    sql += college_data[i][4] + ", ";
-                    sql += (college_data[i][5] ? (college_data[i][5].replace(/'/g, "\\'") + ", ") : "null, ");
-                    sql += "'" + college_data[i][6].replace(/'/g, "\\'").toUpperCase() + "', ";
-                    sql += "'" + college_data[i][7].replace(/'/g, "\\'") + "', ";
-                    sql += "'" + college_data[i][8].replace(/'/g, "\\'") + "', ";
+                    sql += (data_obj[i][0] ? ("'" + data_obj[i][0].replace(/'/g, "\\'") + "', ") : "null, ");
+                    sql += "'" + data_obj[i][1].replace(/'/g, "\\'") + "', ";
+                    sql += "'" + data_obj[i][2].replace(/'/g, "\\'") + "', ";
+                    sql += "'" + data_obj[i][3].replace(/'/g, "\\'").toUpperCase() + "', ";
+                    sql += data_obj[i][4] + ", ";
+                    sql += (data_obj[i][5] ? (data_obj[i][5].replace(/'/g, "\\'") + ", ") : "null, ");
+                    sql += "'" + data_obj[i][6].replace(/'/g, "\\'").toUpperCase() + "', ";
+                    sql += "'" + data_obj[i][7].replace(/'/g, "\\'") + "', ";
+                    sql += "'" + data_obj[i][8].replace(/'/g, "\\'") + "'";
                     sql += "); ";
                     db_conn.query(sql, function (err, result, fields) {
                         number++;
