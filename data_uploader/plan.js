@@ -28,17 +28,17 @@ db_conn.connect(function (err) {
                 var sql = "";
                 var passed = 0, failed = 0, number = 0;
                 for (var i = 0; i < data_obj.length; i++) {
-                    sql = "INSERT INTO college (file_num, master_file_num, college_id, year, paid, uc, scheme_id, subscheme_name, plan_files) ";
+                    sql = "INSERT INTO plan_11_12 (file_num, master_file_num, college_id, year, paid, uc, scheme_id, subscheme_name, plan_files) ";
                     sql += "VALUES (";
                     sql += (data_obj[i][0] ? ("'" + data_obj[i][0].replace(/'/g, "\\'") + "', ") : "null, ");
                     sql += "'" + data_obj[i][1].replace(/'/g, "\\'") + "', ";
-                    sql += "'" + data_obj[i][2].replace(/'/g, "\\'") + "', ";
-                    sql += "'" + data_obj[i][3].replace(/'/g, "\\'").toUpperCase() + "', ";
-                    sql += data_obj[i][4] + ", ";
-                    sql += (data_obj[i][5] ? (data_obj[i][5].replace(/'/g, "\\'") + ", ") : "null, ");
-                    sql += "'" + data_obj[i][6].replace(/'/g, "\\'").toUpperCase() + "', ";
-                    sql += "'" + data_obj[i][7].replace(/'/g, "\\'") + "', ";
-                    sql += "'" + data_obj[i][8].replace(/'/g, "\\'") + "'";
+                    sql += "'" + data_obj[i][2].replace(/'/g, "\\'").replace(/\s/g, '').toUpperCase() + "', ";
+                    sql += "'" + data_obj[i][7].replace(/'/g, "\\'").replace(/\s/g, '') + "', ";
+                    sql += data_obj[i][8].replace(/'/g, "\\'").replace(/\s/g, '') + ", ";
+                    sql += (data_obj[i][9] ? (data_obj[i][9].replace(/'/g, "\\'").replace(/\s/g, '') + ", ") : "null, ");
+                    sql += "'" + data_obj[i][10].replace(/'/g, "\\'").replace(/\s/g, '').toUpperCase() + "', ";
+                    sql += "'" + data_obj[i][12].replace(/'/g, "\\'") + "', ";
+                    sql += "'" + data_obj[i][13].replace(/'/g, "\\'") + "'";
                     sql += "); ";
                     db_conn.query(sql, function (err, result, fields) {
                         number++;
