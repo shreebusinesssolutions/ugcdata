@@ -15,7 +15,7 @@ db_conn.connect(function (err) {
     if (err)
         logger.error(err);
     else {
-        https.get('https://sheets.googleapis.com/v4/spreadsheets/1mnG6XmP72kldNbl-k58BCnYkq9E5OwFKH1qGvn198xU/values/XIANDXIIPLAN!A2:O?key=AIzaSyDw7EtIbTGxIk3aXtZWgt0bnNcsHlB2yG8', (resp) => {
+        https.get('https://sheets.googleapis.com/v4/spreadsheets/1mnG6XmP72kldNbl-k58BCnYkq9E5OwFKH1qGvn198xU/values/XIANDXIIPLAN!A2:O100?key=AIzaSyDw7EtIbTGxIk3aXtZWgt0bnNcsHlB2yG8', (resp) => {
             let data = '';
 
             resp.on('data', (chunk) => {
