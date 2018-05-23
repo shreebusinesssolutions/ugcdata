@@ -25,6 +25,7 @@ $(window).ready(function () {
             window.location.href = "/";
     }
     includeTemplate();
+
 });
 
 const cust_localStorage = {
@@ -107,6 +108,29 @@ const includeTemplate = function () {
             return;
         }
     }
+    activateRipple();
+};
+
+const activateRipple = function () {
+    var $ripple = $('.js-ripple');
+    $ripple.on('click.ui.ripple', function (e) {
+        var $this = $(this);
+        var $offset = $this.parent().offset();
+        var $circle = $this.find('.c-ripple__circle');
+
+        var x = e.pageX - $offset.left;
+        var y = e.pageY - $offset.top;
+
+        $circle.css({
+            top: y + 'px',
+            left: x + 'px'
+        });
+
+        $this.addClass('is-active');
+    });
+    $ripple.on('animationend webkitAnimationEnd oanimationend MSAnimationEnd', function (e) {
+        $(this).removeClass('is-active');
+    });
 };
 
 const sideBar = {
@@ -139,3 +163,18 @@ const sideBar = {
     }
 };
 Object.freeze(sideBar);
+
+const toggleAccordian = function (caller, called) {
+    var callerEle = document.getElementById(caller);
+    var calledEle = document.getElementById(called);
+    var faIcon = callerEle.getElementsByClassName("accordian-icon")[0];
+    if (calledEle.classList.contains("w3-hide")) {
+        calledEle.classList.remove("w3-hide");
+        faIcon.classList.remove("fa-chevron-down");
+        faIcon.classList.add("fa-chevron-up");
+    } else {
+        calledEle.classList.add("w3-hide");
+        faIcon.classList.add("fa-chevron-down");
+        faIcon.classList.remove("fa-chevron-up");
+    }
+};
