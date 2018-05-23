@@ -16,3 +16,74 @@
     -webkit-transition: all 0.4s !important;
     transition: all 0.4s !important;
 }
+
+/******** Ripple **************/
+
+.ripple-btn {
+    position: relative;
+}
+
+.c-ripple {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: transparent;
+}
+
+.c-ripple__circle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.25);
+}
+
+.c-ripple__circle.ripple-ink-dark {
+    background: rgba(0, 0, 0, 0.15);
+}
+
+.c-ripple.is-active .c-ripple__circle {
+    -webkit-animation: a-ripple .4s ease-in;
+    animation: a-ripple .4s ease-in;
+}
+
+/**
+   * Animation: Ripple
+   * --------------------------------------------------
+   */
+
+@-webkit-keyframes a-ripple {
+    0% {
+        opacity: 0;
+    }
+    25% {
+        opacity: 1;
+    }
+    100% {
+        width: 200%;
+        padding-bottom: 200%;
+        opacity: 0;
+    }
+}
+
+@keyframes a-ripple {
+    0% {
+        opacity: 0;
+    }
+    25% {
+        opacity: 1;
+    }
+    100% {
+        width: 200%;
+        padding-bottom: 200%;
+        opacity: 0;
+    }
+}
