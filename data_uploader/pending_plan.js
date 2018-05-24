@@ -40,7 +40,7 @@ db_conn.connect(function (err) {
                     sql += (data_obj[i][7] ? (data_obj[i][7] + " ") : "null ") + "AS uc, ";
                     sql += (data_obj[i][8] ? (data_obj[i][8] + " ") : "null ") + "AS pending_uc, ";
                     sql += "'" + data_obj[i][9].toUpperCase() + "' AS scheme_id, ";
-                    sql += "'" + (data_obj[i][10] == "CD(11)SC" ? "CDSC" : data_obj[i][10]) + "' AS subscheme_id, ";
+                    sql += (data_obj[i][10]?("'" +(data_obj[i][10] == "CD(11)SC" ? "CDSC" : data_obj[i][10]) + "' "): "null ")+ "AS subscheme_id, ";
                     sql += (data_obj[i][11] ? ("'" + data_obj[i][11] + "' ") : "null ") + "AS year, ";
                     sql += (data_obj[i][12] ? "1 " : "0 ") + "AS case_cleared;"
                     db_conn.query(sql, function (err, result, fields) {
