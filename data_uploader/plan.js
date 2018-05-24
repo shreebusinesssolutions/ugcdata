@@ -29,7 +29,7 @@ db_conn.connect(function (err) {
                 for (var i = 0; i < data_obj.length; i++) {
                     sql = "INSERT INTO plan_11_12_paid (entry_num, file_num, master_file_num, college_id, year, paid, uc, scheme_id, subscheme_id, plan_files) ";
                     sql += "SELECT ";
-                    sql += i + " AS entry_num, ";
+                    sql += (i + 1) + " AS entry_num, ";
                     sql += (data_obj[i][0] ? ("'" + data_obj[i][0].replace(/'/g, "\\'") + "' ") : "null ") + "AS file_num, ";
                     sql += "'" + data_obj[i][1].replace(/'/g, "\\'") + "' AS master_file_num, ";
                     sql += "'" + data_obj[i][2].replace(/'/g, "\\'").replace(/\s/g, '').toUpperCase() + "' AS college_id, ";
