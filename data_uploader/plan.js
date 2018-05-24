@@ -38,7 +38,7 @@ db_conn.connect(function (err) {
                     sql += (data_obj[i][9] ? (data_obj[i][9].replace(/'/g, "\\'").replace(/\s/g, '') + " ") : "null ") + "AS uc, ";
                     sql += "'" + data_obj[i][10].replace(/'/g, "\\'").replace(/\s/g, '').toUpperCase() + "' AS scheme_id, ";
                     sql += "subscheme_id, ";
-                    sql += "'" + data_obj[i][13].replace(/'/g, "\\'") + "' AS plan_files";
+                    sql += "'" + data_obj[i][13].replace(/'/g, "\\'") + "' AS plan_files ";
                     sql += "FROM sub_scheme ";
                     sql += "WHERE subscheme_name = '" + data_obj[i][12] + "'";
                     console.log(sql)
