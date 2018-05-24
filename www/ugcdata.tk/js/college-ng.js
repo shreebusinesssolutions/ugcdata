@@ -1,5 +1,5 @@
 var CollegeCtrl = (function () {
-    function CollegeCtrl($scope, $mdDialog, $mdToast, $timeout, $mdSidenav) {
+    function CollegeCtrl($scope, $mdDialog, $mdToast, $timeout) {
         this.$scope = $scope;
         this.$mdDialog = $mdDialog;
         this.$mdToast = $mdToast;
@@ -9,14 +9,6 @@ var CollegeCtrl = (function () {
         this.white = 'white';
 
         this.mode = {};
-        this.toggleLeft = buildToggler('left');
-
-        function buildToggler(componentId) {
-            return function () {
-                $mdSidenav(componentId).toggle();
-            };
-        }
-
     }
 
     CollegeCtrl.prototype.showNotif = function (message, timeout = 3000, errorToast = false) {
@@ -58,13 +50,15 @@ var CollegeCtrl = (function () {
             }, 50);
         }
     };
+    CollegeCtrl.prototype.openMenu = function($$mdMenu,  $$event) {
+        $$mdMenu.open($$event);
+    };
 
     CollegeCtrl.$inject = [
         '$scope',
         '$mdDialog',
         '$mdToast',
-        '$timeout',
-        '$mdSidenav'
+        '$timeout'
     ];
     return CollegeCtrl;
 }());
