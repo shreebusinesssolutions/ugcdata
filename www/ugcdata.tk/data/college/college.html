@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <title>Home - UGC Data</title>
+    <title>Colleges - UGC Data</title>
 
     <!-- Favicon -->
     <link rel="apple-touch-icon" sizes="57x57" href="/img/favicon/apple-icon-57x57.png">
@@ -50,13 +50,129 @@
     <link rel="stylesheet" href="/css/college.css" />
 </head>
 
-<body>
+<body class="w3-light-grey">
     <div id="outdated"></div>
 
     <div class="su-template-holder" su-include-template="/template/sidenav.template.json"></div>
 
     <div id="ng-app" ng-app="CollegeApp" ng-controller="CollegeCtrl as vm" ng-cloak>
-        
+        <div class="w3-card w3-white w3-padding-large w3-right-align w3-xxlarge w3-text-theme-primary">
+            <div class="w3-row">
+                Colleges
+            </div>
+            <div class="w3-row w3-left-align">
+                <md-button class="md-primary w3-small w3-margin-0 w3-text-theme-primary" href="/main">
+                    <i class="fas fa-home"></i>&nbsp;Home
+                </md-button>
+                <md-menu md-offset="0 30">
+                    <md-button class="md-icon-button w3-small w3-margin-0 w3-text-theme-primary" ng-click="vm.openMenu($mdMenu, $event)">
+                        <i class="fas fa-chevron-right"></i>
+                    </md-button>
+                    <md-menu-content class="w3-padding-0" width="4">
+                        <md-menu-item>
+                            <md-menu class="w3-padding-0 w3-margin-0">
+                                <md-button class="md-primary w3-small w3-margin-0 w3-text-theme-primary w3-padding-small" style="width: 100%; height: 100%; text-align: left;"
+                                    ng-click="vm.openMenu($mdMenu, $event)">
+                                    <i class="fas fa-table"></i>&nbsp;Reports&nbsp;
+                                    <i class="fas fa-chevron-right w3-right w3-padding-large"></i>
+                                </md-button>
+                                <md-menu-content class="w3-padding-0" width="4">
+                                    <md-menu-item>
+                                        <md-button class="md-primary w3-small w3-margin-0 w3-text-theme-primary">
+                                            <i class="fas fa-table"></i>&nbsp;Reports 1
+                                        </md-button>
+                                    </md-menu-item>
+                                    <md-menu-item>
+                                        <md-button class="md-primary w3-small w3-margin-0 w3-text-theme-primary">
+                                            <i class="fas fa-table"></i>&nbsp;Reports 2
+                                        </md-button>
+                                    </md-menu-item>
+                                </md-menu-content>
+                            </md-menu>
+                        </md-menu-item>
+                        <md-menu-item>
+                            <md-menu class="w3-padding-0 w3-margin-0">
+                                <md-button class="md-primary w3-small w3-margin-0 w3-text-theme-primary w3-padding-small" style="width: 100%; height: 100%; text-align: left;"
+                                    ng-click="vm.openMenu($mdMenu, $event)">
+                                    <i class="fas fa-database"></i>&nbsp;Data&nbsp;
+                                    <i class="fas fa-chevron-right w3-right w3-padding-large"></i>
+                                </md-button>
+                                <md-menu-content class="w3-padding-0" width="4">
+                                    <md-menu-item>
+                                        <md-button class="md-primary w3-small w3-margin-0" ng-disabled="true">
+                                            <i class="fas fa-school"></i>&nbsp;Colleges
+                                        </md-button>
+                                    </md-menu-item>
+                                </md-menu-content>
+                            </md-menu>
+                        </md-menu-item>
+                    </md-menu-content>
+                </md-menu>
+                <md-button class="md-primary w3-small w3-margin-0 w3-text-theme-primary" ng-disabled="true">
+                    <i class="fas fa-database"></i>&nbsp;Data
+                </md-button>
+                <md-menu md-offset="0 30">
+                    <md-button class="md-icon-button w3-small w3-margin-0 w3-text-theme-primary" ng-click="vm.openMenu($mdMenu, $event)">
+                        <i class="fas fa-chevron-right"></i>
+                    </md-button>
+                    <md-menu-content class="w3-padding-0" width="4">
+                        <md-menu-item>
+                            <md-button class="md-primary w3-small w3-margin-0" ng-disabled="true">
+                                <i class="fas fa-school"></i>&nbsp;Colleges
+                            </md-button>
+                        </md-menu-item>
+                    </md-menu-content>
+                </md-menu>
+                <md-button class="md-primary w3-small w3-margin-0" ng-disabled="true">
+                    <i class="fas fa-school"></i>&nbsp;Colleges
+                </md-button>
+            </div>
+        </div>
+        <br />
+        <div class="w3-card w3-white">
+            <md-tabs class="md-primary">
+                <!-- md-dynamic-height md-border-bottom> -->
+                <md-tab label="View">
+                    <md-content class="w3-padding w3-white">
+                        <h1 class="w3-xlarge">View Colleges</h1>
+                        <div class="w3-theme-primary-l5">
+                            <h1 class="w3-large">Filters&nbsp;
+                                <i class="fas fa-filter"></i>
+                            </h1>
+                            <div class="w3-row">
+                                <div class="w3-col m4">
+                                    <md-input-container style="width: 100%;">
+                                        <label>Vegetables</label>
+                                        <md-select ng-model="selectedVegetables" md-on-close="clearSearchTerm()" data-md-container-class="selectdemoSelectHeader"
+                                            multiple>
+                                            <md-select-header class="demo-select-header">
+                                                <input ng-model="searchTerm" type="search" placeholder="Search for college.." class="select-searchbox md-text">
+                                            </md-select-header>
+                                            <md-optgroup label="vegetables">
+                                                <md-option ng-value="vegetable" ng-repeat="vegetable in vegetables |
+                                                      filter:searchTerm">{{vegetable}}</md-option>
+                                            </md-optgroup>
+                                        </md-select>
+                                    </md-input-container>
+                                </div>
+                            </div>
+                        </div>
+                    </md-content>
+                </md-tab>
+                <md-tab label="Edit">
+                    <md-content class="w3-padding w3-white">
+                        <h1 class="w3-xlarge">Edit College</h1>
+
+                    </md-content>
+                </md-tab>
+                <md-tab label="Add">
+                    <md-content class="w3-padding w3-white">
+                        <h1 class="w3-xlarge">Add College</h1>
+
+                    </md-content>
+                </md-tab>
+            </md-tabs>
+        </div>
     </div>
 
     <!-- Outdatedbrowser -->
