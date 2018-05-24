@@ -45,11 +45,11 @@ db_conn.connect(function (err) {
                     db_conn.query(sql, function (err, result, fields) {
                         number++;
                         if (err) {
-                            logger.error(err, { stat: { failed: failed, passed: passed }, number: number });
                             failed++;
+                            logger.error(err, { stat: { failed: failed, passed: passed }, number: number });
                         } else {
-                            logger.log("Query OK", { stat: { failed: failed, passed: passed }, number: number });
                             passed++;
+                            logger.log("Query OK", { stat: { failed: failed, passed: passed }, number: number });
                         }
                     });
                 }
