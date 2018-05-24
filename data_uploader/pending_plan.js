@@ -35,7 +35,7 @@ db_conn.connect(function (err) {
                     sql += "'" + data_obj[i][2].replace(/\s/g, '') + "' AS file_num, ";
                     sql += (data_obj[i][3] ? ("'" + data_obj[i][3].replace(/'/g, "\\'") + "' ") : "null ") + "AS remarks, ";
                     sql += (data_obj[i][4] ? ("'" + data_obj[i][4].replace(/\s/g, '') + "' ") : "null ") + "AS master_file_num, ";
-                    sql += (data_obj[i][5] ? ("'" + moment(data_obj[i][5]).format("YYYY-MM-DD") + " ") : "null ") + "AS sanction_date, ";
+                    sql += (data_obj[i][5] ? ("'" + moment(data_obj[i][5]).format("YYYY-MM-DD") + "' ") : "null ") + "AS sanction_date, ";
                     sql += (data_obj[i][6] ? (data_obj[i][6] + " ") : "null ") + "AS paid, ";
                     sql += (data_obj[i][7] ? (data_obj[i][7] + " ") : "null ") + "AS uc, ";
                     sql += (data_obj[i][8] ? (data_obj[i][8] + " ") : "null ") + "AS pending_uc, ";
