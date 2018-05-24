@@ -40,7 +40,7 @@ db_conn.connect(function (err) {
                     sql += "subscheme_id, ";
                     sql += "'" + data_obj[i][13].replace(/'/g, "\\'") + "' AS plan_files ";
                     sql += "FROM sub_scheme ";
-                    sql += "WHERE subscheme_name = '" + data_obj[i][12] + "'";
+                    sql += "WHERE subscheme_name = '" + data_obj[i][12].replace(/'/g, "\\'") + "'";
                     //console.log(sql)
                     db_conn.query(sql, function (err, result, fields) {
                         number++;
