@@ -15,7 +15,7 @@ db_conn.connect(function (err) {
     if (err)
         logger.error(err);
     else {
-        https.get('https://sheets.googleapis.com/v4/spreadsheets/1srFk8uJAjFwLEkdVevSZw5ncMs1DFurhWojsSWZAXTY/values/XIPLANPENDING!A50:M59?key=AIzaSyDw7EtIbTGxIk3aXtZWgt0bnNcsHlB2yG8', (resp) => {
+        https.get('https://sheets.googleapis.com/v4/spreadsheets/1srFk8uJAjFwLEkdVevSZw5ncMs1DFurhWojsSWZAXTY/values/XIPLANPENDING!A2:M?key=AIzaSyDw7EtIbTGxIk3aXtZWgt0bnNcsHlB2yG8', (resp) => {
             let data = '';
 
             resp.on('data', (chunk) => {
@@ -43,17 +43,16 @@ db_conn.connect(function (err) {
                     sql += "'" + (data_obj[i][10] == "CD(11)SC" ? "CDSC" : data_obj[i][10]) + "' AS subscheme_id, ";
                     sql += (data_obj[i][11] ? ("'" + data_obj[i][11] + "' ") : "null ") + "AS year, ";
                     sql += (data_obj[i][12] ? "1 " : "0 ") + "AS case_cleared;"
-                    console.log(sql);
-                    // db_conn.query(sql, function (err, result, fields) {
-                    //     number++;
-                    //     if (err) {
-                    //         failed++;
-                    //         logger.error(err, { stat: { failed: failed, passed: passed }, number: number });
-                    //     } else {
-                    //         passed++;
-                    //         logger.log("Query OK", { stat: { failed: failed, passed: passed }, number: number });
-                    //     }
-                    // });
+                    db_conn.query(sql, function (err, result, fields) {
+                        number++;
+                        if (err) {
+                            failed++;
+                            logger.error(err, { stat: { failed: failed, passed: passed }, number: number });
+                        } else {
+                            passed++;
+                            logger.log("Query OK", { stat: { failed: failed, passed: passed }, number: number });
+                        }
+                    });
                 }
             });
 
