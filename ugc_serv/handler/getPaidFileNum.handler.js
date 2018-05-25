@@ -14,7 +14,6 @@ exports.handler = function (req, res, qpaths, qdata) {
             res.end();
         }
         else {
-            console.log(token, req.headers["username"]);
             bearer.verify(token, req.headers["username"], function (err) {
                 if (err) {
                     logger.error(err, { username: req.headers["username"] });
