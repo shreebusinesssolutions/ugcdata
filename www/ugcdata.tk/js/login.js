@@ -2,7 +2,6 @@ const info = {
     page: "login.html",
     path: "/login/"
 };
-
 Object.freeze(info);
 
 $(function () {

@@ -1,3 +1,7 @@
+body {
+    font-size: 13px;
+}
+
 .clr {
     clear: both;
 }
@@ -8,6 +12,37 @@
     z-index: 500;
 }
 
+.w3-overlay {
+    z-index: 400;
+}
+
+md-input-container {
+    width: 100%;
+}
+
+md-input-container.select-searchbox {
+    margin: 0;
+}
+
+md-input-container.select-searchbox .md-errors-spacer {
+    display: none;
+}
+
+md-chip * {
+    font-size: 11px;
+}
+
+md-chips .md-chip-input-container {
+    width: 100%;
+}
+
+fieldset.primary {
+    border: 1px solid #074b83;
+}
+fieldset.primary legend {
+    color: #074b83;
+    padding: 4px;
+}
 .hamburger {
     position: fixed;
     top: 10px;
@@ -15,4 +50,116 @@
     z-index: 500;
     -webkit-transition: all 0.4s !important;
     transition: all 0.4s !important;
+}
+
+.select-header {
+    /* Please note: All these selectors are only applied to children of elements with the 'select-header' class */
+}
+
+.select-header .select-searchbox {
+    border: none;
+    outline: none;
+    height: 100%;
+    width: calc(100% - 20px);
+    padding: 10px;
+}
+
+.select-header .selection-header {
+    box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.1), 0 0 0 0 rgba(0, 0, 0, 0.14), 0 0 0 0 rgba(0, 0, 0, 0.12);
+    padding-left: 10.667px;
+    height: 48px;
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: auto;
+}
+
+.select-header md-content._md {
+    max-height: 240px;
+}
+
+.cust-select {
+    width: 100%;
+    word-wrap: break-word;
+}
+
+.cust-select option {
+    padding: 2px 8px;
+    word-wrap: break-word;
+}
+
+.cust-select option:hover {
+    background-color: lightgray;
+}
+
+/******** Ripple **************/
+
+.ripple-btn {
+    position: relative;
+}
+
+.c-ripple {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: transparent;
+}
+
+.c-ripple__circle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.25);
+}
+
+.c-ripple__circle.ripple-ink-dark {
+    background: rgba(0, 0, 0, 0.15);
+}
+
+.c-ripple.is-active .c-ripple__circle {
+    -webkit-animation: a-ripple .4s ease-in;
+    animation: a-ripple .4s ease-in;
+}
+
+/**
+   * Animation: Ripple
+   * --------------------------------------------------
+   */
+
+@-webkit-keyframes a-ripple {
+    0% {
+        opacity: 0;
+    }
+    25% {
+        opacity: 1;
+    }
+    100% {
+        width: 200%;
+        padding-bottom: 200%;
+        opacity: 0;
+    }
+}
+
+@keyframes a-ripple {
+    0% {
+        opacity: 0;
+    }
+    25% {
+        opacity: 1;
+    }
+    100% {
+        width: 200%;
+        padding-bottom: 200%;
+        opacity: 0;
+    }
 }
