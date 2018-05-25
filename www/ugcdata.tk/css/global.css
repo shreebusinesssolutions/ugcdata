@@ -1,5 +1,5 @@
 body {
-    font-size: 12px;
+    font-size: 13px;
 }
 
 .clr {
@@ -16,6 +16,33 @@ body {
     z-index: 400;
 }
 
+md-input-container {
+    width: 100%;
+}
+
+md-input-container.select-searchbox {
+    margin: 0;
+}
+
+md-input-container.select-searchbox .md-errors-spacer {
+    display: none;
+}
+
+md-chip * {
+    font-size: 11px;
+}
+
+md-chips .md-chip-input-container {
+    width: 100%;
+}
+
+fieldset.primary {
+    border: 1px solid #074b83;
+}
+fieldset.primary legend {
+    color: #074b83;
+    padding: 4px;
+}
 .hamburger {
     position: fixed;
     top: 10px;
@@ -26,7 +53,7 @@ body {
 }
 
 .select-header {
-    /* Please note: All these selectors are only applied to children of elements with the 'selectdemoSelectHeader' class */
+    /* Please note: All these selectors are only applied to children of elements with the 'select-header' class */
 }
 
 .select-header .select-searchbox {
@@ -50,6 +77,20 @@ body {
 
 .select-header md-content._md {
     max-height: 240px;
+}
+
+.cust-select {
+    width: 100%;
+    word-wrap: break-word;
+}
+
+.cust-select option {
+    padding: 2px 8px;
+    word-wrap: break-word;
+}
+
+.cust-select option:hover {
+    background-color: lightgray;
 }
 
 /******** Ripple **************/

@@ -14,10 +14,23 @@ var PaidCtrl = (function () {
         this.filter = {
             fileNum: {
                 selected: [],
+                selectedItem: null,
                 search: "",
                 every: null
             }
         };
+
+        var _this = this;
+        this.$timeout(function () {
+            _this.$http({
+                method: "GET",
+                url: "/ugc_serv/data/paid/filenum/"
+            }).then(function successCallback(response) {
+                _this.filter.fileNum.every = response.data;
+            }, function errorCallback(response) {
+                console.log("error", response);
+            });
+        }, 100);
     }
 
     PaidCtrl.prototype.showNotif = function (message, timeout = 3000, errorToast = false) {
@@ -65,27 +78,31 @@ var PaidCtrl = (function () {
     PaidCtrl.prototype.clearSearchFileNumber = function () {
         this.filter.fileNum.search = "";
     };
-    PaidCtrl.prototype.loadFileNumbers = function () {
-        var _this = this;
-        return _this.$http({
-            method: "GET",
-            url: "/ugc_serv/data/paid/filenum/"
-        }).then(function successCallback(response) {
-            console.log("success", response);
-        }, function errorCallback(response) {
-            console.log("error", response);
-            // called asynchronously if an error occurs
-            // or server returns response with an error status.
-        });
-        // return _this.$timeout(function () {
-        //     _this.filter.fileNum.every = _this.filter.fileNum.every || [
-        //         'Scooby Doo',
-        //         'Shaggy Rodgers',
-        //         'Fred Jones',
-        //         'Daphne Blake',
-        //         'Velma Dinkley'
-        //     ];
-        // }, 650);
+    // PaidCtrl.prototype.loadFileNumbers = function () {
+    //     var _this = this;
+    //     return _this.$http({
+    //         method: "GET",
+    //         url: "/ugc_serv/data/paid/filenum/"
+    //     }).then(function successCallback(response) {
+    //         _this.filter.fileNum.every = response.data;
+    //     }, function errorCallback(response) {
+    //         console.log("error", response);
+    //     });
+    // }
+    PaidCtrl.prototype.transformFileNumChip = function (chip) {
+        chip
+    };
+    PaidCtrl.prototype.querySearchFileNum = function (query) {
+        var results = query ? this.filter.fileNum.every.filter(createFilterFor(query)) : [];
+        return results;
+    };
+    function createFilterFor(query) {
+        var lowercaseQuery = angular.lowercase(query);
+
+        return function filterFn(item) {
+            return (item.toLowerCase().indexOf(lowercaseQuery) === 0);
+        };
+
     }
 
     PaidCtrl.$inject = [
@@ -116,4 +133,5 @@ angular
     })
     .run(function ($http) {
         $http.defaults.headers.common.Authorization = 'Bearer ' + cust_localStorage.getItem("token");
+        $http.defaults.headers.common['username'] = cust_localStorage.getItem("username");
     });

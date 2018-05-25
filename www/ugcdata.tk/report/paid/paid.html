@@ -39,6 +39,12 @@
     <!-- Angular Material -->
     <link rel="stylesheet" href="/vendor/angular-material/1.1.8/angular-material.min.css" />
 
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!-- Materialize.css -->
+    <!-- <link rel="stylesheet" href="/vendor/materialize.css/1.0.0-beta/css/materialize.min.css" /> -->
+
     <!-- Outdatedbrowser -->
     <link rel="stylesheet" href="/vendor/outdatedbrowser/outdatedbrowser.min.css" />
 
@@ -135,18 +141,20 @@
         </div>
         <br />
         <div class="w3-card w3-white">
-            <md-tabs class="md-primary">
+            <md-tabs md-dynamic-height class="md-primary">
                 <!-- md-dynamic-height md-border-bottom> -->
                 <md-tab label="View">
-                    <md-content class="w3-padding w3-white">
+                    <md-content class="w3-white">
                         <h1 class="w3-xlarge">View Report</h1>
                         <div class="w3-theme-primary-l5">
-                            <h1 class="w3-large">Filters&nbsp;
+                            <h1 class="w3-large w3-padding">Filters&nbsp;
                                 <i class="fas fa-filter"></i>
                             </h1>
                             <div class="w3-row">
-                                <div class="w3-col m4">
-                                    <md-input-container style="width: 100%;">
+                                <div class="w3-col s6 w3-padding-small">
+                                    <fieldset class="primary">
+                                        <legend>File Number</legend>
+                                        <!-- <md-input-container style="width: 100%;">
                                         <label>File Number</label>
                                         <md-select ng-model="vm.filter.fileNum.selected" md-on-close="vm.clearSearchFileNumber()" md-on-open="vm.loadFileNumbers()"
                                             data-md-container-class="select-header" multiple>
@@ -157,8 +165,31 @@
                                                 <md-option ng-value="fileNum" ng-repeat="fileNum in vm.filter.fileNum.every | filter:vm.filter.fileNum.search">{{fileNum}}</md-option>
                                             </md-optgroup>
                                         </md-select>
-                                    </md-input-container>
+                                    </md-input-container> -->
+                                        <!-- <md-input-container class="select-searchbox">
+                                        <label>Search File Number</label>
+                                        <input ng-model="vm.filter.fileNum.search">
+                                    </md-input-container> -->
+                                        <!-- <select class="w3-round-small cust-select" ng-model="vm.filter.fileNum.selected" ng-options="fileNum for fileNum in vm.filter.fileNum.every"
+                                        multiple>
+                                    </select>
+                                    <md-chips ng-model="vm.filter.fileNum.selected" readonly="true" md-removable="true"></md-chips> -->
+                                        <md-chips ng-model="vm.filter.fileNum.selected" md-autocomplete-snap md-transform-chip="vm.transformFileNumChip($chip)" md-require-match="true"
+                                            style="width: 100%;">
+                                            <md-autocomplete md-selected-item="vm.filter.fileNum.selectedItem" md-search-text="vm.filter.fileNum.search"
+                                                md-items="fileNum in vm.querySearchFileNum(vm.filter.fileNum.search)" md-item-text="fileNum"
+                                                placeholder="Search File Number">
+                                                <span class="w3-small" md-highlight-text="vm.filter.fileNum.search">{{fileNum}}</span>
+                                            </md-autocomplete>
+                                            <md-chip-template>
+                                                <span>
+                                                    {{$chip}}
+                                                </span>
+                                            </md-chip-template>
+                                        </md-chips>
+                                    </fieldset>
                                 </div>
+                                {{vm.filter.fileNum.selected}}
                             </div>
                         </div>
                     </md-content>
@@ -215,6 +246,9 @@
 
     <!-- Angular Material-->
     <script src="/vendor/angular-material/1.1.8/angular-material.min.js"></script>
+
+    <!-- Materialize.css -->
+    <!-- <script src="/vendor/materialize.css/1.0.0-beta/js/materialize.min.js"></script> -->
 
     <script type="text/javascript" src="/js/global.js"></script>
     <script type="text/javascript" src="/js/paid.js"></script>
