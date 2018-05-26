@@ -196,7 +196,7 @@ var PaidCtrl = (function () {
     PaidCtrl.prototype.transformCollegeChip = function (chip) {
         chip
     };
-    PaidCtrl.prototype.querySearcCollege = function (query) {
+    PaidCtrl.prototype.querySearchCollege = function (query) {
         var results = query ? this.filter.college.every.filter(createFilterFor(query)) : [];
         return results;
     };
