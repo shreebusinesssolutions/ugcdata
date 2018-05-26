@@ -322,11 +322,11 @@
                                             <md-autocomplete md-selected-item="vm.filter.scheme.selectedItem" md-search-text="vm.filter.scheme.search" md-min-length="0"
                                                 md-items="scheme in vm.querySearchScheme(vm.filter.scheme.search)" md-item-text="scheme"
                                                 placeholder="Search Scheme">
-                                                <span class="w3-small" md-highlight-text="vm.filter.scheme.search">{{scheme}}</span>
+                                                <span class="w3-small" md-highlight-text="vm.filter.scheme.search">{{scheme.id}}({{scheme.name}})</span>
                                             </md-autocomplete>
                                             <md-chip-template>
                                                 <span>
-                                                    {{$chip}}
+                                                    {{$chip.id}}
                                                 </span>
                                             </md-chip-template>
                                         </md-chips>
