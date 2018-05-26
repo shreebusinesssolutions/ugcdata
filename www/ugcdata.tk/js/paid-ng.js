@@ -292,38 +292,38 @@ var PaidCtrl = (function () {
         }
     };
     PaidCtrl.prototype.transformFileNumChip = function (chip) {
-        chip
+        return chip
     };
     PaidCtrl.prototype.querySearchFileNum = function (query) {
         var results = query ? this.filter.fileNum.every.filter(createFilterFor(query)) : this.filter.fileNum.every.filter(createFilterFor(''));
         return results;
     };
     PaidCtrl.prototype.transformMasterFileNumChip = function (chip) {
-        chip
+        return chip
     };
     PaidCtrl.prototype.querySearchMasterFileNum = function (query) {
         var results = query ? this.filter.masterFileNum.every.filter(createFilterFor(query)) : this.filter.masterFileNum.every.filter(createFilterFor(''));
         return results;
     };
     PaidCtrl.prototype.transformCollegeChip = function (chip) {
-        chip
+        return chip
     };
     PaidCtrl.prototype.querySearchCollege = function (query) {
         var results = query ? this.filter.college.every.filter(createFilterFor(query)) : this.filter.college.every.filter(createFilterFor(''));
         return results;
     };
     PaidCtrl.prototype.transformYearChip = function (chip) {
-        chip
+        return chip
     };
     PaidCtrl.prototype.querySearchYear = function (query) {
         var results = query ? this.filter.year.every.filter(createFilterFor(query)) : this.filter.year.every.filter(createFilterFor(''));
         return results;
     };
     PaidCtrl.prototype.transformSchemeChip = function (chip) {
-        chip
+        return chip.id
     };
     PaidCtrl.prototype.querySearchScheme = function (query) {
-        var results = query ? this.filter.scheme.every.filter(createFilterFor(query)) : this.filter.scheme.every.filter(createFilterFor(''));
+        var results = query ? this.filter.scheme.every.filter(createFilterObjFor(query)) : this.filter.scheme.every.filter(createFilterObjFor(''));
         return results;
     };
 
@@ -334,7 +334,14 @@ var PaidCtrl = (function () {
         return function filterFn(item) {
             return (item.toLowerCase().indexOf(lowercaseQuery) === 0);
         };
+    }
 
+    function createFilterObjFor(query) {
+        var lowercaseQuery = angular.lowercase(query);
+
+        return function filterFn(item) {
+            return (item.id.toLowerCase().indexOf(lowercaseQuery) === 0) || (item.name.toLowerCase().indexOf(lowercaseQuery) === 0);
+        };
     }
 
     PaidCtrl.$inject = [
