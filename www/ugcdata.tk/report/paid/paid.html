@@ -176,9 +176,8 @@
                                     <md-chips ng-model="vm.filter.fileNum.selected" readonly="true" md-removable="true"></md-chips> -->
                                         <md-chips ng-model="vm.filter.fileNum.selected" md-autocomplete-snap md-transform-chip="vm.transformFileNumChip($chip)" md-require-match="true"
                                             style="width: 100%;">
-                                            <md-autocomplete md-selected-item="vm.filter.fileNum.selectedItem" md-search-text="vm.filter.fileNum.search"
-                                                md-items="fileNum in vm.querySearchFileNum(vm.filter.fileNum.search)" md-item-text="fileNum"
-                                                placeholder="Search File Number">
+                                            <md-autocomplete md-selected-item="vm.filter.fileNum.selectedItem" md-search-text="vm.filter.fileNum.search" md-items="fileNum in vm.querySearchFileNum(vm.filter.fileNum.search)"
+                                                md-item-text="fileNum" placeholder="Search File Number">
                                                 <span class="w3-small" md-highlight-text="vm.filter.fileNum.search">{{fileNum}}</span>
                                             </md-autocomplete>
                                             <md-chip-template>
@@ -189,7 +188,24 @@
                                         </md-chips>
                                     </fieldset>
                                 </div>
-                                {{vm.filter.fileNum.selected}}
+                                <div class="w3-col s6 w3-padding-small">
+                                    <fieldset class="primary">
+                                        <legend>Master File Number</legend>
+                                        <md-chips ng-model="vm.filter.masterFileNum.selected" md-autocomplete-snap md-transform-chip="vm.transformMasterFileNumChip($chip)"
+                                            md-require-match="true" style="width: 100%;">
+                                            <md-autocomplete md-selected-item="vm.filter.masterFileNum.selectedItem" md-search-text="vm.filter.masterFileNum.search"
+                                                md-items="masterFileNum in vm.querySearchMasterFileNum(vm.filter.masterFileNum.search)"
+                                                md-item-text="masterFileNum" placeholder="Search File Number">
+                                                <span class="w3-small" md-highlight-text="vm.filter.masterFileNum.search">{{masterFileNum}}</span>
+                                            </md-autocomplete>
+                                            <md-chip-template>
+                                                <span>
+                                                    {{$chip}}
+                                                </span>
+                                            </md-chip-template>
+                                        </md-chips>
+                                    </fieldset>
+                                </div>
                             </div>
                         </div>
                     </md-content>

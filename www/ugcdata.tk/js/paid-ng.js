@@ -19,6 +19,14 @@ var PaidCtrl = (function () {
                 every: null
             }
         };
+        this.filter = {
+            masterFileNum: {
+                selected: [],
+                selectedItem: null,
+                search: "",
+                every: null
+            }
+        };
 
         var _this = this;
         this.$timeout(function () {
@@ -27,6 +35,16 @@ var PaidCtrl = (function () {
                 url: "/ugc_serv/data/paid/filenum/"
             }).then(function successCallback(response) {
                 _this.filter.fileNum.every = response.data;
+            }, function errorCallback(response) {
+                console.log("error", response);
+            });
+        }, 100);
+        this.$timeout(function () {
+            _this.$http({
+                method: "GET",
+                url: "/ugc_serv/data/paid/filenum/"
+            }).then(function successCallback(response) {
+                _this.filter.masterFileNum.every = response.data;
             }, function errorCallback(response) {
                 console.log("error", response);
             });
@@ -96,6 +114,15 @@ var PaidCtrl = (function () {
         var results = query ? this.filter.fileNum.every.filter(createFilterFor(query)) : [];
         return results;
     };
+    PaidCtrl.prototype.transformMasterFileNumChip = function (chip) {
+        chip
+    };
+    PaidCtrl.prototype.querySearchMasterFileNum = function (query) {
+        var results = query ? this.filter.masterFileNum.every.filter(createFilterFor(query)) : [];
+        return results;
+    };
+
+
     function createFilterFor(query) {
         var lowercaseQuery = angular.lowercase(query);
 
