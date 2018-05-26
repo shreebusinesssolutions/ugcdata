@@ -267,18 +267,18 @@
                                         <legend>Paid</legend>
                                         <md-slider-container>
                                             <span>Min</span>
-                                            <md-slider flex ng-model="vm.filter.paid.min" min="{{vm.filter.paid.scaleMin}}" max="{{vm.filter.paid.scaleMax}}" aria-label="Paid Min" id="paid-min-slider">
+                                            <md-slider flex ng-model="vm.filter.paid.min" min="{{vm.filter.paid.scaleMin}}" max="{{vm.filter.paid.max}}" aria-label="Paid Min" id="paid-min-slider">
                                             </md-slider>
                                             <md-input-container>
-                                                <input flex type="number" ng-model="vm.filter.paid.min" min="{{vm.filter.paid.scaleMin}}" max="{{vm.filter.paid.scaleMax}}" aria-label="Paid Min" aria-controls="paid-min-slider">
+                                                <input flex type="number" ng-model="vm.filter.paid.min" min="{{vm.filter.paid.scaleMin}}" max="{{vm.filter.paid.max}}" aria-label="Paid Min" aria-controls="paid-min-slider">
                                             </md-input-container>
                                         </md-slider-container>
                                         <md-slider-container>
                                             <span>Max</span>
-                                            <md-slider flex ng-model="vm.filter.paid.max" min="{{vm.filter.paid.scaleMin}}" max="{{vm.filter.paid.scaleMax}}" aria-label="Paid Max" id="paid-max-slider" class="md-accent">
+                                            <md-slider flex ng-model="vm.filter.paid.max" min="{{vm.filter.paid.min}}" max="{{vm.filter.paid.scaleMax}}" aria-label="Paid Max" id="paid-max-slider" class="md-accent">
                                             </md-slider>
                                             <md-input-container>
-                                                <input flex type="number" ng-model="vm.filter.paid.max" min="{{vm.filter.paid.scaleMin}}" max="{{vm.filter.paid.scaleMax}}" aria-label="Paid Max" aria-controls="paid-max-slider">
+                                                <input flex type="number" ng-model="vm.filter.paid.max" min="{{vm.filter.paid.min}}" max="{{vm.filter.paid.scaleMax}}" aria-label="Paid Max" aria-controls="paid-max-slider">
                                             </md-input-container>
                                         </md-slider-container>
                                     </fieldset>
