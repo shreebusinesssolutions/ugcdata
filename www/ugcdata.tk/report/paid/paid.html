@@ -176,8 +176,9 @@
                                     <md-chips ng-model="vm.filter.fileNum.selected" readonly="true" md-removable="true"></md-chips> -->
                                         <md-chips ng-model="vm.filter.fileNum.selected" md-autocomplete-snap md-transform-chip="vm.transformFileNumChip($chip)" md-require-match="true"
                                             style="width: 100%;" md-on-add="vm.filterChanged('fileNum')" md-on-remove="vm.filterChanged('fileNum')">
-                                            <md-autocomplete md-selected-item="vm.filter.fileNum.selectedItem" md-search-text="vm.filter.fileNum.search" md-items="fileNum in vm.querySearchFileNum(vm.filter.fileNum.search)"
-                                                md-item-text="fileNum" placeholder="Search File Number">
+                                            <md-autocomplete md-selected-item="vm.filter.fileNum.selectedItem" md-search-text="vm.filter.fileNum.search" md-min-length="0"
+                                                md-items="fileNum in vm.querySearchFileNum(vm.filter.fileNum.search)" md-item-text="fileNum"
+                                                placeholder="Search File Number">
                                                 <span class="w3-small" md-highlight-text="vm.filter.fileNum.search">{{fileNum}}</span>
                                             </md-autocomplete>
                                             <md-chip-template>
@@ -199,7 +200,7 @@
                                             md-require-match="true" style="width: 100%;" md-on-add="vm.filterChanged('masterFileNum')"
                                             md-on-remove="vm.filterChanged('masterFileNum')">
                                             <md-autocomplete md-selected-item="vm.filter.masterFileNum.selectedItem" md-search-text="vm.filter.masterFileNum.search"
-                                                md-items="masterFileNum in vm.querySearchMasterFileNum(vm.filter.masterFileNum.search)"
+                                                md-min-length="0" md-items="masterFileNum in vm.querySearchMasterFileNum(vm.filter.masterFileNum.search)"
                                                 md-item-text="masterFileNum" placeholder="Search Master File Number">
                                                 <span class="w3-small" md-highlight-text="vm.filter.masterFileNum.search">{{masterFileNum}}</span>
                                             </md-autocomplete>
@@ -220,11 +221,11 @@
                                 <div class="w3-col m3 w3-padding-small">
                                     <fieldset class="primary">
                                         <legend>College ID</legend>
-                                        <md-chips ng-model="vm.filter.college.selected" md-autocomplete-snap md-transform-chip="vm.transformCollegeChip($chip)"
-                                            md-require-match="true" style="width: 100%;" md-on-add="vm.filterChanged('college')"
-                                            md-on-remove="vm.filterChanged('college')">
-                                            <md-autocomplete md-selected-item="vm.filter.college.selectedItem" md-search-text="vm.filter.college.search" md-items="college in vm.querySearchCollege(vm.filter.college.search)"
-                                                md-item-text="college" placeholder="Search College ID">
+                                        <md-chips ng-model="vm.filter.college.selected" md-autocomplete-snap md-transform-chip="vm.transformCollegeChip($chip)" md-require-match="true"
+                                            style="width: 100%;" md-on-add="vm.filterChanged('college')" md-on-remove="vm.filterChanged('college')">
+                                            <md-autocomplete md-selected-item="vm.filter.college.selectedItem" md-search-text="vm.filter.college.search" md-min-length="0"
+                                                md-items="college in vm.querySearchCollege(vm.filter.college.search)" md-item-text="college"
+                                                placeholder="Search College ID">
                                                 <span class="w3-small" md-highlight-text="vm.filter.college.search">{{college}}</span>
                                             </md-autocomplete>
                                             <md-chip-template>
@@ -237,6 +238,49 @@
                                             aria-label="Include Blanks College" ng-change="vm.toggleBlanks('college')">
                                             Include Blanks
                                         </md-checkbox>
+                                    </fieldset>
+                                </div>
+                                <div class="w3-col m3 w3-padding-small">
+                                    <fieldset class="primary">
+                                        <legend>Year</legend>
+                                        <md-chips ng-model="vm.filter.year.selected" md-autocomplete-snap md-transform-chip="vm.transformYearChip($chip)" md-require-match="true"
+                                            style="width: 100%;" md-on-add="vm.filterChanged('year')" md-on-remove="vm.filterChanged('year')">
+                                            <md-autocomplete md-selected-item="vm.filter.year.selectedItem" md-search-text="vm.filter.year.search" md-min-length="0"
+                                                md-items="year in vm.querySearchYear(vm.filter.year.search)" md-item-text="year"
+                                                placeholder="Search Year">
+                                                <span class="w3-small" md-highlight-text="vm.filter.year.search">{{year}}</span>
+                                            </md-autocomplete>
+                                            <md-chip-template>
+                                                <span>
+                                                    {{$chip}}
+                                                </span>
+                                            </md-chip-template>
+                                        </md-chips>
+                                        <md-checkbox class="w3-margin-top" ng-model="vm.filter.year.includeBlanks" ng-disabled="!vm.filter.year.hasBlanks" aria-label="Include Blanks Year"
+                                            ng-change="vm.toggleBlanks('year')">
+                                            Include Blanks
+                                        </md-checkbox>
+                                    </fieldset>
+                                </div>
+                                <div class="w3-col m3 w3-padding-small">
+                                    <fieldset class="primary">
+                                        <legend>Paid</legend>
+                                        <md-slider-container>
+                                            <span>Min</span>
+                                            <md-slider flex ng-model="vm.filter.paid.min" min="{{vm.filter.paid.scaleMin}}" max="{{vm.filter.paid.max}}" aria-label="Paid Min" id="paid-min-slider">
+                                            </md-slider>
+                                            <md-input-container>
+                                                <input flex type="number" ng-model="vm.filter.paid.min" min="{{vm.filter.paid.scaleMin}}" max="{{vm.filter.paid.max}}" aria-label="Paid Min" aria-controls="paid-min-slider">
+                                            </md-input-container>
+                                        </md-slider-container>
+                                        <md-slider-container>
+                                            <span>Max</span>
+                                            <md-slider flex ng-model="vm.filter.paid.max" min="{{vm.filter.paid.min}}" max="{{vm.filter.paid.scaleMax}}" aria-label="Paid Max" id="paid-max-slider" class="md-accent">
+                                            </md-slider>
+                                            <md-input-container>
+                                                <input flex type="number" ng-model="vm.filter.paid.max" min="{{vm.filter.paid.min}}" max="{{vm.filter.paid.scaleMax}}" aria-label="Paid Max" aria-controls="paid-max-slider">
+                                            </md-input-container>
+                                        </md-slider-container>
                                     </fieldset>
                                 </div>
                             </div>

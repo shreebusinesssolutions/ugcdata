@@ -35,6 +35,20 @@ var PaidCtrl = (function () {
                 every: null,
                 hasBlanks: false,
                 includeBlanks: false
+            },
+            year: {
+                selected: [],
+                selectedItem: null,
+                search: "",
+                every: null,
+                hasBlanks: false,
+                includeBlanks: false
+            },
+            paid: {
+                scaleMin: null,
+                scaleMax: null,
+                min: null,
+                max: null
             }
         };
 
@@ -71,13 +85,13 @@ var PaidCtrl = (function () {
             }, function errorCallback(response) {
                 console.log("error", response);
                 if (response.status == 403) {
-                    _this.showNotif("ERROR: You are not authorized. You'll be redirected in 5 secs.", 3000, true);
+                    _this.showNotif("You are not authorized. You'll be redirected in 5 secs.", 3000, true);
                     _this.$timeout(function () {
                         window.location.href = "/";
                     }, 5000);
                 }
                 else {
-                    _this.showNotif("ERROR: Something went wrong. Please try again later.", 3000, true);
+                    _this.showNotif("Something went wrong. Please try again later.", 3000, true);
                 }
             });
         }, 100);
@@ -92,13 +106,56 @@ var PaidCtrl = (function () {
             }, function errorCallback(response) {
                 console.log("error", response);
                 if (response.status == 403) {
-                    _this.showNotif("ERROR: You are not authorized. You'll be redirected in 5 secs.", 3000, true);
+                    _this.showNotif("You are not authorized. You'll be redirected in 5 secs.", 3000, true);
                     _this.$timeout(function () {
                         window.location.href = "/";
                     }, 5000);
                 }
                 else {
-                    _this.showNotif("ERROR: Something went wrong. Please try again later.", 3000, true);
+                    _this.showNotif("Something went wrong. Please try again later.", 3000, true);
+                }
+            });
+        }, 100);
+        this.$timeout(function () {
+            _this.$http({
+                method: "GET",
+                url: "/ugc_serv/data/paid/year/"
+            }).then(function successCallback(response) {
+                _this.filter.year.every = response.data;
+                if (response.data.indexOf("(Blank)") >= 0)
+                    _this.filter.year.hasBlanks = true;
+            }, function errorCallback(response) {
+                console.log("error", response);
+                if (response.status == 403) {
+                    _this.showNotif("You are not authorized. You'll be redirected in 5 secs.", 3000, true);
+                    _this.$timeout(function () {
+                        window.location.href = "/";
+                    }, 5000);
+                }
+                else {
+                    _this.showNotif("Something went wrong. Please try again later.", 3000, true);
+                }
+            });
+        }, 100);
+        this.$timeout(function () {
+            _this.$http({
+                method: "GET",
+                url: "/ugc_serv/data/paid/paid/"
+            }).then(function successCallback(response) {
+                _this.filter.paid.scaleMin = response.data.min;
+                _this.filter.paid.scaleMax = response.data.max;
+                _this.filter.paid.min = response.data.min;
+                _this.filter.paid.max = response.data.max;
+            }, function errorCallback(response) {
+                console.log("error", response);
+                if (response.status == 403) {
+                    _this.showNotif("You are not authorized. You'll be redirected in 5 secs.", 3000, true);
+                    _this.$timeout(function () {
+                        window.location.href = "/";
+                    }, 5000);
+                }
+                else {
+                    _this.showNotif("Something went wrong. Please try again later.", 3000, true);
                 }
             });
         }, 100);
@@ -183,21 +240,28 @@ var PaidCtrl = (function () {
         chip
     };
     PaidCtrl.prototype.querySearchFileNum = function (query) {
-        var results = query ? this.filter.fileNum.every.filter(createFilterFor(query)) : [];
+        var results = query ? this.filter.fileNum.every.filter(createFilterFor(query)) : this.filter.fileNum.every.filter(createFilterFor(''));
         return results;
     };
     PaidCtrl.prototype.transformMasterFileNumChip = function (chip) {
         chip
     };
     PaidCtrl.prototype.querySearchMasterFileNum = function (query) {
-        var results = query ? this.filter.masterFileNum.every.filter(createFilterFor(query)) : [];
+        var results = query ? this.filter.masterFileNum.every.filter(createFilterFor(query)) : this.filter.masterFileNum.every.filter(createFilterFor(''));
         return results;
     };
     PaidCtrl.prototype.transformCollegeChip = function (chip) {
         chip
     };
     PaidCtrl.prototype.querySearchCollege = function (query) {
-        var results = query ? this.filter.college.every.filter(createFilterFor(query)) : [];
+        var results = query ? this.filter.college.every.filter(createFilterFor(query)) : this.filter.college.every.filter(createFilterFor(''));
+        return results;
+    };
+    PaidCtrl.prototype.transformYearChip = function (chip) {
+        chip
+    };
+    PaidCtrl.prototype.querySearchYear = function (query) {
+        var results = query ? this.filter.year.every.filter(createFilterFor(query)) : this.filter.year.every.filter(createFilterFor(''));
         return results;
     };
 
