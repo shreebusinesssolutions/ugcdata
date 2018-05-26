@@ -29,7 +29,7 @@ exports.handler = function (req, res, qpaths, qdata) {
                     }
                 }
                 else {
-                    var sql = "SELECT DISTINCT file_num FROM plan_11_12_paid ORDER BY file_num asc";
+                    var sql = "SELECT DISTINCT master_file_num FROM plan_11_12_paid ORDER BY master_file_num asc";
                     db_conn.query(sql, function (err, result, fields) {
                         if (err) {
                             logger.error(err);
@@ -39,7 +39,7 @@ exports.handler = function (req, res, qpaths, qdata) {
                         } else {
                             var responseObj = [];
                             for (var i = 0; i < result.length; i++)
-                                responseObj.push(result[i].file_num ? result[i].file_num : "(Blank)");
+                                responseObj.push(result[i].master_file_num ? result[i].master_file_num : "(Blank)");
                             res.write(JSON.stringify(responseObj));
                             res.statusCode = 200;
                             res.statusMessage = "OK";
