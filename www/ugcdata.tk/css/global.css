@@ -39,10 +39,18 @@ md-chips .md-chip-input-container {
 fieldset.primary {
     border: 1px solid #074b83;
 }
+
 fieldset.primary legend {
     color: #074b83;
     padding: 4px;
 }
+
+md-slider-container md-input-container {
+    margin-top: 12px;
+    margin-bottom: 13px;
+    margin-left: 10px !important;
+}
+
 .hamburger {
     position: fixed;
     top: 10px;
