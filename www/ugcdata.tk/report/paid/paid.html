@@ -336,6 +336,29 @@
                                         </md-checkbox>
                                     </fieldset>
                                 </div>
+                                <div class="w3-col m5 w3-padding-small">
+                                    <fieldset class="primary">
+                                        <legend>Sub Scheme</legend>
+                                        <md-chips ng-model="vm.filter.subScheme.selected" md-autocomplete-snap md-transform-chip="vm.transformSubSchemeChip($chip)"
+                                            md-require-match="true" style="width: 100%;" md-on-add="vm.filterChanged('subScheme')"
+                                            md-on-remove="vm.filterChanged('subScheme')">
+                                            <md-autocomplete md-selected-item="vm.filter.subScheme.selectedItem" md-search-text="vm.filter.subScheme.search" md-min-length="0"
+                                                md-items="subScheme in vm.querySubSearchScheme(vm.filter.subScheme.search)" md-item-text="subScheme.id"
+                                                placeholder="Search Sub Scheme">
+                                                <span class="w3-small" md-highlight-text="vm.filter.subScheme.search">{{subScheme.id}}({{subScheme.name}})</span>
+                                            </md-autocomplete>
+                                            <md-chip-template>
+                                                <span>
+                                                    {{$chip}}
+                                                </span>
+                                            </md-chip-template>
+                                        </md-chips>
+                                        <md-checkbox class="w3-margin-top" ng-model="vm.filter.subScheme.includeBlanks" ng-disabled="!vm.filter.subScheme.hasBlanks"
+                                            aria-label="Include Blanks Sub Scheme" ng-change="vm.toggleBlanks('subScheme')">
+                                            Include Blanks
+                                        </md-checkbox>
+                                    </fieldset>
+                                </div>
                             </div>
                         </div>
                     </md-content>
