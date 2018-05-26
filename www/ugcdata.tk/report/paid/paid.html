@@ -283,6 +283,27 @@
                                         </md-slider-container>
                                     </fieldset>
                                 </div>
+                                <div class="w3-col m3 w3-padding-small">
+                                        <fieldset class="primary">
+                                            <legend>UC</legend>
+                                            <md-slider-container>
+                                                <span>Min</span>
+                                                <md-slider flex ng-model="vm.filter.uc.min" min="{{vm.filter.uc.scaleMin}}" max="{{vm.filter.uc.max}}" aria-label="UC Min" id="uc-min-slider">
+                                                </md-slider>
+                                                <md-input-container>
+                                                    <input flex type="number" ng-model="vm.filter.uc.min" min="{{vm.filter.uc.scaleMin}}" max="{{vm.filter.uc.max}}" aria-label="UC Min" aria-controls="uc-min-slider">
+                                                </md-input-container>
+                                            </md-slider-container>
+                                            <md-slider-container>
+                                                <span>Max</span>
+                                                <md-slider flex ng-model="vm.filter.uc.max" min="{{vm.filter.uc.min}}" max="{{vm.filter.uc.scaleMax}}" aria-label="UC Max" id="uc-max-slider" class="md-accent">
+                                                </md-slider>
+                                                <md-input-container>
+                                                    <input flex type="number" ng-model="vm.filter.uc.max" min="{{vm.filter.uc.min}}" max="{{vm.filter.uc.scaleMax}}" aria-label="UC Max" aria-controls="uc-max-slider">
+                                                </md-input-container>
+                                            </md-slider-container>
+                                        </fieldset>
+                                    </div>
                             </div>
                         </div>
                     </md-content>

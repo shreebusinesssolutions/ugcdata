@@ -49,6 +49,12 @@ var PaidCtrl = (function () {
                 scaleMax: null,
                 min: null,
                 max: null
+            },
+            uc: {
+                scaleMin: null,
+                scaleMax: null,
+                min: null,
+                max: null
             }
         };
 
@@ -146,6 +152,28 @@ var PaidCtrl = (function () {
                 _this.filter.paid.scaleMax = response.data.max;
                 _this.filter.paid.min = response.data.min;
                 _this.filter.paid.max = response.data.max;
+            }, function errorCallback(response) {
+                console.log("error", response);
+                if (response.status == 403) {
+                    _this.showNotif("You are not authorized. You'll be redirected in 5 secs.", 3000, true);
+                    _this.$timeout(function () {
+                        window.location.href = "/";
+                    }, 5000);
+                }
+                else {
+                    _this.showNotif("Something went wrong. Please try again later.", 3000, true);
+                }
+            });
+        }, 100);
+        this.$timeout(function () {
+            _this.$http({
+                method: "GET",
+                url: "/ugc_serv/data/paid/uc/"
+            }).then(function successCallback(response) {
+                _this.filter.uc.scaleMin = response.data.min;
+                _this.filter.uc.scaleMax = response.data.max;
+                _this.filter.uc.min = response.data.min;
+                _this.filter.uc.max = response.data.max;
             }, function errorCallback(response) {
                 console.log("error", response);
                 if (response.status == 403) {
