@@ -319,6 +319,13 @@ var PaidCtrl = (function () {
         var results = query ? this.filter.year.every.filter(createFilterFor(query)) : this.filter.year.every.filter(createFilterFor(''));
         return results;
     };
+    PaidCtrl.prototype.transformSchemeChip = function (chip) {
+        chip
+    };
+    PaidCtrl.prototype.querySearchScheme = function (query) {
+        var results = query ? this.filter.scheme.every.filter(createFilterFor(query)) : this.filter.scheme.every.filter(createFilterFor(''));
+        return results;
+    };
 
 
     function createFilterFor(query) {
