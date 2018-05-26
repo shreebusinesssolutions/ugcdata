@@ -27,6 +27,14 @@ var PaidCtrl = (function () {
                 every: null,
                 hasBlanks: false,
                 includeBlanks: false
+            },
+            college: {
+                selected: [],
+                selectedItem: null,
+                search: "",
+                every: null,
+                hasBlanks: false,
+                includeBlanks: false
             }
         };
 
@@ -60,6 +68,27 @@ var PaidCtrl = (function () {
                 _this.filter.masterFileNum.every = response.data;
                 if (response.data.indexOf("(Blank)") >= 0)
                     _this.filter.masterFileNum.hasBlanks = true;
+            }, function errorCallback(response) {
+                console.log("error", response);
+                if (response.status == 403) {
+                    _this.showNotif("ERROR: You are not authorized. You'll be redirected in 5 secs.", 3000, true);
+                    _this.$timeout(function () {
+                        window.location.href = "/";
+                    }, 5000);
+                }
+                else {
+                    _this.showNotif("ERROR: Something went wrong. Please try again later.", 3000, true);
+                }
+            });
+        }, 100);
+        this.$timeout(function () {
+            _this.$http({
+                method: "GET",
+                url: "/ugc_serv/data/paid/college/"
+            }).then(function successCallback(response) {
+                _this.filter.college.every = response.data;
+                if (response.data.indexOf("(Blank)") >= 0)
+                    _this.filter.college.hasBlanks = true;
             }, function errorCallback(response) {
                 console.log("error", response);
                 if (response.status == 403) {
@@ -162,6 +191,13 @@ var PaidCtrl = (function () {
     };
     PaidCtrl.prototype.querySearchMasterFileNum = function (query) {
         var results = query ? this.filter.masterFileNum.every.filter(createFilterFor(query)) : [];
+        return results;
+    };
+    PaidCtrl.prototype.transformCollegeChip = function (chip) {
+        chip
+    };
+    PaidCtrl.prototype.querySearcCollege = function (query) {
+        var results = query ? this.filter.college.every.filter(createFilterFor(query)) : [];
         return results;
     };
 
