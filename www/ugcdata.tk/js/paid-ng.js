@@ -63,6 +63,14 @@ var PaidCtrl = (function () {
                 every: null,
                 hasBlanks: false,
                 includeBlanks: false
+            },
+            sub_scheme: {
+                selected: [],
+                selectedItem: null,
+                search: "",
+                every: null,
+                hasBlanks: false,
+                includeBlanks: false
             }
         };
 
@@ -214,6 +222,25 @@ var PaidCtrl = (function () {
                 }
             });
         }, 100);
+        this.$timeout(function () {
+            _this.$http({
+                method: "GET",
+                url: "/ugc_serv/data/paid/subscheme/"
+            }).then(function successCallback(response) {
+                _this.filter.sub_scheme.every = response.data;
+            }, function errorCallback(response) {
+                console.log("error", response);
+                if (response.status == 403) {
+                    _this.showNotif("You are not authorized. You'll be redirected in 5 secs.", 3000, true);
+                    _this.$timeout(function () {
+                        window.location.href = "/";
+                    }, 5000);
+                }
+                else {
+                    _this.showNotif("Something went wrong. Please try again later.", 3000, true);
+                }
+            });
+        }, 100);
     }
 
     PaidCtrl.prototype.showNotif = function (message, timeout = 3000, errorToast = false) {
@@ -324,6 +351,13 @@ var PaidCtrl = (function () {
     };
     PaidCtrl.prototype.querySearchScheme = function (query) {
         var results = query ? this.filter.scheme.every.filter(createFilterObjFor(query)) : this.filter.scheme.every.filter(createFilterObjFor(''));
+        return results;
+    };
+    PaidCtrl.prototype.transformSubSchemeChip = function (chip) {
+        return chip.id
+    };
+    PaidCtrl.prototype.querySearchSubScheme = function (query) {
+        var results = query ? this.filter.sub_scheme.every.filter(createFilterObjFor(query)) : this.filter.sub_scheme.every.filter(createFilterObjFor(''));
         return results;
     };
 
