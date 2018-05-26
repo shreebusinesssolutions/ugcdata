@@ -55,6 +55,14 @@ var PaidCtrl = (function () {
                 scaleMax: null,
                 min: null,
                 max: null
+            },
+            scheme: {
+                selected: [],
+                selectedItem: null,
+                search: "",
+                every: null,
+                hasBlanks: false,
+                includeBlanks: false
             }
         };
 
@@ -174,6 +182,25 @@ var PaidCtrl = (function () {
                 _this.filter.uc.scaleMax = response.data.max;
                 _this.filter.uc.min = response.data.min;
                 _this.filter.uc.max = response.data.max;
+            }, function errorCallback(response) {
+                console.log("error", response);
+                if (response.status == 403) {
+                    _this.showNotif("You are not authorized. You'll be redirected in 5 secs.", 3000, true);
+                    _this.$timeout(function () {
+                        window.location.href = "/";
+                    }, 5000);
+                }
+                else {
+                    _this.showNotif("Something went wrong. Please try again later.", 3000, true);
+                }
+            });
+        }, 100);
+        this.$timeout(function () {
+            _this.$http({
+                method: "GET",
+                url: "/ugc_serv/data/paid/scheme/"
+            }).then(function successCallback(response) {
+                _this.filter.scheme.every = response.data;
             }, function errorCallback(response) {
                 console.log("error", response);
                 if (response.status == 403) {

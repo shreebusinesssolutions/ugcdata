@@ -267,43 +267,75 @@
                                         <legend>Paid</legend>
                                         <md-slider-container>
                                             <span>Min</span>
-                                            <md-slider flex ng-model="vm.filter.paid.min" min="{{vm.filter.paid.scaleMin}}" max="{{vm.filter.paid.max}}" aria-label="Paid Min" id="paid-min-slider">
+                                            <md-slider flex ng-model="vm.filter.paid.min" min="{{vm.filter.paid.scaleMin}}" max="{{vm.filter.paid.max}}" aria-label="Paid Min"
+                                                id="paid-min-slider">
                                             </md-slider>
                                             <md-input-container>
-                                                <input flex type="number" ng-model="vm.filter.paid.min" min="{{vm.filter.paid.scaleMin}}" max="{{vm.filter.paid.max}}" aria-label="Paid Min" aria-controls="paid-min-slider">
+                                                <input flex type="number" ng-model="vm.filter.paid.min" min="{{vm.filter.paid.scaleMin}}" max="{{vm.filter.paid.max}}" aria-label="Paid Min"
+                                                    aria-controls="paid-min-slider">
                                             </md-input-container>
                                         </md-slider-container>
                                         <md-slider-container>
                                             <span>Max</span>
-                                            <md-slider flex ng-model="vm.filter.paid.max" min="{{vm.filter.paid.min}}" max="{{vm.filter.paid.scaleMax}}" aria-label="Paid Max" id="paid-max-slider" class="md-accent">
+                                            <md-slider flex ng-model="vm.filter.paid.max" min="{{vm.filter.paid.min}}" max="{{vm.filter.paid.scaleMax}}" aria-label="Paid Max"
+                                                id="paid-max-slider" class="md-accent">
                                             </md-slider>
                                             <md-input-container>
-                                                <input flex type="number" ng-model="vm.filter.paid.max" min="{{vm.filter.paid.min}}" max="{{vm.filter.paid.scaleMax}}" aria-label="Paid Max" aria-controls="paid-max-slider">
+                                                <input flex type="number" ng-model="vm.filter.paid.max" min="{{vm.filter.paid.min}}" max="{{vm.filter.paid.scaleMax}}" aria-label="Paid Max"
+                                                    aria-controls="paid-max-slider">
                                             </md-input-container>
                                         </md-slider-container>
                                     </fieldset>
                                 </div>
                                 <div class="w3-col m3 w3-padding-small">
-                                        <fieldset class="primary">
-                                            <legend>UC</legend>
-                                            <md-slider-container>
-                                                <span>Min</span>
-                                                <md-slider flex ng-model="vm.filter.uc.min" min="{{vm.filter.uc.scaleMin}}" max="{{vm.filter.uc.max}}" aria-label="UC Min" id="uc-min-slider">
-                                                </md-slider>
-                                                <md-input-container>
-                                                    <input flex type="number" ng-model="vm.filter.uc.min" min="{{vm.filter.uc.scaleMin}}" max="{{vm.filter.uc.max}}" aria-label="UC Min" aria-controls="uc-min-slider">
-                                                </md-input-container>
-                                            </md-slider-container>
-                                            <md-slider-container>
-                                                <span>Max</span>
-                                                <md-slider flex ng-model="vm.filter.uc.max" min="{{vm.filter.uc.min}}" max="{{vm.filter.uc.scaleMax}}" aria-label="UC Max" id="uc-max-slider" class="md-accent">
-                                                </md-slider>
-                                                <md-input-container>
-                                                    <input flex type="number" ng-model="vm.filter.uc.max" min="{{vm.filter.uc.min}}" max="{{vm.filter.uc.scaleMax}}" aria-label="UC Max" aria-controls="uc-max-slider">
-                                                </md-input-container>
-                                            </md-slider-container>
-                                        </fieldset>
-                                    </div>
+                                    <fieldset class="primary">
+                                        <legend>UC</legend>
+                                        <md-slider-container>
+                                            <span>Min</span>
+                                            <md-slider flex ng-model="vm.filter.uc.min" min="{{vm.filter.uc.scaleMin}}" max="{{vm.filter.uc.max}}" aria-label="UC Min"
+                                                id="uc-min-slider">
+                                            </md-slider>
+                                            <md-input-container>
+                                                <input flex type="number" ng-model="vm.filter.uc.min" min="{{vm.filter.uc.scaleMin}}" max="{{vm.filter.uc.max}}" aria-label="UC Min"
+                                                    aria-controls="uc-min-slider">
+                                            </md-input-container>
+                                        </md-slider-container>
+                                        <md-slider-container>
+                                            <span>Max</span>
+                                            <md-slider flex ng-model="vm.filter.uc.max" min="{{vm.filter.uc.min}}" max="{{vm.filter.uc.scaleMax}}" aria-label="UC Max"
+                                                id="uc-max-slider" class="md-accent">
+                                            </md-slider>
+                                            <md-input-container>
+                                                <input flex type="number" ng-model="vm.filter.uc.max" min="{{vm.filter.uc.min}}" max="{{vm.filter.uc.scaleMax}}" aria-label="UC Max"
+                                                    aria-controls="uc-max-slider">
+                                            </md-input-container>
+                                        </md-slider-container>
+                                    </fieldset>
+                                </div>
+                            </div>
+                            <div class="w3-row">
+                                <div class="w3-col m5 w3-padding-small">
+                                    <fieldset class="primary">
+                                        <legend>Scheme</legend>
+                                        <md-chips ng-model="vm.filter.scheme.selected" md-autocomplete-snap md-transform-chip="vm.transformSchemeChip($chip)" md-require-match="true"
+                                            style="width: 100%;" md-on-add="vm.filterChanged('scheme')" md-on-remove="vm.filterChanged('scheme')">
+                                            <md-autocomplete md-selected-item="vm.filter.scheme.selectedItem" md-search-text="vm.filter.scheme.search" md-min-length="0"
+                                                md-items="scheme in vm.querySearchScheme(vm.filter.scheme.search)" md-item-text="scheme"
+                                                placeholder="Search Scheme">
+                                                <span class="w3-small" md-highlight-text="vm.filter.scheme.search">{{scheme}}</span>
+                                            </md-autocomplete>
+                                            <md-chip-template>
+                                                <span>
+                                                    {{$chip}}
+                                                </span>
+                                            </md-chip-template>
+                                        </md-chips>
+                                        <md-checkbox class="w3-margin-top" ng-model="vm.filter.scheme.includeBlanks" ng-disabled="!vm.filter.scheme.hasBlanks" aria-label="Include Blanks Scheme"
+                                            ng-change="vm.toggleBlanks('scheme')">
+                                            Include Blanks
+                                        </md-checkbox>
+                                    </fieldset>
+                                </div>
                             </div>
                         </div>
                     </md-content>
