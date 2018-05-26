@@ -6,6 +6,7 @@ var _getPaidCollege = require("../handler/getPaidCollege.handler");
 var _getPaidYear = require("../handler/getPaidYear.handler");
 var _getPaidPaid = require("../handler/getPaidPaid.handler");
 var _getPaidUC = require("../handler/getPaidUC.handler");
+var _getPaidScheme = require("../handler/getPaidScheme.handler");
 var logger = require("../function/logger.func");
 
 exports.route = function (method, pathname) {
@@ -25,6 +26,8 @@ exports.route = function (method, pathname) {
         return _getPaidPaid;
     else if (method == "GET" && /^\/data\/paid\/uc\//.test(pathname))
         return _getPaidUC;
+    else if (method == "GET" && /^\/data\/paid\/scheme\//.test(pathname))
+        return _getPaidScheme;
     else {
         logger.error(pathname + " (" + method + ") Not found.", { method: "router()" });
         return false;
