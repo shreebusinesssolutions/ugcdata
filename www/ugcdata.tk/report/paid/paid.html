@@ -239,6 +239,28 @@
                                         </md-checkbox>
                                     </fieldset>
                                 </div>
+                                <div class="w3-col m3 w3-padding-small">
+                                        <fieldset class="primary">
+                                            <legend>Year</legend>
+                                            <md-chips ng-model="vm.filter.year.selected" md-autocomplete-snap md-transform-chip="vm.transformYearChip($chip)"
+                                                md-require-match="true" style="width: 100%;" md-on-add="vm.filterChanged('year')"
+                                                md-on-remove="vm.filterChanged('year')">
+                                                <md-autocomplete md-selected-item="vm.filter.year.selectedItem" md-search-text="vm.filter.year.search" md-items="year in vm.querySearchYear(vm.filter.year.search)"
+                                                    md-item-text="year" placeholder="Search Year">
+                                                    <span class="w3-small" md-highlight-text="vm.filter.year.search">{{year}}</span>
+                                                </md-autocomplete>
+                                                <md-chip-template>
+                                                    <span>
+                                                        {{$chip}}
+                                                    </span>
+                                                </md-chip-template>
+                                            </md-chips>
+                                            <md-checkbox class="w3-margin-top" ng-model="vm.filter.year.includeBlanks" ng-disabled="!vm.filter.year.hasBlanks"
+                                                aria-label="Include Blanks Year" ng-change="vm.toggleBlanks('year')">
+                                                Include Blanks
+                                            </md-checkbox>
+                                        </fieldset>
+                                    </div>
                             </div>
                         </div>
                     </md-content>
