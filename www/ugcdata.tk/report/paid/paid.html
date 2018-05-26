@@ -145,9 +145,9 @@
                 <!-- md-dynamic-height md-border-bottom> -->
                 <md-tab label="View">
                     <md-content class="w3-white">
-                        <h1 class="w3-xlarge">View Report</h1>
+                        <h1 class="w3-xlarge w3-padding w3-margin-0">View Report</h1>
                         <div class="w3-theme-primary-l5">
-                            <h1 class="w3-large w3-padding">Filters&nbsp;
+                            <h1 class="w3-large w3-padding w3-margin-0">Filters&nbsp;
                                 <i class="fas fa-filter"></i>
                             </h1>
                             <div class="w3-row">
@@ -175,7 +175,7 @@
                                     </select>
                                     <md-chips ng-model="vm.filter.fileNum.selected" readonly="true" md-removable="true"></md-chips> -->
                                         <md-chips ng-model="vm.filter.fileNum.selected" md-autocomplete-snap md-transform-chip="vm.transformFileNumChip($chip)" md-require-match="true"
-                                            style="width: 100%;">
+                                            style="width: 100%;" md-on-add="vm.filterChanged('fileNum')" md-on-remove="vm.filterChanged('fileNum')">
                                             <md-autocomplete md-selected-item="vm.filter.fileNum.selectedItem" md-search-text="vm.filter.fileNum.search" md-items="fileNum in vm.querySearchFileNum(vm.filter.fileNum.search)"
                                                 md-item-text="fileNum" placeholder="Search File Number">
                                                 <span class="w3-small" md-highlight-text="vm.filter.fileNum.search">{{fileNum}}</span>
@@ -186,16 +186,19 @@
                                                 </span>
                                             </md-chip-template>
                                         </md-chips>
+                                        <md-checkbox class="w3-margin-top" ng-model="vm.filter.fileNum.includeBlanks" ng-disabled="!vm.filter.fileNum.hasBlanks" aria-label="Include Blanks Filenum" ng-change="vm.toggleBlanks('fileNum')">
+                                            Include Blanks
+                                        </md-checkbox>
                                     </fieldset>
                                 </div>
                                 <div class="w3-col s6 w3-padding-small">
                                     <fieldset class="primary">
                                         <legend>Master File Number</legend>
                                         <md-chips ng-model="vm.filter.masterFileNum.selected" md-autocomplete-snap md-transform-chip="vm.transformMasterFileNumChip($chip)"
-                                            md-require-match="true" style="width: 100%;">
+                                            md-require-match="true" style="width: 100%;" md-on-add="vm.filterChanged('masterFileNum')" md-on-remove="vm.filterChanged('masterFileNum')">
                                             <md-autocomplete md-selected-item="vm.filter.masterFileNum.selectedItem" md-search-text="vm.filter.masterFileNum.search"
                                                 md-items="masterFileNum in vm.querySearchMasterFileNum(vm.filter.masterFileNum.search)"
-                                                md-item-text="masterFileNum" placeholder="Search File Number">
+                                                md-item-text="masterFileNum" placeholder="Search Master File Number">
                                                 <span class="w3-small" md-highlight-text="vm.filter.masterFileNum.search">{{masterFileNum}}</span>
                                             </md-autocomplete>
                                             <md-chip-template>
@@ -204,6 +207,9 @@
                                                 </span>
                                             </md-chip-template>
                                         </md-chips>
+                                        <md-checkbox class="w3-margin-top" ng-model="vm.filter.masterFileNum.includeBlanks" ng-disabled="!vm.filter.masterFileNum.hasBlanks" aria-label="Include Blanks Masterfilenum" ng-change="vm.toggleBlanks('masterFileNum')">
+                                            Include Blanks
+                                        </md-checkbox>
                                     </fieldset>
                                 </div>
                             </div>

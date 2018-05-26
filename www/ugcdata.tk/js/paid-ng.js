@@ -16,15 +16,17 @@ var PaidCtrl = (function () {
                 selected: [],
                 selectedItem: null,
                 search: "",
-                every: null
-            }
-        };
-        this.filter = {
+                every: null,
+                hasBlanks: false,
+                includeBlanks: false
+            },
             masterFileNum: {
                 selected: [],
                 selectedItem: null,
                 search: "",
-                every: null
+                every: null,
+                hasBlanks: false,
+                includeBlanks: false
             }
         };
 
@@ -35,18 +37,40 @@ var PaidCtrl = (function () {
                 url: "/ugc_serv/data/paid/filenum/"
             }).then(function successCallback(response) {
                 _this.filter.fileNum.every = response.data;
+                if (response.data.indexOf("(Blank)") >= 0)
+                    _this.filter.fileNum.hasBlanks = true;
             }, function errorCallback(response) {
                 console.log("error", response);
+                if (response.status == 403) {
+                    _this.showNotif("ERROR: You are not authorized. You'll be redirected in 5 secs.", 3000, true);
+                    _this.$timeout(function () {
+                        window.location.href = "/";
+                    }, 5000);
+                }
+                else {
+                    _this.showNotif("ERROR: Something went wrong. Please try again later.", 3000, true);
+                }
             });
         }, 100);
         this.$timeout(function () {
             _this.$http({
                 method: "GET",
-                url: "/ugc_serv/data/paid/filenum/"
+                url: "/ugc_serv/data/paid/masterfilenum/"
             }).then(function successCallback(response) {
                 _this.filter.masterFileNum.every = response.data;
+                if (response.data.indexOf("(Blank)") >= 0)
+                    _this.filter.masterFileNum.hasBlanks = true;
             }, function errorCallback(response) {
                 console.log("error", response);
+                if (response.status == 403) {
+                    _this.showNotif("ERROR: You are not authorized. You'll be redirected in 5 secs.", 3000, true);
+                    _this.$timeout(function () {
+                        window.location.href = "/";
+                    }, 5000);
+                }
+                else {
+                    _this.showNotif("ERROR: Something went wrong. Please try again later.", 3000, true);
+                }
             });
         }, 100);
     }
@@ -93,9 +117,9 @@ var PaidCtrl = (function () {
     PaidCtrl.prototype.openMenu = function ($$mdMenu, $$event) {
         $$mdMenu.open($$event);
     };
-    PaidCtrl.prototype.clearSearchFileNumber = function () {
-        this.filter.fileNum.search = "";
-    };
+    // PaidCtrl.prototype.clearSearchFileNumber = function () {
+    //     this.filter.fileNum.search = "";
+    // };
     // PaidCtrl.prototype.loadFileNumbers = function () {
     //     var _this = this;
     //     return _this.$http({
@@ -107,6 +131,25 @@ var PaidCtrl = (function () {
     //         console.log("error", response);
     //     });
     // }
+    PaidCtrl.prototype.toggleBlanks = function (filter) {
+        var _this = this;
+        if (_this.filter[filter].hasBlanks) {
+            if (_this.filter[filter].includeBlanks)
+                _this.filter[filter].selected.push("(Blank)");
+            else
+                _this.filter[filter].selected.splice(_this.filter[filter].selected.indexOf("(Blank)"), 1);
+        }
+    };
+    PaidCtrl.prototype.filterChanged = function (filter) {
+        var _this = this;
+        if (_this.filter[filter].hasBlanks) {
+            console.log(_this.filter[filter].selected.indexOf("(Blank)"))
+            if (_this.filter[filter].selected.indexOf("(Blank)") >= 0)
+                _this.filter[filter].includeBlanks = true;
+            else
+                _this.filter[filter].includeBlanks = false;
+        }
+    };
     PaidCtrl.prototype.transformFileNumChip = function (chip) {
         chip
     };

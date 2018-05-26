@@ -5,8 +5,8 @@ const info = {
 Object.freeze(info);
 
 $(window).ready(function () {
-    var selectSearchbox = angular.element(document.getElementsByClassName("select-searchbox"));
-    selectSearchbox.on('keydown', function(ev) {
-        ev.stopPropagation();
-    })
+    // var selectSearchbox = angular.element(document.getElementsByClassName("select-searchbox"));
+    // selectSearchbox.on('keydown', function(ev) {
+    //     ev.stopPropagation();
+    // })
 });
