@@ -64,7 +64,7 @@ var PaidCtrl = (function () {
                 hasBlanks: false,
                 includeBlanks: false
             },
-            sub_scheme: {
+            subScheme: {
                 selected: [],
                 selectedItem: null,
                 search: "",
@@ -227,7 +227,7 @@ var PaidCtrl = (function () {
                 method: "GET",
                 url: "/ugc_serv/data/paid/subscheme/"
             }).then(function successCallback(response) {
-                _this.filter.sub_scheme.every = response.data;
+                _this.filter.subScheme.every = response.data;
             }, function errorCallback(response) {
                 console.log("error", response);
                 if (response.status == 403) {
@@ -357,7 +357,7 @@ var PaidCtrl = (function () {
         return chip.id
     };
     PaidCtrl.prototype.querySearchSubScheme = function (query) {
-        var results = query ? this.filter.sub_scheme.every.filter(createFilterObjFor(query)) : this.filter.sub_scheme.every.filter(createFilterObjFor(''));
+        var results = query ? this.filter.subScheme.every.filter(createFilterObjFor(query)) : this.filter.subScheme.every.filter(createFilterObjFor(''));
         return results;
     };
 
