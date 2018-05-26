@@ -151,7 +151,7 @@
                                 <i class="fas fa-filter"></i>
                             </h1>
                             <div class="w3-row">
-                                <div class="w3-col s6 w3-padding-small">
+                                <div class="w3-col m6 w3-padding-small">
                                     <fieldset class="primary">
                                         <legend>File Number</legend>
                                         <!-- <md-input-container style="width: 100%;">
@@ -186,16 +186,18 @@
                                                 </span>
                                             </md-chip-template>
                                         </md-chips>
-                                        <md-checkbox class="w3-margin-top" ng-model="vm.filter.fileNum.includeBlanks" ng-disabled="!vm.filter.fileNum.hasBlanks" aria-label="Include Blanks Filenum" ng-change="vm.toggleBlanks('fileNum')">
+                                        <md-checkbox class="w3-margin-top" ng-model="vm.filter.fileNum.includeBlanks" ng-disabled="!vm.filter.fileNum.hasBlanks"
+                                            aria-label="Include Blanks Filenum" ng-change="vm.toggleBlanks('fileNum')">
                                             Include Blanks
                                         </md-checkbox>
                                     </fieldset>
                                 </div>
-                                <div class="w3-col s6 w3-padding-small">
+                                <div class="w3-col m6 w3-padding-small">
                                     <fieldset class="primary">
                                         <legend>Master File Number</legend>
                                         <md-chips ng-model="vm.filter.masterFileNum.selected" md-autocomplete-snap md-transform-chip="vm.transformMasterFileNumChip($chip)"
-                                            md-require-match="true" style="width: 100%;" md-on-add="vm.filterChanged('masterFileNum')" md-on-remove="vm.filterChanged('masterFileNum')">
+                                            md-require-match="true" style="width: 100%;" md-on-add="vm.filterChanged('masterFileNum')"
+                                            md-on-remove="vm.filterChanged('masterFileNum')">
                                             <md-autocomplete md-selected-item="vm.filter.masterFileNum.selectedItem" md-search-text="vm.filter.masterFileNum.search"
                                                 md-items="masterFileNum in vm.querySearchMasterFileNum(vm.filter.masterFileNum.search)"
                                                 md-item-text="masterFileNum" placeholder="Search Master File Number">
@@ -207,7 +209,32 @@
                                                 </span>
                                             </md-chip-template>
                                         </md-chips>
-                                        <md-checkbox class="w3-margin-top" ng-model="vm.filter.masterFileNum.includeBlanks" ng-disabled="!vm.filter.masterFileNum.hasBlanks" aria-label="Include Blanks Masterfilenum" ng-change="vm.toggleBlanks('masterFileNum')">
+                                        <md-checkbox class="w3-margin-top" ng-model="vm.filter.masterFileNum.includeBlanks" ng-disabled="!vm.filter.masterFileNum.hasBlanks"
+                                            aria-label="Include Blanks Masterfilenum" ng-change="vm.toggleBlanks('masterFileNum')">
+                                            Include Blanks
+                                        </md-checkbox>
+                                    </fieldset>
+                                </div>
+                            </div>
+                            <div class="w3-row">
+                                <div class="w3-col m3 w3-padding-small">
+                                    <fieldset class="primary">
+                                        <legend>College ID</legend>
+                                        <md-chips ng-model="vm.filter.college.selected" md-autocomplete-snap md-transform-chip="vm.transformCollegeChip($chip)"
+                                            md-require-match="true" style="width: 100%;" md-on-add="vm.filterChanged('college')"
+                                            md-on-remove="vm.filterChanged('college')">
+                                            <md-autocomplete md-selected-item="vm.filter.college.selectedItem" md-search-text="vm.filter.college.search" md-items="college in vm.querySearchCollege(vm.filter.college.search)"
+                                                md-item-text="college" placeholder="Search College ID">
+                                                <span class="w3-small" md-highlight-text="vm.filter.college.search">{{college}}</span>
+                                            </md-autocomplete>
+                                            <md-chip-template>
+                                                <span>
+                                                    {{$chip}}
+                                                </span>
+                                            </md-chip-template>
+                                        </md-chips>
+                                        <md-checkbox class="w3-margin-top" ng-model="vm.filter.college.includeBlanks" ng-disabled="!vm.filter.college.hasBlanks"
+                                            aria-label="Include Blanks College" ng-change="vm.toggleBlanks('college')">
                                             Include Blanks
                                         </md-checkbox>
                                     </fieldset>
