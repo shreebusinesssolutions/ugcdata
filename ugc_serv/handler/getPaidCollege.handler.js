@@ -29,7 +29,7 @@ exports.handler = function (req, res, qpaths, qdata) {
                     }
                 }
                 else {
-                    var sql = "SELECT DISTINCT college_id FROM plan_11_12_paid ORDER BY college_id asc";
+                    var sql = "SELECT DISTINCT college_id FROM college ORDER BY college_id asc";
                     db_conn.query(sql, function (err, result, fields) {
                         if (err) {
                             logger.error(err);
