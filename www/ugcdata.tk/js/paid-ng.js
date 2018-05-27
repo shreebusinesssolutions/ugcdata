@@ -12,6 +12,7 @@ var PaidCtrl = (function () {
         this.mode = {};
 
         this.filter = {
+            use_or: false,
             fileNum: {
                 selected: [],
                 selectedItem: null,
@@ -82,6 +83,10 @@ var PaidCtrl = (function () {
             }
         };
 
+        this.report = {
+            totalCount: null
+        };
+
         var _this = this;
         this.$timeout(function () {
             _this.$http({
@@ -92,16 +97,7 @@ var PaidCtrl = (function () {
                 if (response.data.indexOf("(Blank)") >= 0)
                     _this.filter.fileNum.hasBlanks = true;
             }, function errorCallback(response) {
-                console.log("error", response);
-                if (response.status == 403) {
-                    _this.showNotif("ERROR: You are not authorized. You'll be redirected in 5 secs.", 3000, true);
-                    _this.$timeout(function () {
-                        window.location.href = "/";
-                    }, 5000);
-                }
-                else {
-                    _this.showNotif("ERROR: Something went wrong. Please try again later.", 3000, true);
-                }
+                _this.httpResponseError(response);
             });
         }, 100);
         this.$timeout(function () {
@@ -113,16 +109,7 @@ var PaidCtrl = (function () {
                 if (response.data.indexOf("(Blank)") >= 0)
                     _this.filter.masterFileNum.hasBlanks = true;
             }, function errorCallback(response) {
-                console.log("error", response);
-                if (response.status == 403) {
-                    _this.showNotif("You are not authorized. You'll be redirected in 5 secs.", 3000, true);
-                    _this.$timeout(function () {
-                        window.location.href = "/";
-                    }, 5000);
-                }
-                else {
-                    _this.showNotif("Something went wrong. Please try again later.", 3000, true);
-                }
+                _this.httpResponseError(response);
             });
         }, 100);
         this.$timeout(function () {
@@ -134,16 +121,7 @@ var PaidCtrl = (function () {
                 if (response.data.indexOf("(Blank)") >= 0)
                     _this.filter.college.hasBlanks = true;
             }, function errorCallback(response) {
-                console.log("error", response);
-                if (response.status == 403) {
-                    _this.showNotif("You are not authorized. You'll be redirected in 5 secs.", 3000, true);
-                    _this.$timeout(function () {
-                        window.location.href = "/";
-                    }, 5000);
-                }
-                else {
-                    _this.showNotif("Something went wrong. Please try again later.", 3000, true);
-                }
+                _this.httpResponseError(response);
             });
         }, 100);
         this.$timeout(function () {
@@ -155,16 +133,7 @@ var PaidCtrl = (function () {
                 if (response.data.indexOf("(Blank)") >= 0)
                     _this.filter.year.hasBlanks = true;
             }, function errorCallback(response) {
-                console.log("error", response);
-                if (response.status == 403) {
-                    _this.showNotif("You are not authorized. You'll be redirected in 5 secs.", 3000, true);
-                    _this.$timeout(function () {
-                        window.location.href = "/";
-                    }, 5000);
-                }
-                else {
-                    _this.showNotif("Something went wrong. Please try again later.", 3000, true);
-                }
+                _this.httpResponseError(response);
             });
         }, 100);
         this.$timeout(function () {
@@ -177,16 +146,7 @@ var PaidCtrl = (function () {
                 _this.filter.paid.min = response.data.min;
                 _this.filter.paid.max = response.data.max;
             }, function errorCallback(response) {
-                console.log("error", response);
-                if (response.status == 403) {
-                    _this.showNotif("You are not authorized. You'll be redirected in 5 secs.", 3000, true);
-                    _this.$timeout(function () {
-                        window.location.href = "/";
-                    }, 5000);
-                }
-                else {
-                    _this.showNotif("Something went wrong. Please try again later.", 3000, true);
-                }
+                _this.httpResponseError(response);
             });
         }, 100);
         this.$timeout(function () {
@@ -199,16 +159,7 @@ var PaidCtrl = (function () {
                 _this.filter.uc.min = response.data.min;
                 _this.filter.uc.max = response.data.max;
             }, function errorCallback(response) {
-                console.log("error", response);
-                if (response.status == 403) {
-                    _this.showNotif("You are not authorized. You'll be redirected in 5 secs.", 3000, true);
-                    _this.$timeout(function () {
-                        window.location.href = "/";
-                    }, 5000);
-                }
-                else {
-                    _this.showNotif("Something went wrong. Please try again later.", 3000, true);
-                }
+                _this.httpResponseError(response);
             });
         }, 100);
         this.$timeout(function () {
@@ -218,16 +169,7 @@ var PaidCtrl = (function () {
             }).then(function successCallback(response) {
                 _this.filter.scheme.every = response.data;
             }, function errorCallback(response) {
-                console.log("error", response);
-                if (response.status == 403) {
-                    _this.showNotif("You are not authorized. You'll be redirected in 5 secs.", 3000, true);
-                    _this.$timeout(function () {
-                        window.location.href = "/";
-                    }, 5000);
-                }
-                else {
-                    _this.showNotif("Something went wrong. Please try again later.", 3000, true);
-                }
+                _this.httpResponseError(response);
             });
         }, 100);
         this.$timeout(function () {
@@ -237,16 +179,7 @@ var PaidCtrl = (function () {
             }).then(function successCallback(response) {
                 _this.filter.subScheme.every = response.data;
             }, function errorCallback(response) {
-                console.log("error", response);
-                if (response.status == 403) {
-                    _this.showNotif("You are not authorized. You'll be redirected in 5 secs.", 3000, true);
-                    _this.$timeout(function () {
-                        window.location.href = "/";
-                    }, 5000);
-                }
-                else {
-                    _this.showNotif("Something went wrong. Please try again later.", 3000, true);
-                }
+                _this.httpResponseError(response);
             });
         }, 100);
         this.$timeout(function () {
@@ -258,16 +191,7 @@ var PaidCtrl = (function () {
                 if (response.data.indexOf("(Blank)") >= 0)
                     _this.filter.plan.hasBlanks = true;
             }, function errorCallback(response) {
-                console.log("error", response);
-                if (response.status == 403) {
-                    _this.showNotif("You are not authorized. You'll be redirected in 5 secs.", 3000, true);
-                    _this.$timeout(function () {
-                        window.location.href = "/";
-                    }, 5000);
-                }
-                else {
-                    _this.showNotif("Something went wrong. Please try again later.", 3000, true);
-                }
+                _this.httpResponseError(response);
             });
         }, 100);
     }
@@ -396,7 +320,17 @@ var PaidCtrl = (function () {
         var results = query ? this.filter.plan.every.filter(createFilterFor(query)) : this.filter.plan.every.filter(createFilterFor(''));
         return results;
     };
-
+    PaidCtrl.prototype.getReport = function () {
+        var _this = this;
+        _this.$http({
+            method: "GET",
+            url: "/ugc_serv/report/paid/count"
+        }).then(function successCallback(response) {
+            _this.report.totalCount = response.data;
+        }, function errorCallback(response) {
+            _this.httpResponseError(response);
+        });
+    };
 
     function createFilterFor(query) {
         var lowercaseQuery = angular.lowercase(query);
@@ -414,6 +348,19 @@ var PaidCtrl = (function () {
         };
     }
 
+    PaidCtrl.prototype.httpResponseError = function(response) {
+        var _this = this;
+        console.log("error", response);
+        if (response.status == 403) {
+            _this.showNotif("You are not authorized. You'll be redirected in 5 secs.", 3000, true);
+            _this.$timeout(function () {
+                window.location.href = "/";
+            }, 5000);
+        }
+        else {
+            _this.showNotif("Something went wrong. Please try again later.", 3000, true);
+        }
+    }
     PaidCtrl.$inject = [
         '$scope',
         '$mdDialog',
