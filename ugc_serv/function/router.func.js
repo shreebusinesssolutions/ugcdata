@@ -9,7 +9,7 @@ var _getPaidUC = require("../handler/getPaidUC.handler");
 var _getPaidScheme = require("../handler/getPaidScheme.handler");
 var _getPaidSubScheme = require("../handler/getPaidSubScheme.handler");
 var _getPaidPlan = require("../handler/getPaidPlan.handler");
-var _getPaidReportCount = require("../handler/getPaidReportCount.handler");
+var _getPaidReportCount = require("../handler/getReportPaidCount.handler");
 
 var logger = require("../function/logger.func");
 
