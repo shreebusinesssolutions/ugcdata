@@ -317,6 +317,7 @@ var PaidCtrl = (function () {
         return results;
     };
     PaidCtrl.prototype.getReport = function () {
+        var _this = this;
         var dataurl = "/ugc_serv/report/paid/?use_or=" + decodeURI(_this.filter.use_or)
             + "&fileNum=" + decodeURI(_this.filter.fileNum.selected.join(";,;"))
             + "&masterFileNum=" + decodeURI(_this.filter.masterFileNum.selected.join(";,;"))
@@ -327,7 +328,6 @@ var PaidCtrl = (function () {
             + "&scheme=" + decodeURI(_this.filter.scheme.selected.join(";,;"))
             + "&subScheme=" + decodeURI(_this.filter.subScheme.selected.join(";,;"))
             + "&plan=" + decodeURI(_this.filter.plan.selected.join(";,;"));
-        var _this = this;
         // _this.$http({
         //     method: "GET",
         //     url: "/ugc_serv/report/paid/?use_or=" + decodeURI(_this.filter.use_or)
@@ -345,7 +345,10 @@ var PaidCtrl = (function () {
         // }, function errorCallback(response) {
         //     _this.httpResponseError(response);
         // });
-        $('#dataTable').DataTable({
+        // if ( $.fn.dataTable.isDataTable( '#dataTable' ) ) {
+        //     dataTable.destroy();
+        dataTable = $('#dataTable').DataTable({
+            "destroy": true,
             "ajax": dataurl,
             "deferRender": true
         });
