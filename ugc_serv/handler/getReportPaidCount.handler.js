@@ -6,7 +6,12 @@ exports.handler = function (req, res, qpaths, qdata) {
     var sanitizeJson = require("../function/sanitizeJson.func");
     var bearer = require("../function/bearer.func");
 
-    console.log(qdata);
+    for(var key in qdata) {
+        qdata[key] = qdata[key].split(";,;");
+        console.log(key, qdata[key])
+    }
+    console.log("hi");
+    console.log(qdata.use_or, qdata);
     bearer.getToken(req, function (err, token) {
         if (err) {
             logger.error(err);
