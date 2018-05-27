@@ -162,7 +162,7 @@ exports.handler = function (req, res, qpaths, qdata) {
                             // var responseObj = [];
                             // for (var i = 0; i < result.length; i++)
                             //     responseObj.push(result[i].year ? result[i].year : "(Blank)");
-                            res.write(result[0].count);
+                            res.write("" + result[0].count);
                             res.statusCode = 200;
                             res.statusMessage = "OK";
                             res.end();
