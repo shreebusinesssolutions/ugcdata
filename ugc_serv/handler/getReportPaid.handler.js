@@ -174,7 +174,9 @@ exports.handler = function (req, res, qpaths, qdata) {
                                     result[i].plan_files
                                 ]);
                             }
-                            res.write(JSON.stringify(responseObj));
+                            res.write(JSON.stringify({
+                                data: responseObj
+                            }));
                             res.statusCode = 200;
                             res.statusMessage = "OK";
                             res.end();
