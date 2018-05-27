@@ -83,10 +83,6 @@ var PaidCtrl = (function () {
             }
         };
 
-        this.report = {
-            totalCount: null
-        };
-
         var _this = this;
         this.$timeout(function () {
             _this.$http({
@@ -321,23 +317,37 @@ var PaidCtrl = (function () {
         return results;
     };
     PaidCtrl.prototype.getReport = function () {
+        var dataurl = "/ugc_serv/report/paid/?use_or=" + decodeURI(_this.filter.use_or)
+            + "&fileNum=" + decodeURI(_this.filter.fileNum.selected.join(";,;"))
+            + "&masterFileNum=" + decodeURI(_this.filter.masterFileNum.selected.join(";,;"))
+            + "&collegeId=" + decodeURI(_this.filter.college.selected.join(";,;"))
+            + "&year=" + decodeURI(_this.filter.year.selected.join(";,;"))
+            + "&paid=" + decodeURI(_this.filter.paid.min) + ";,;" + decodeURI(_this.filter.paid.max)
+            + "&uc=" + decodeURI(_this.filter.uc.min) + ";,;" + decodeURI(_this.filter.uc.max)
+            + "&scheme=" + decodeURI(_this.filter.scheme.selected.join(";,;"))
+            + "&subScheme=" + decodeURI(_this.filter.subScheme.selected.join(";,;"))
+            + "&plan=" + decodeURI(_this.filter.plan.selected.join(";,;"));
         var _this = this;
-        _this.$http({
-            method: "GET",
-            url: "/ugc_serv/report/paid/count/?use_or=" + decodeURI(_this.filter.use_or)
-                + "&fileNum=" + decodeURI(_this.filter.fileNum.selected.join(";,;"))
-                + "&masterFileNum=" + decodeURI(_this.filter.masterFileNum.selected.join(";,;"))
-                + "&collegeId=" + decodeURI(_this.filter.college.selected.join(";,;"))
-                + "&year=" + decodeURI(_this.filter.year.selected.join(";,;"))
-                + "&paid=" + decodeURI(_this.filter.paid.min) + ";,;" + decodeURI(_this.filter.paid.max)
-                + "&uc=" + decodeURI(_this.filter.uc.min) + ";,;" + decodeURI(_this.filter.uc.max)
-                + "&scheme=" + decodeURI(_this.filter.scheme.selected.join(";,;"))
-                + "&subScheme=" + decodeURI(_this.filter.subScheme.selected.join(";,;"))
-                + "&plan=" + decodeURI(_this.filter.plan.selected.join(";,;"))
-        }).then(function successCallback(response) {
-            _this.report.totalCount = response.data;
-        }, function errorCallback(response) {
-            _this.httpResponseError(response);
+        // _this.$http({
+        //     method: "GET",
+        //     url: "/ugc_serv/report/paid/?use_or=" + decodeURI(_this.filter.use_or)
+        //         + "&fileNum=" + decodeURI(_this.filter.fileNum.selected.join(";,;"))
+        //         + "&masterFileNum=" + decodeURI(_this.filter.masterFileNum.selected.join(";,;"))
+        //         + "&collegeId=" + decodeURI(_this.filter.college.selected.join(";,;"))
+        //         + "&year=" + decodeURI(_this.filter.year.selected.join(";,;"))
+        //         + "&paid=" + decodeURI(_this.filter.paid.min) + ";,;" + decodeURI(_this.filter.paid.max)
+        //         + "&uc=" + decodeURI(_this.filter.uc.min) + ";,;" + decodeURI(_this.filter.uc.max)
+        //         + "&scheme=" + decodeURI(_this.filter.scheme.selected.join(";,;"))
+        //         + "&subScheme=" + decodeURI(_this.filter.subScheme.selected.join(";,;"))
+        //         + "&plan=" + decodeURI(_this.filter.plan.selected.join(";,;"))
+        // }).then(function successCallback(response) {
+        //     _this.reportData = response.data;
+        // }, function errorCallback(response) {
+        //     _this.httpResponseError(response);
+        // });
+        $('#dataTable').DataTable({
+            "ajax": dataurl,
+            "deferRender": true
         });
     };
 

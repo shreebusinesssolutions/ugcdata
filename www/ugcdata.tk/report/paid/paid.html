@@ -51,6 +51,12 @@
     <!-- Hamburger -->
     <link rel="stylesheet" href="/vendor/hamburger/hamburger.css" />
 
+    <!-- Data Tables -->
+    <link rel="stylesheet" href="/vendor/datatables/Bootstrap-4-4.0.0/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/vendor/datatables/datatables.min.css" />
+    <script src="/vendor/datatables/Bootstrap-4-4.0.0/js/bootstrap.min.js"></script>
+    <script src="/vendor/datatables/datatables.min.js"></script>
+    
     <!-- Custom CSS -->
     <link rel="stylesheet" href="/css/global.css" />
     <link rel="stylesheet" href="/css/paid.css" />
@@ -157,7 +163,7 @@
                             <div id="filter_section" class="w3-hide">
                                 <md-checkbox class="w3-padding w3-margin-left" ng-model="vm.filter.use_or" aria-label="Use OR Filter">
                                     Use OR filter
-                                    <i>(Default: AND, Currently Used: {{vm.filter.use_or?"OR":"AND"}})
+                                    <i>(Default: AND, Currently Used: {{vm.filter.use_or?"OR":"AND"}})</i>
                                 </md-checkbox>
                                 <div class="w3-row">
                                     <div class="w3-col m6 w3-padding-small">
@@ -398,6 +404,36 @@
                                 Get Report&nbsp;
                                 <i class="fas fa-chevron-right"></i>
                             </md-button>
+                            <table id="dataTable" class="display" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>entry_num</th>
+                                        <th>file_num</th>
+                                        <th>master_file_num</th>
+                                        <th>college_id</th>
+                                        <th>year</th>
+                                        <th>paid</th>
+                                        <th>uc</th>
+                                        <th>scheme_id</th>
+                                        <th>subscheme_id</th>
+                                        <th>plan_files</th>
+                                    </tr>
+                                </thead>
+                                <tfoot>
+                                    <tr>
+                                        <th>entry_num</th>
+                                        <th>file_num</th>
+                                        <th>master_file_num</th>
+                                        <th>college_id</th>
+                                        <th>year</th>
+                                        <th>paid</th>
+                                        <th>uc</th>
+                                        <th>scheme_id</th>
+                                        <th>subscheme_id</th>
+                                        <th>plan_files</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
                         </div>
                     </md-content>
                 </md-tab>
