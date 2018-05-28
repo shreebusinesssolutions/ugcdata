@@ -83,6 +83,16 @@ var PaidCtrl = (function () {
             }
         };
 
+        this.reportData = {
+            totalCount: null,
+            maxChunkSize: 1000,
+            limit: {
+                min: null,
+                max: null
+            },
+            data: []
+        };
+
         var _this = this;
         this.$timeout(function () {
             _this.$http({
@@ -231,6 +241,33 @@ var PaidCtrl = (function () {
             }, 50);
         }
     };
+    PaidCtrl.prototype.showAlert = function (title, content, okText = "OK", confirmCallback = function () { }) {
+        var _this = this;
+        var alert = _this.$mdDialog.alert({
+            title: title,
+            textContent: content,
+            ok: okText,
+            ariaLabel: "Alert Dialog",
+        });
+        _this.$mdDialog.show(alert).then(function () {
+            confirmCallback();
+        })
+    };
+    PaidCtrl.prototype.showConfirm = function (title, content, okText = "OK", cancelText = "Cancel", confirmCallback = function () { }, cancelCallback = function () { }) {
+        var _this = this;
+        var confirm = _this.$mdDialog.confirm({
+            title: title,
+            textContent: content,
+            ariaLabel: "Confirm Dialog",
+            ok: okText,
+            cancel: cancelText
+        });
+        _this.$mdDialog.show(confirm).then(function () {
+            confirmCallback();
+        }, function () {
+            cancelCallback();
+        });
+    };
     PaidCtrl.prototype.openMenu = function ($$mdMenu, $$event) {
         $$mdMenu.open($$event);
     };
@@ -260,7 +297,6 @@ var PaidCtrl = (function () {
     PaidCtrl.prototype.filterChanged = function (filter) {
         var _this = this;
         if (_this.filter[filter].hasBlanks) {
-            console.log(_this.filter[filter].selected.indexOf("(Blank)"))
             if (_this.filter[filter].selected.indexOf("(Blank)") >= 0)
                 _this.filter[filter].includeBlanks = true;
             else
@@ -316,41 +352,93 @@ var PaidCtrl = (function () {
         var results = query ? this.filter.plan.every.filter(createFilterFor(query)) : this.filter.plan.every.filter(createFilterFor(''));
         return results;
     };
-    PaidCtrl.prototype.getReport = function () {
+    PaidCtrl.prototype.getReport = function (min, max) {
         var _this = this;
-        var dataurl = "/ugc_serv/report/paid/?use_or=" + decodeURI(_this.filter.use_or)
-            + "&fileNum=" + decodeURI(_this.filter.fileNum.selected.join(";,;"))
-            + "&masterFileNum=" + decodeURI(_this.filter.masterFileNum.selected.join(";,;"))
-            + "&collegeId=" + decodeURI(_this.filter.college.selected.join(";,;"))
-            + "&year=" + decodeURI(_this.filter.year.selected.join(";,;"))
-            + "&paid=" + decodeURI(_this.filter.paid.min) + ";,;" + decodeURI(_this.filter.paid.max)
-            + "&uc=" + decodeURI(_this.filter.uc.min) + ";,;" + decodeURI(_this.filter.uc.max)
-            + "&scheme=" + decodeURI(_this.filter.scheme.selected.join(";,;"))
-            + "&subScheme=" + decodeURI(_this.filter.subScheme.selected.join(";,;"))
-            + "&plan=" + decodeURI(_this.filter.plan.selected.join(";,;"));
-        // _this.$http({
-        //     method: "GET",
-        //     url: "/ugc_serv/report/paid/?use_or=" + decodeURI(_this.filter.use_or)
-        //         + "&fileNum=" + decodeURI(_this.filter.fileNum.selected.join(";,;"))
-        //         + "&masterFileNum=" + decodeURI(_this.filter.masterFileNum.selected.join(";,;"))
-        //         + "&collegeId=" + decodeURI(_this.filter.college.selected.join(";,;"))
-        //         + "&year=" + decodeURI(_this.filter.year.selected.join(";,;"))
-        //         + "&paid=" + decodeURI(_this.filter.paid.min) + ";,;" + decodeURI(_this.filter.paid.max)
-        //         + "&uc=" + decodeURI(_this.filter.uc.min) + ";,;" + decodeURI(_this.filter.uc.max)
-        //         + "&scheme=" + decodeURI(_this.filter.scheme.selected.join(";,;"))
-        //         + "&subScheme=" + decodeURI(_this.filter.subScheme.selected.join(";,;"))
-        //         + "&plan=" + decodeURI(_this.filter.plan.selected.join(";,;"))
-        // }).then(function successCallback(response) {
-        //     _this.reportData = response.data;
-        // }, function errorCallback(response) {
-        //     _this.httpResponseError(response);
-        // });
-        // if ( $.fn.dataTable.isDataTable( '#dataTable' ) ) {
-        //     dataTable.destroy();
-        dataTable = $('#dataTable').DataTable({
-            "destroy": true,
-            "ajax": dataurl,
-            "deferRender": true
+        _this.$http({
+            method: "GET",
+            url: "/ugc_serv/report/paid/count/?use_or=" + decodeURI(_this.filter.use_or)
+                + "&fileNum=" + decodeURI(_this.filter.fileNum.selected.join(";,;"))
+                + "&masterFileNum=" + decodeURI(_this.filter.masterFileNum.selected.join(";,;"))
+                + "&collegeId=" + decodeURI(_this.filter.college.selected.join(";,;"))
+                + "&year=" + decodeURI(_this.filter.year.selected.join(";,;"))
+                + "&paid=" + decodeURI(_this.filter.paid.min) + ";,;" + decodeURI(_this.filter.paid.max)
+                + "&uc=" + decodeURI(_this.filter.uc.min) + ";,;" + decodeURI(_this.filter.uc.max)
+                + "&scheme=" + decodeURI(_this.filter.scheme.selected.join(";,;"))
+                + "&subScheme=" + decodeURI(_this.filter.subScheme.selected.join(";,;"))
+                + "&plan=" + decodeURI(_this.filter.plan.selected.join(";,;"))
+        }).then(function successCallback(response) {
+            _this.reportData.totalCount = response.data;
+            _this.reportData.limit.min = 0;
+            _this.reportData.limit.max = _this.reportData.maxChunkSize;
+            if (_this.reportData.totalCount > _this.reportData.maxChunkSize) {
+                _this.showConfirm(
+                    "Too much data.",
+                    "The data you tried to fetch has " + _this.reportData.totalCount + " entries. Try to modify your filter to produce more sharp results or the data will be fetched in chunks of " + _this.reportData.maxChunkSize + ". Proceed?",
+                    "Yes (fetch data in chunks)",
+                    "No (Modify filter)",
+                    function () {
+                        _this.$http({
+                            method: "GET",
+                            url: "/ugc_serv/report/paid/?use_or=" + decodeURI(_this.filter.use_or)
+                                + "&fileNum=" + decodeURI(_this.filter.fileNum.selected.join(";,;"))
+                                + "&masterFileNum=" + decodeURI(_this.filter.masterFileNum.selected.join(";,;"))
+                                + "&collegeId=" + decodeURI(_this.filter.college.selected.join(";,;"))
+                                + "&year=" + decodeURI(_this.filter.year.selected.join(";,;"))
+                                + "&paid=" + decodeURI(_this.filter.paid.min) + ";,;" + decodeURI(_this.filter.paid.max)
+                                + "&uc=" + decodeURI(_this.filter.uc.min) + ";,;" + decodeURI(_this.filter.uc.max)
+                                + "&scheme=" + decodeURI(_this.filter.scheme.selected.join(";,;"))
+                                + "&subScheme=" + decodeURI(_this.filter.subScheme.selected.join(";,;"))
+                                + "&plan=" + decodeURI(_this.filter.plan.selected.join(";,;"))
+                                + "&limit=" + _this.reportData.limit.min + ";,;" + _this.reportData.limit.max
+                        }).then(function successCallback(response) {
+                            dataTable = $('#dataTable').DataTable({
+                                "deferRender": true,
+                                "lengthMenu": [50],
+                                "destroy": true,
+                            });
+                            for (var i = 0; i < response.data.data.length; i++) {
+                                dataTable.row.add(response.data.data[i]).draw(false);
+                            }
+                        }, function errorCallback(response) {
+                            _this.httpResponseError(response);
+                        });
+                    },
+                    function () {
+                        if (document.getElementById("filter").classList.contains("w3-hide"))
+                            toggleAccordian("filter", "filter_section");
+                    }
+                );
+            }
+            else {
+                _this.$http({
+                    method: "GET",
+                    url: "/ugc_serv/report/paid/?use_or=" + decodeURI(_this.filter.use_or)
+                        + "&fileNum=" + decodeURI(_this.filter.fileNum.selected.join(";,;"))
+                        + "&masterFileNum=" + decodeURI(_this.filter.masterFileNum.selected.join(";,;"))
+                        + "&collegeId=" + decodeURI(_this.filter.college.selected.join(";,;"))
+                        + "&year=" + decodeURI(_this.filter.year.selected.join(";,;"))
+                        + "&paid=" + decodeURI(_this.filter.paid.min) + ";,;" + decodeURI(_this.filter.paid.max)
+                        + "&uc=" + decodeURI(_this.filter.uc.min) + ";,;" + decodeURI(_this.filter.uc.max)
+                        + "&scheme=" + decodeURI(_this.filter.scheme.selected.join(";,;"))
+                        + "&subScheme=" + decodeURI(_this.filter.subScheme.selected.join(";,;"))
+                        + "&plan=" + decodeURI(_this.filter.plan.selected.join(";,;"))
+                        + "&limit=" + _this.reportData.limit.min + ";,;" + _this.reportData.limit.max
+                }).then(function successCallback(response) {
+                    dataTable = $('#dataTable').DataTable({
+                        "deferRender": true,
+                        "lengthMenu": [50],
+                        "destroy": true,
+                    });
+                    for (var i = 0; i < response.data.data.length; i++) {
+                        dataTable.row.add(response.data.data[i]).draw(false);
+                    }
+                }, function errorCallback(response) {
+                    _this.httpResponseError(response);
+                });
+            }
+
+        }, function errorCallback(response) {
+            _this.httpResponseError(response);
         });
     };
 

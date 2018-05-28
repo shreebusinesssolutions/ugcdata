@@ -56,7 +56,7 @@
     <link rel="stylesheet" href="/vendor/datatables/datatables.min.css" />
     <script src="/vendor/datatables/Bootstrap-4-4.0.0/js/bootstrap.min.js"></script>
     <script src="/vendor/datatables/datatables.min.js"></script>
-    
+
     <!-- Custom CSS -->
     <link rel="stylesheet" href="/css/global.css" />
     <link rel="stylesheet" href="/css/paid.css" />
@@ -167,7 +167,7 @@
                                 </md-checkbox>
                                 <div class="w3-row">
                                     <div class="w3-col m6 w3-padding-small">
-                                        <fieldset class="primary">
+                                        <fieldset class="primary w3-padding-small">
                                             <legend>File Number</legend>
                                             <!-- <md-input-container style="width: 100%;">
                                         <label>File Number</label>
@@ -209,7 +209,7 @@
                                         </fieldset>
                                     </div>
                                     <div class="w3-col m6 w3-padding-small">
-                                        <fieldset class="primary">
+                                        <fieldset class="primary w3-padding-small">
                                             <legend>Master File Number</legend>
                                             <md-chips ng-model="vm.filter.masterFileNum.selected" md-autocomplete-snap md-transform-chip="vm.transformMasterFileNumChip($chip)"
                                                 md-require-match="true" style="width: 100%;" md-on-add="vm.filterChanged('masterFileNum')"
@@ -234,7 +234,7 @@
                                 </div>
                                 <div class="w3-row">
                                     <div class="w3-col m3 w3-padding-small">
-                                        <fieldset class="primary">
+                                        <fieldset class="primary w3-padding-small">
                                             <legend>College ID</legend>
                                             <md-chips ng-model="vm.filter.college.selected" md-autocomplete-snap md-transform-chip="vm.transformCollegeChip($chip)" md-require-match="true"
                                                 style="width: 100%;" md-on-add="vm.filterChanged('college')" md-on-remove="vm.filterChanged('college')">
@@ -256,7 +256,7 @@
                                         </fieldset>
                                     </div>
                                     <div class="w3-col m3 w3-padding-small">
-                                        <fieldset class="primary">
+                                        <fieldset class="primary w3-padding-small">
                                             <legend>Year</legend>
                                             <md-chips ng-model="vm.filter.year.selected" md-autocomplete-snap md-transform-chip="vm.transformYearChip($chip)" md-require-match="true"
                                                 style="width: 100%;" md-on-add="vm.filterChanged('year')" md-on-remove="vm.filterChanged('year')">
@@ -278,7 +278,7 @@
                                         </fieldset>
                                     </div>
                                     <div class="w3-col m3 w3-padding-small">
-                                        <fieldset class="primary">
+                                        <fieldset class="primary w3-padding-small">
                                             <legend>Paid</legend>
                                             <md-slider-container>
                                                 <span>Min</span>
@@ -303,7 +303,7 @@
                                         </fieldset>
                                     </div>
                                     <div class="w3-col m3 w3-padding-small">
-                                        <fieldset class="primary">
+                                        <fieldset class="primary w3-padding-small">
                                             <legend>UC</legend>
                                             <md-slider-container>
                                                 <span>Min</span>
@@ -330,7 +330,7 @@
                                 </div>
                                 <div class="w3-row">
                                     <div class="w3-col m5 w3-padding-small">
-                                        <fieldset class="primary">
+                                        <fieldset class="primary w3-padding-small">
                                             <legend>Scheme</legend>
                                             <md-chips ng-model="vm.filter.scheme.selected" md-autocomplete-snap md-transform-chip="vm.transformSchemeChip($chip)" md-require-match="true"
                                                 style="width: 100%;" md-on-add="vm.filterChanged('scheme')" md-on-remove="vm.filterChanged('scheme')">
@@ -352,7 +352,7 @@
                                         </fieldset>
                                     </div>
                                     <div class="w3-col m4 w3-padding-small">
-                                        <fieldset class="primary">
+                                        <fieldset class="primary w3-padding-small">
                                             <legend>Sub Scheme</legend>
                                             <md-chips ng-model="vm.filter.subScheme.selected" md-autocomplete-snap md-transform-chip="vm.transformSubSchemeChip($chip)"
                                                 md-require-match="true" style="width: 100%;" md-on-add="vm.filterChanged('subScheme')"
@@ -375,7 +375,7 @@
                                         </fieldset>
                                     </div>
                                     <div class="w3-col m3 w3-padding-small">
-                                        <fieldset class="primary">
+                                        <fieldset class="primary w3-padding-small">
                                             <legend>Plan File</legend>
                                             <md-chips ng-model="vm.filter.plan.selected" md-autocomplete-snap md-transform-chip="vm.transformPlanChip($chip)" md-require-match="true"
                                                 style="width: 100%;" md-on-add="vm.filterChanged('plan')" md-on-remove="vm.filterChanged('plan')">
@@ -404,33 +404,34 @@
                                 Get Report&nbsp;
                                 <i class="fas fa-chevron-right"></i>
                             </md-button>
-                            <table id="dataTable" class="display" style="width:100%">
+                            <table id="dataTable" class="table table-striped table-bordered compact hover order-column" style="width:100%">
+                                <!--table table-striped table-bordered-->
                                 <thead>
                                     <tr>
-                                        <th>entry_num</th>
-                                        <th>file_num</th>
-                                        <th>master_file_num</th>
-                                        <th>college_id</th>
-                                        <th>year</th>
-                                        <th>paid</th>
-                                        <th>uc</th>
-                                        <th>scheme_id</th>
-                                        <th>subscheme_id</th>
-                                        <th>plan_files</th>
+                                        <th>Entry Num</th>
+                                        <th>File Num</th>
+                                        <th>Master File Num</th>
+                                        <th>College ID</th>
+                                        <th>Year</th>
+                                        <th>Paid</th>
+                                        <th>UC</th>
+                                        <th>Scheme ID</th>
+                                        <th>Sub-scheme ID</th>
+                                        <th>Plan Files</th>
                                     </tr>
                                 </thead>
                                 <tfoot>
                                     <tr>
-                                        <th>entry_num</th>
-                                        <th>file_num</th>
-                                        <th>master_file_num</th>
-                                        <th>college_id</th>
-                                        <th>year</th>
-                                        <th>paid</th>
-                                        <th>uc</th>
-                                        <th>scheme_id</th>
-                                        <th>subscheme_id</th>
-                                        <th>plan_files</th>
+                                        <th>Entry Num</th>
+                                        <th>File Num</th>
+                                        <th>Master File Num</th>
+                                        <th>College ID</th>
+                                        <th>Year</th>
+                                        <th>Paid</th>
+                                        <th>UC</th>
+                                        <th>Scheme ID</th>
+                                        <th>Sub-scheme ID</th>
+                                        <th>Plan Files</th>
                                     </tr>
                                 </tfoot>
                             </table>
