@@ -151,7 +151,9 @@ exports.handler = function (req, res, qpaths, qdata) {
                     else {
                         sub_query.push("(plan_files IS NULL OR plan_files IN (SELECT DISTINCT plan_files from plan_11_12_paid))")
                     }
-                    sql += sub_query.join(" " + concat + " ");
+                    sql += sub_query.join(" " + concat + " ") + " ";
+                    sql += "LIMIT " + qdata.limit[0] + ", " + qdata.limit[1]
+                    console.log(sql);
                     db_conn.query(sql, function (err, result, fields) {
                         if (err) {
                             logger.error(err);
