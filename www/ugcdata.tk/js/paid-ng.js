@@ -568,7 +568,7 @@ var PaidCtrl = (function () {
             if (response.data.data.length == 0)
                 _this.showAlert("No more data", "No more data to fetch.");
             for (var i = 0; i < response.data.data.length; i++) {
-                dataTable.row.add(response.data.data[i]).draw(false);
+                dtTable.row.add(response.data.data[i]).draw(false);
             }
             _this.mode.report.getting = false;
             _this.mode.report.loaded = true;
