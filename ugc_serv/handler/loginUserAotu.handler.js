@@ -5,7 +5,7 @@ exports.handler = function (req, res, qpaths, qdata) {
     var unique = require('uniqid');
     var moment = require('moment-timezone');
     var md5 = require('md5');
-    var useToken = require("../function/dba_func/tokenUsed.dba_func");
+    var tokeUsed = require("../function/dba_func/tokenUsed.dba_func");
     var sanitizeJson = require("../function/sanitizeJson.func");
 
     var reqBodyStr = '';
@@ -35,22 +35,29 @@ exports.handler = function (req, res, qpaths, qdata) {
                     var createdTime = moment(result[0].last_request_time);
                     var currTime = moment();
                     if (currTime.isSameOrBefore(moment(createdTime.add({
-                            minutes: result[0].timeout_mins
-                        }).format("YYYY-MM-DDTHH:mm:ss.SSSZZ")))) {
-                        useToken(reqBodyObj.token, function (err, result, fields) {
-                            var sql = "INSERT INTO login_log (username, login_token, using_token) VALUES ('" + reqBodyObj.username + "', '" + reqBodyObj.token + "', 1);";
-                            db_conn.query(sql, function (err, result, fields) {
-                                if (err) {
-                                    logger.error(err);
-                                    res.statusCode = 500;
-                                    res.statusMessage = "Internal Server Error";
-                                    res.end();
-                                } else {
-                                    res.statusCode = 200;
-                                    res.statusMessage = "OK";
-                                    res.end();
-                                }
-                            });
+                        minutes: result[0].timeout_mins
+                    }).format("YYYY-MM-DDTHH:mm:ss.SSSZZ")))) {
+                        tokeUsed(reqBodyObj.token, function (err) {
+                            if (err) {
+                                logger.error(err);
+                                res.statusCode = 500;
+                                res.statusMessage = "Internal Server Error";
+                                res.end();
+                            } else {
+                                var sql = "INSERT INTO login_log (username, login_token, using_token) VALUES ('" + reqBodyObj.username + "', '" + reqBodyObj.token + "', 1);";
+                                db_conn.query(sql, function (err, result, fields) {
+                                    if (err) {
+                                        logger.error(err);
+                                        res.statusCode = 500;
+                                        res.statusMessage = "Internal Server Error";
+                                        res.end();
+                                    } else {
+                                        res.statusCode = 200;
+                                        res.statusMessage = "OK";
+                                        res.end();
+                                    }
+                                });
+                            }
                         });
                     } else {
                         res.statusCode = 403;
