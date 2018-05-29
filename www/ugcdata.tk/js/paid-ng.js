@@ -9,7 +9,12 @@ var PaidCtrl = (function () {
         this.accent = 'red';
         this.white = 'white';
 
-        this.mode = {};
+        this.mode = {
+            report: {
+                getting: false,
+                loaded: false
+            }
+        };
 
         this.filter = {
             use_or: false,
@@ -354,6 +359,8 @@ var PaidCtrl = (function () {
     };
     PaidCtrl.prototype.getReport = function (min, max) {
         var _this = this;
+        _this.mode.report.getting = true;
+        _this.mode.report.loaded = false;
         _this.$http({
             method: "GET",
             url: "/ugc_serv/report/paid/count/?use_or=" + decodeURI(_this.filter.use_or)
@@ -391,25 +398,78 @@ var PaidCtrl = (function () {
                                 + "&plan=" + decodeURI(_this.filter.plan.selected.join(";,;"))
                                 + "&limit=" + _this.reportData.limit.min + ";,;" + _this.reportData.limit.max
                         }).then(function successCallback(response) {
-                            dataTable = $('#dataTable').DataTable({
-                                "deferRender": true,
-                                "lengthMenu": [50],
-                                "destroy": true,
-                            });
-                            for (var i = 0; i < response.data.data.length; i++) {
-                                dataTable.row.add(response.data.data[i]).draw(false);
+                            if ($.fn.dataTable.isDataTable('#dataTable')) {
+                                console.log("Destrying", dtTable);
+                                dtTable.destroy(true);
+                                document.getElementById("divDataTable").innerHTML = '<table id="dataTable" class="table table-striped table-bordered compact hover order-column" style="width:100%">\
+                                        <thead>\
+                                            <tr>\
+                                                <th>Entry Num</th>\
+                                                <th>File Num</th>\
+                                                <th>Master File Num</th>\
+                                                <th>College ID</th>\
+                                                <th>Year</th>\
+                                                <th>Paid</th>\
+                                                <th>UC</th>\
+                                                <th>Scheme ID</th>\
+                                                <th>Sub-scheme ID</th>\
+                                                <th>Plan Files</th>\
+                                            </tr>\
+                                        </thead>\
+                                        <tfoot>\
+                                            <tr>\
+                                                <th>Entry Num</th>\
+                                                <th>File Num</th>\
+                                                <th>Master File Num</th>\
+                                                <th>College ID</th>\
+                                                <th>Year</th>\
+                                                <th>Paid</th>\
+                                                <th>UC</th>\
+                                                <th>Scheme ID</th>\
+                                                <th>Sub-scheme ID</th>\
+                                                <th>Plan Files</th>\
+                                            </tr>\
+                                        </tfoot>\
+                                    </table>';
                             }
+                            _this.$timeout(function () {
+                                dtTable = $('#dataTable').DataTable({
+                                    "deferRender": true,
+                                    "lengthMenu": [50, 100],
+                                    "destroy": true
+                                });
+                                // var oSettings = $('.dataTable').dataTable().fnSettings();
+                                // var iTotalRecords = oSettings.fnRecordsTotal();
+                                // for (i = 0; i <= iTotalRecords; i++) {
+                                //     console.log(i);
+                                //     $('.dataTable').dataTable().fnDeleteRow(0, null, true);
+                                // }
+                                console.log(response.data.data.length);
+                                if (response.data.data.length == 0)
+                                    _this.showAlert("No more data", "No more data to fetch.");
+                                for (var i = 0; i < response.data.data.length; i++) {
+                                    dtTable.row.add(response.data.data[i]).draw(false);
+                                }
+                                _this.mode.report.getting = false;
+                                _this.mode.report.loaded = true;
+                            }, 1000);
                         }, function errorCallback(response) {
+                            _this.mode.report.getting = false;
+                            _this.mode.report.loaded = false;
                             _this.httpResponseError(response);
                         });
                     },
                     function () {
-                        if (document.getElementById("filter").classList.contains("w3-hide"))
+                        _this.mode.report.getting = false;
+                        _this.mode.report.loaded = false;
+                        if (document.getElementById("filter_section").classList.contains("w3-hide"))
                             toggleAccordian("filter", "filter_section");
                     }
                 );
             }
             else {
+                _this.mode.report.getting = true;
+                _this.mode.report.loaded = false;
                 _this.$http({
                     method: "GET",
                     url: "/ugc_serv/report/paid/?use_or=" + decodeURI(_this.filter.use_or)
@@ -422,22 +482,99 @@ var PaidCtrl = (function () {
                         + "&scheme=" + decodeURI(_this.filter.scheme.selected.join(";,;"))
                         + "&subScheme=" + decodeURI(_this.filter.subScheme.selected.join(";,;"))
                         + "&plan=" + decodeURI(_this.filter.plan.selected.join(";,;"))
-                        + "&limit=" + _this.reportData.limit.min + ";,;" + _this.reportData.limit.max
+                        + "&limit=" + _this.reportData.limit.min + ";,;" + _this.reportData.maxChunkSize
                 }).then(function successCallback(response) {
-                    dataTable = $('#dataTable').DataTable({
-                        "deferRender": true,
-                        "lengthMenu": [50],
-                        "destroy": true,
-                    });
-                    for (var i = 0; i < response.data.data.length; i++) {
-                        dataTable.row.add(response.data.data[i]).draw(false);
+                    if ($.fn.dataTable.isDataTable('#dataTable')) {
+                        console.log("Destrying", dtTable);
+                        dtTable.destroy(true);
+                        document.getElementById("divDataTable").innerHTML = '<table id="dataTable" class="table table-striped table-bordered compact hover order-column" style="width:100%">\
+                                <thead>\
+                                    <tr>\
+                                        <th>Entry Num</th>\
+                                        <th>File Num</th>\
+                                        <th>Master File Num</th>\
+                                        <th>College ID</th>\
+                                        <th>Year</th>\
+                                        <th>Paid</th>\
+                                        <th>UC</th>\
+                                        <th>Scheme ID</th>\
+                                        <th>Sub-scheme ID</th>\
+                                        <th>Plan Files</th>\
+                                    </tr>\
+                                </thead>\
+                                <tfoot>\
+                                    <tr>\
+                                        <th>Entry Num</th>\
+                                        <th>File Num</th>\
+                                        <th>Master File Num</th>\
+                                        <th>College ID</th>\
+                                        <th>Year</th>\
+                                        <th>Paid</th>\
+                                        <th>UC</th>\
+                                        <th>Scheme ID</th>\
+                                        <th>Sub-scheme ID</th>\
+                                        <th>Plan Files</th>\
+                                    </tr>\
+                                </tfoot>\
+                            </table>';
                     }
+                    _this.$timeout(function () {
+                        dtTable = $('#dataTable').DataTable({
+                            "deferRender": true,
+                            "lengthMenu": [50],
+                            "destroy": true,
+                        });
+                        console.log(response.data.data.length);
+                        for (var i = 0; i < response.data.data.length; i++) {
+                            dtTable.row.add(response.data.data[i]).draw(false);
+                        }
+                        _this.mode.report.getting = false;
+                        _this.mode.report.loaded = true;
+                    }, 1000);
                 }, function errorCallback(response) {
+                    _this.mode.report.getting = false;
+                    _this.mode.report.loaded = false;
                     _this.httpResponseError(response);
                 });
             }
 
         }, function errorCallback(response) {
+            _this.httpResponseError(response);
+        });
+    };
+    PaidCtrl.prototype.loadMore = function () {
+        console.log("hi");
+        var _this = scope.vm;
+        _this.mode.report.getting = true;
+        _this.mode.report.loaded = true;
+        _this.reportData.limit.min += _this.reportData.maxChunkSize;
+        _this.reportData.limit.max += _this.reportData.maxChunkSize;
+        console.log(_this.reportData);
+        _this.$http({
+            method: "GET",
+            url: "/ugc_serv/report/paid/?use_or=" + decodeURI(_this.filter.use_or)
+                + "&fileNum=" + decodeURI(_this.filter.fileNum.selected.join(";,;"))
+                + "&masterFileNum=" + decodeURI(_this.filter.masterFileNum.selected.join(";,;"))
+                + "&collegeId=" + decodeURI(_this.filter.college.selected.join(";,;"))
+                + "&year=" + decodeURI(_this.filter.year.selected.join(";,;"))
+                + "&paid=" + decodeURI(_this.filter.paid.min) + ";,;" + decodeURI(_this.filter.paid.max)
+                + "&uc=" + decodeURI(_this.filter.uc.min) + ";,;" + decodeURI(_this.filter.uc.max)
+                + "&scheme=" + decodeURI(_this.filter.scheme.selected.join(";,;"))
+                + "&subScheme=" + decodeURI(_this.filter.subScheme.selected.join(";,;"))
+                + "&plan=" + decodeURI(_this.filter.plan.selected.join(";,;"))
+                + "&limit=" + _this.reportData.limit.min + ";,;" + _this.reportData.maxChunkSize
+        }).then(function successCallback(response) {
+            console.log(response.data.data.length);
+            if (response.data.data.length == 0)
+                _this.showAlert("No more data", "No more data to fetch.");
+            for (var i = 0; i < response.data.data.length; i++) {
+                dataTable.row.add(response.data.data[i]).draw(false);
+            }
+            _this.mode.report.getting = false;
+            _this.mode.report.loaded = true;
+        }, function errorCallback(response) {
+            _this.mode.report.getting = false;
+            _this.mode.report.loaded = true;
             _this.httpResponseError(response);
         });
     };

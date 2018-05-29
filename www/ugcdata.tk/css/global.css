@@ -53,6 +53,18 @@ md-slider-container md-input-container {
     margin-left: 10px !important;
 }
 
+.table tbody tr td {
+    padding: 2px !important;
+}
+
+.table tbody tr {
+    cursor: url(/img/cur_edit.png),pointer;;
+}
+
+.table tbody tr:hover {
+    background-color: #a6d4fa;
+}
+
 .hamburger {
     position: fixed;
     top: 10px;
@@ -62,8 +74,7 @@ md-slider-container md-input-container {
     transition: all 0.4s !important;
 }
 
-.select-header {
-    /* Please note: All these selectors are only applied to children of elements with the 'select-header' class */
+/* .select-header {
 }
 
 .select-header .select-searchbox {
@@ -87,9 +98,9 @@ md-slider-container md-input-container {
 
 .select-header md-content._md {
     max-height: 240px;
-}
+} */
 
-.cust-select {
+/* .cust-select {
     width: 100%;
     word-wrap: break-word;
 }
@@ -101,7 +112,7 @@ md-slider-container md-input-container {
 
 .cust-select option:hover {
     background-color: lightgray;
-}
+} */
 
 /******** Ripple **************/
 
