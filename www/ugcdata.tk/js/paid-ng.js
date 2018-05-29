@@ -126,7 +126,7 @@ var PaidCtrl = (function () {
         this.$timeout(function () {
             _this.$http({
                 method: "GET",
-                url: "/ugc_serv/data/paid/college/"
+                url: "/ugc_serv/data/global/college/"
             }).then(function successCallback(response) {
                 _this.filter.college.every = response.data;
                 if (response.data.indexOf("(Blank)") >= 0)
@@ -176,7 +176,7 @@ var PaidCtrl = (function () {
         this.$timeout(function () {
             _this.$http({
                 method: "GET",
-                url: "/ugc_serv/data/paid/scheme/"
+                url: "/ugc_serv/data/global/scheme/"
             }).then(function successCallback(response) {
                 _this.filter.scheme.every = response.data;
             }, function errorCallback(response) {
@@ -186,7 +186,7 @@ var PaidCtrl = (function () {
         this.$timeout(function () {
             _this.$http({
                 method: "GET",
-                url: "/ugc_serv/data/paid/subscheme/"
+                url: "/ugc_serv/data/global/subscheme/"
             }).then(function successCallback(response) {
                 _this.filter.subScheme.every = response.data;
             }, function errorCallback(response) {
