@@ -2,7 +2,7 @@ exports.handler = function (req, res, qpaths, qdata) {
     var unique = require('uniqid');
     var moment = require('moment-timezone');
     var md5 = require('md5');
-    tokenUsed = require("../function/dba_func/tokenUsed.dba_func");
+    var tokenUsed = require("../function/dba_func/tokenUsed.dba_func");
     var sanitizeJson = require("../function/sanitizeJson.func");
     var bearer = require("../function/bearer.func");
 
@@ -40,7 +40,7 @@ exports.handler = function (req, res, qpaths, qdata) {
                     }
                 }
                 else {
-                    tokeUsed(reqBodyObj.token, function (err) {
+                    tokenUsed(reqBodyObj.token, function (err) {
                         if (err) {
                             logger.error(err);
                             res.statusCode = 500;

@@ -40,7 +40,7 @@ exports.handler = function (req, res, qpaths, qdata) {
                     }
                 }
                 else {
-                    tokeUsed(reqBodyObj.token, function (err) {
+                    tokenUsed(reqBodyObj.token, function (err) {
                         if (err) {
                             logger.error(err);
                             res.statusCode = 500;
