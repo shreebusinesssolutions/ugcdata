@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <title>Pending - UGC Data</title>
+    <title>Paid - UGC Data</title>
 
     <!-- Favicon -->
     <link rel="apple-touch-icon" sizes="57x57" href="/img/favicon/apple-icon-57x57.png">
@@ -39,15 +39,27 @@
     <!-- Angular Material -->
     <link rel="stylesheet" href="/vendor/angular-material/1.1.8/angular-material.min.css" />
 
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!-- Materialize.css -->
+    <!-- <link rel="stylesheet" href="/vendor/materialize.css/1.0.0-beta/css/materialize.min.css" /> -->
+
     <!-- Outdatedbrowser -->
     <link rel="stylesheet" href="/vendor/outdatedbrowser/outdatedbrowser.min.css" />
 
     <!-- Hamburger -->
     <link rel="stylesheet" href="/vendor/hamburger/hamburger.css" />
 
+    <!-- Data Tables -->
+    <link rel="stylesheet" href="/vendor/datatables/Bootstrap-4-4.0.0/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/vendor/datatables/datatables.min.css" />
+    <script src="/vendor/datatables/Bootstrap-4-4.0.0/js/bootstrap.min.js"></script>
+    <script src="/vendor/datatables/datatables.min.js"></script>
+
     <!-- Custom CSS -->
     <link rel="stylesheet" href="/css/global.css" />
-    <link rel="stylesheet" href="/css/college.css" />
+    <link rel="stylesheet" href="/css/paid.css" />
 </head>
 
 <body class="w3-light-grey">
@@ -55,10 +67,10 @@
 
     <div class="su-template-holder" su-include-template="/template/sidenav.template.json"></div>
 
-    <div id="ng-app" ng-app="CollegeApp" ng-controller="CollegeCtrl as vm" ng-cloak>
+    <div id="ng-app" ng-app="PaidApp" ng-controller="PaidCtrl as vm" ng-cloak>
         <div class="w3-card w3-white w3-padding-large w3-right-align w3-xxlarge w3-text-theme-primary">
             <div class="w3-row">
-                Colleges
+                Plan XI and XII Paid and UC
             </div>
             <div class="w3-row w3-left-align">
                 <md-button class="md-primary w3-small w3-margin-0 w3-text-theme-primary" href="/main">
@@ -78,13 +90,13 @@
                                 </md-button>
                                 <md-menu-content class="w3-padding-0" width="4">
                                     <md-menu-item>
-                                        <md-button class="md-primary w3-small w3-margin-0 w3-text-theme-primary">
-                                            <i class="fas fa-table"></i>&nbsp;Reports 1
+                                        <md-button class="md-primary w3-small w3-margin-0 w3-text-theme-primary" onclick="window.location.href='/report/paid/'">
+                                            <i class="fas fa-table"></i>&nbsp;Paid
                                         </md-button>
                                     </md-menu-item>
                                     <md-menu-item>
-                                        <md-button class="md-primary w3-small w3-margin-0 w3-text-theme-primary">
-                                            <i class="fas fa-table"></i>&nbsp;Reports 2
+                                        <md-button class="md-primary w3-small w3-margin-0 w3-text-theme-accent" onclick="window.location.href='/report/pending/'" ng-disabled="true">
+                                            <i class="fas fa-table"></i>&nbsp;Pending
                                         </md-button>
                                     </md-menu-item>
                                 </md-menu-content>
@@ -99,7 +111,7 @@
                                 </md-button>
                                 <md-menu-content class="w3-padding-0" width="4">
                                     <md-menu-item>
-                                        <md-button class="md-primary w3-small w3-margin-0" ng-disabled="true">
+                                        <md-button class="md-primary w3-small w3-margin-0 w3-text-theme-primary" onclick="window.location.href='/data/college/'">
                                             <i class="fas fa-school"></i>&nbsp;Colleges
                                         </md-button>
                                     </md-menu-item>
@@ -109,7 +121,7 @@
                     </md-menu-content>
                 </md-menu>
                 <md-button class="md-primary w3-small w3-margin-0 w3-text-theme-primary" ng-disabled="true">
-                    <i class="fas fa-database"></i>&nbsp;Data
+                    <i class="fas fa-table"></i>&nbsp;Reports
                 </md-button>
                 <md-menu md-offset="0 30">
                     <md-button class="md-icon-button w3-small w3-margin-0 w3-text-theme-primary" ng-click="vm.openMenu($mdMenu, $event)">
@@ -117,8 +129,13 @@
                     </md-button>
                     <md-menu-content class="w3-padding-0" width="4">
                         <md-menu-item>
-                            <md-button class="md-primary w3-small w3-margin-0" ng-disabled="true">
-                                <i class="fas fa-school"></i>&nbsp;Colleges
+                            <md-button class="md-primary w3-small w3-margin-0 w3-text-theme-primary" onclick="window.location.href='/report/paid/'">
+                                <i class="fas fa-table"></i>&nbsp;Paid
+                            </md-button>
+                        </md-menu-item>
+                        <md-menu-item>
+                            <md-button class="md-primary w3-small w3-margin-0 w3-text-theme-accent" onclick="window.location.href='/report/pending/'" ng-disabled="true">
+                                <i class="fas fa-table"></i>&nbsp;Pending
                             </md-button>
                         </md-menu-item>
                     </md-menu-content>
@@ -130,44 +147,303 @@
         </div>
         <br />
         <div class="w3-card w3-white">
-            <md-tabs class="md-primary">
+            <md-tabs md-dynamic-height class="md-primary">
                 <!-- md-dynamic-height md-border-bottom> -->
                 <md-tab label="View">
-                    <md-content class="w3-padding w3-white">
-                        <h1 class="w3-xlarge">View Colleges</h1>
-                        <div class="w3-theme-primary-l5">
-                            <h1 class="w3-large">Filters&nbsp;
+                    <md-content class="w3-white">
+                        <h1 class="w3-xlarge w3-padding w3-margin-0">View Report</h1>
+                        <div class="w3-theme-primary-l5 w3-card">
+                            <div id="filter" class="w3-large w3-padding w3-margin-0 w3-theme-primary-d5 w3-hover-theme-primary" style="cursor: pointer;"
+                                onclick='toggleAccordian("filter","filter_section");'>
+                                Filters&nbsp;
                                 <i class="fas fa-filter"></i>
-                            </h1>
-                            <div class="w3-row">
-                                <div class="w3-col m4">
-                                    <md-input-container style="width: 100%;">
-                                        <label>Vegetables</label>
-                                        <md-select ng-model="selectedVegetables" md-on-close="clearSearchTerm()" data-md-container-class="selectdemoSelectHeader"
-                                            multiple>
-                                            <md-select-header class="demo-select-header">
-                                                <input ng-model="searchTerm" type="search" placeholder="Search for college.." class="select-searchbox md-text">
-                                            </md-select-header>
-                                            <md-optgroup label="vegetables">
-                                                <md-option ng-value="vegetable" ng-repeat="vegetable in vegetables |
-                                                      filter:searchTerm">{{vegetable}}</md-option>
-                                            </md-optgroup>
-                                        </md-select>
-                                    </md-input-container>
+                                <i class='fas fa-chevron-down w3-right w3-padding-small accordian-icon'></i>
+                            </div>
+                            <md-button ng-disabled="vm.mode.report.getting" ng-show="vm.mode.report.loaded" class="md-raised md-primary w3-right" ng-click="vm.loadMore()">
+                                Load More&nbsp;
+                                <i ng-show="!vm.mode.report.getting" class="fas fa-chevron-right"></i>
+                                <i ng-show="vm.mode.report.getting" class="fas fa-circle-notch fa-spin"></i>
+                            </md-button>
+                            <md-button ng-disabled="vm.mode.report.getting" class="md-raised md-primary w3-right" ng-click="vm.getReport()">
+                                Get Report&nbsp;
+                                <i ng-show="!vm.mode.report.getting" class="fas fa-chevron-right"></i>
+                                <i ng-show="vm.mode.report.getting" class="fas fa-circle-notch fa-spin"></i>
+                            </md-button>
+
+
+                            <div id="filter_section" class="w3-hide">
+                                <md-checkbox class="w3-padding w3-margin-left" ng-model="vm.filter.use_or" aria-label="Use OR Filter">
+                                    Use OR filter
+                                    <i>(Default: AND, Currently Used: {{vm.filter.use_or?"OR":"AND"}})</i>
+                                </md-checkbox>
+                                <div class="w3-row">
+                                    <div class="w3-col m6 w3-padding-small">
+                                        <fieldset class="primary w3-padding-small">
+                                            <legend>File Number</legend>
+                                            <md-chips ng-model="vm.filter.fileNum.selected" md-autocomplete-snap md-transform-chip="vm.transformFileNumChip($chip)" md-require-match="true"
+                                                style="width: 100%;" md-on-add="vm.filterChanged('fileNum')" md-on-remove="vm.filterChanged('fileNum')">
+                                                <md-autocomplete md-selected-item="vm.filter.fileNum.selectedItem" md-search-text="vm.filter.fileNum.search" md-min-length="0"
+                                                    md-items="fileNum in vm.querySearchFileNum(vm.filter.fileNum.search)" md-item-text="fileNum"
+                                                    placeholder="Search File Number">
+                                                    <span class="w3-small" md-highlight-text="vm.filter.fileNum.search">{{fileNum}}</span>
+                                                </md-autocomplete>
+                                                <md-chip-template>
+                                                    <span>
+                                                        {{$chip}}
+                                                    </span>
+                                                </md-chip-template>
+                                            </md-chips>
+                                            <md-checkbox class="w3-margin-top" ng-model="vm.filter.fileNum.includeBlanks" ng-disabled="!vm.filter.fileNum.hasBlanks"
+                                                aria-label="Include Blanks Filenum" ng-change="vm.toggleBlanks('fileNum')">
+                                                Include Blanks
+                                            </md-checkbox>
+                                        </fieldset>
+                                    </div>
+                                    <div class="w3-col m6 w3-padding-small">
+                                        <fieldset class="primary w3-padding-small">
+                                            <legend>Master File Number</legend>
+                                            <md-chips ng-model="vm.filter.masterFileNum.selected" md-autocomplete-snap md-transform-chip="vm.transformMasterFileNumChip($chip)"
+                                                md-require-match="true" style="width: 100%;" md-on-add="vm.filterChanged('masterFileNum')"
+                                                md-on-remove="vm.filterChanged('masterFileNum')">
+                                                <md-autocomplete md-selected-item="vm.filter.masterFileNum.selectedItem" md-search-text="vm.filter.masterFileNum.search"
+                                                    md-min-length="0" md-items="masterFileNum in vm.querySearchMasterFileNum(vm.filter.masterFileNum.search)"
+                                                    md-item-text="masterFileNum" placeholder="Search Master File Number">
+                                                    <span class="w3-small" md-highlight-text="vm.filter.masterFileNum.search">{{masterFileNum}}</span>
+                                                </md-autocomplete>
+                                                <md-chip-template>
+                                                    <span>
+                                                        {{$chip}}
+                                                    </span>
+                                                </md-chip-template>
+                                            </md-chips>
+                                            <md-checkbox class="w3-margin-top" ng-model="vm.filter.masterFileNum.includeBlanks" ng-disabled="!vm.filter.masterFileNum.hasBlanks"
+                                                aria-label="Include Blanks Masterfilenum" ng-change="vm.toggleBlanks('masterFileNum')">
+                                                Include Blanks
+                                            </md-checkbox>
+                                        </fieldset>
+                                    </div>
                                 </div>
+                                <div class="w3-row">
+                                    <div class="w3-col m3 w3-padding-small">
+                                        <fieldset class="primary w3-padding-small">
+                                            <legend>College ID</legend>
+                                            <md-chips ng-model="vm.filter.college.selected" md-autocomplete-snap md-transform-chip="vm.transformCollegeChip($chip)" md-require-match="true"
+                                                style="width: 100%;" md-on-add="vm.filterChanged('college')" md-on-remove="vm.filterChanged('college')">
+                                                <md-autocomplete md-selected-item="vm.filter.college.selectedItem" md-search-text="vm.filter.college.search" md-min-length="0"
+                                                    md-items="college in vm.querySearchCollege(vm.filter.college.search)" md-item-text="college"
+                                                    placeholder="Search College ID">
+                                                    <span class="w3-small" md-highlight-text="vm.filter.college.search">{{college}}</span>
+                                                </md-autocomplete>
+                                                <md-chip-template>
+                                                    <span>
+                                                        {{$chip}}
+                                                    </span>
+                                                </md-chip-template>
+                                            </md-chips>
+                                            <md-checkbox class="w3-margin-top" ng-model="vm.filter.college.includeBlanks" ng-disabled="!vm.filter.college.hasBlanks"
+                                                aria-label="Include Blanks College" ng-change="vm.toggleBlanks('college')">
+                                                Include Blanks
+                                            </md-checkbox>
+                                        </fieldset>
+                                    </div>
+                                    <div class="w3-col m3 w3-padding-small">
+                                        <fieldset class="primary w3-padding-small">
+                                            <legend>Year</legend>
+                                            <md-chips ng-model="vm.filter.year.selected" md-autocomplete-snap md-transform-chip="vm.transformYearChip($chip)" md-require-match="true"
+                                                style="width: 100%;" md-on-add="vm.filterChanged('year')" md-on-remove="vm.filterChanged('year')">
+                                                <md-autocomplete md-selected-item="vm.filter.year.selectedItem" md-search-text="vm.filter.year.search" md-min-length="0"
+                                                    md-items="year in vm.querySearchYear(vm.filter.year.search)" md-item-text="year"
+                                                    placeholder="Search Year">
+                                                    <span class="w3-small" md-highlight-text="vm.filter.year.search">{{year}}</span>
+                                                </md-autocomplete>
+                                                <md-chip-template>
+                                                    <span>
+                                                        {{$chip}}
+                                                    </span>
+                                                </md-chip-template>
+                                            </md-chips>
+                                            <md-checkbox class="w3-margin-top" ng-model="vm.filter.year.includeBlanks" ng-disabled="!vm.filter.year.hasBlanks" aria-label="Include Blanks Year"
+                                                ng-change="vm.toggleBlanks('year')">
+                                                Include Blanks
+                                            </md-checkbox>
+                                        </fieldset>
+                                    </div>
+                                    <div class="w3-col m3 w3-padding-small">
+                                        <fieldset class="primary w3-padding-small">
+                                            <legend>Paid</legend>
+                                            <md-slider-container>
+                                                <span>Min</span>
+                                                <md-slider flex ng-model="vm.filter.paid.min" min="{{vm.filter.paid.scaleMin}}" max="{{vm.filter.paid.max}}" aria-label="Paid Min"
+                                                    id="paid-min-slider">
+                                                </md-slider>
+                                                <md-input-container>
+                                                    <input flex type="number" ng-model="vm.filter.paid.min" min="{{vm.filter.paid.scaleMin}}" max="{{vm.filter.paid.max}}" aria-label="Paid Min"
+                                                        aria-controls="paid-min-slider">
+                                                </md-input-container>
+                                            </md-slider-container>
+                                            <md-slider-container>
+                                                <span>Max</span>
+                                                <md-slider flex ng-model="vm.filter.paid.max" min="{{vm.filter.paid.min}}" max="{{vm.filter.paid.scaleMax}}" aria-label="Paid Max"
+                                                    id="paid-max-slider" class="md-accent">
+                                                </md-slider>
+                                                <md-input-container>
+                                                    <input flex type="number" ng-model="vm.filter.paid.max" min="{{vm.filter.paid.min}}" max="{{vm.filter.paid.scaleMax}}" aria-label="Paid Max"
+                                                        aria-controls="paid-max-slider">
+                                                </md-input-container>
+                                            </md-slider-container>
+                                        </fieldset>
+                                    </div>
+                                    <div class="w3-col m3 w3-padding-small">
+                                        <fieldset class="primary w3-padding-small">
+                                            <legend>UC</legend>
+                                            <md-slider-container>
+                                                <span>Min</span>
+                                                <md-slider flex ng-model="vm.filter.uc.min" min="{{vm.filter.uc.scaleMin}}" max="{{vm.filter.uc.max}}" aria-label="UC Min"
+                                                    id="uc-min-slider">
+                                                </md-slider>
+                                                <md-input-container>
+                                                    <input flex type="number" ng-model="vm.filter.uc.min" min="{{vm.filter.uc.scaleMin}}" max="{{vm.filter.uc.max}}" aria-label="UC Min"
+                                                        aria-controls="uc-min-slider">
+                                                </md-input-container>
+                                            </md-slider-container>
+                                            <md-slider-container>
+                                                <span>Max</span>
+                                                <md-slider flex ng-model="vm.filter.uc.max" min="{{vm.filter.uc.min}}" max="{{vm.filter.uc.scaleMax}}" aria-label="UC Max"
+                                                    id="uc-max-slider" class="md-accent">
+                                                </md-slider>
+                                                <md-input-container>
+                                                    <input flex type="number" ng-model="vm.filter.uc.max" min="{{vm.filter.uc.min}}" max="{{vm.filter.uc.scaleMax}}" aria-label="UC Max"
+                                                        aria-controls="uc-max-slider">
+                                                </md-input-container>
+                                            </md-slider-container>
+                                        </fieldset>
+                                    </div>
+                                </div>
+                                <div class="w3-row">
+                                    <div class="w3-col m5 w3-padding-small">
+                                        <fieldset class="primary w3-padding-small">
+                                            <legend>Scheme</legend>
+                                            <md-chips ng-model="vm.filter.scheme.selected" md-autocomplete-snap md-transform-chip="vm.transformSchemeChip($chip)" md-require-match="true"
+                                                style="width: 100%;" md-on-add="vm.filterChanged('scheme')" md-on-remove="vm.filterChanged('scheme')">
+                                                <md-autocomplete md-selected-item="vm.filter.scheme.selectedItem" md-search-text="vm.filter.scheme.search" md-min-length="0"
+                                                    md-items="scheme in vm.querySearchScheme(vm.filter.scheme.search)" md-item-text="scheme.id"
+                                                    placeholder="Search Scheme">
+                                                    <span class="w3-small" md-highlight-text="vm.filter.scheme.search">{{scheme.id}}({{scheme.name}})</span>
+                                                </md-autocomplete>
+                                                <md-chip-template>
+                                                    <span>
+                                                        {{$chip}}
+                                                    </span>
+                                                </md-chip-template>
+                                            </md-chips>
+                                            <md-checkbox class="w3-margin-top" ng-model="vm.filter.scheme.includeBlanks" ng-disabled="!vm.filter.scheme.hasBlanks" aria-label="Include Blanks Scheme"
+                                                ng-change="vm.toggleBlanks('scheme')">
+                                                Include Blanks
+                                            </md-checkbox>
+                                        </fieldset>
+                                    </div>
+                                    <div class="w3-col m4 w3-padding-small">
+                                        <fieldset class="primary w3-padding-small">
+                                            <legend>Sub Scheme</legend>
+                                            <md-chips ng-model="vm.filter.subScheme.selected" md-autocomplete-snap md-transform-chip="vm.transformSubSchemeChip($chip)"
+                                                md-require-match="true" style="width: 100%;" md-on-add="vm.filterChanged('subScheme')"
+                                                md-on-remove="vm.filterChanged('subScheme')">
+                                                <md-autocomplete md-selected-item="vm.filter.subScheme.selectedItem" md-search-text="vm.filter.subScheme.search" md-min-length="0"
+                                                    md-items="subScheme in vm.querySearchSubScheme(vm.filter.subScheme.search)"
+                                                    md-item-text="subScheme.id" placeholder="Search Sub Scheme">
+                                                    <span class="w3-small" md-highlight-text="vm.filter.subScheme.search">{{subScheme.id}}({{subScheme.name}})</span>
+                                                </md-autocomplete>
+                                                <md-chip-template>
+                                                    <span>
+                                                        {{$chip}}
+                                                    </span>
+                                                </md-chip-template>
+                                            </md-chips>
+                                            <md-checkbox class="w3-margin-top" ng-model="vm.filter.subScheme.includeBlanks" ng-disabled="!vm.filter.subScheme.hasBlanks"
+                                                aria-label="Include Blanks Sub Scheme" ng-change="vm.toggleBlanks('subScheme')">
+                                                Include Blanks
+                                            </md-checkbox>
+                                        </fieldset>
+                                    </div>
+                                    <div class="w3-col m3 w3-padding-small">
+                                        <fieldset class="primary w3-padding-small">
+                                            <legend>Plan File</legend>
+                                            <md-chips ng-model="vm.filter.plan.selected" md-autocomplete-snap md-transform-chip="vm.transformPlanChip($chip)" md-require-match="true"
+                                                style="width: 100%;" md-on-add="vm.filterChanged('plan')" md-on-remove="vm.filterChanged('plan')">
+                                                <md-autocomplete md-selected-item="vm.filter.plan.selectedItem" md-search-text="vm.filter.plan.search" md-min-length="0"
+                                                    md-items="plan in vm.querySearchPlan(vm.filter.plan.search)" md-item-text="plan"
+                                                    placeholder="Search Plan">
+                                                    <span class="w3-small" md-highlight-text="vm.filter.plan.search">{{plan}}</span>
+                                                </md-autocomplete>
+                                                <md-chip-template>
+                                                    <span>
+                                                        {{$chip}}
+                                                    </span>
+                                                </md-chip-template>
+                                            </md-chips>
+                                            <md-checkbox class="w3-margin-top" ng-model="vm.filter.plan.includeBlanks" ng-disabled="!vm.filter.plan.hasBlanks" aria-label="Include Blanks Plan"
+                                                ng-change="vm.toggleBlanks('plan')">
+                                                Include Blanks
+                                            </md-checkbox>
+                                        </fieldset>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="w3-margin-top w3-padding w3-center">
+                            <!-- <md-button ng-disabled="vm.mode.report.getting" class="md-raised md-primary" ng-click="vm.getReport()">
+                                Get Report&nbsp;
+                                <i ng-show="!vm.mode.report.getting" class="fas fa-chevron-right"></i>
+                                <i ng-show="vm.mode.report.getting" class="fas fa-circle-notch fa-spin"></i>
+                            </md-button> -->
+                            <div class="w3-padding-small" ng-show="vm.mode.report.getting && !vm.mode.report.loaded" layout="row" layout-sm="column"
+                                layout-align="space-around">
+                                <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+                            </div>
+                            <div id="divDataTable" ng-show="vm.mode.report.loaded">
+                                <table id="dataTable" class="table table-striped table-bordered compact hover order-column" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th>Entry Num</th>
+                                            <th>File Num</th>
+                                            <th>Master File Num</th>
+                                            <th>College ID</th>
+                                            <th>Year</th>
+                                            <th>Paid</th>
+                                            <th>UC</th>
+                                            <th>Scheme ID</th>
+                                            <th>Sub-scheme ID</th>
+                                            <th>Plan Files</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Entry Num</th>
+                                            <th>File Num</th>
+                                            <th>Master File Num</th>
+                                            <th>College ID</th>
+                                            <th>Year</th>
+                                            <th>Paid</th>
+                                            <th>UC</th>
+                                            <th>Scheme ID</th>
+                                            <th>Sub-scheme ID</th>
+                                            <th>Plan Files</th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
                             </div>
                         </div>
                     </md-content>
                 </md-tab>
                 <md-tab label="Edit">
                     <md-content class="w3-padding w3-white">
-                        <h1 class="w3-xlarge">Edit College</h1>
+                        <h1 class="w3-xlarge">Edit Report</h1>
 
                     </md-content>
                 </md-tab>
                 <md-tab label="Add">
                     <md-content class="w3-padding w3-white">
-                        <h1 class="w3-xlarge">Add College</h1>
+                        <h1 class="w3-xlarge">Add Entry</h1>
 
                     </md-content>
                 </md-tab>
@@ -212,9 +488,12 @@
     <!-- Angular Material-->
     <script src="/vendor/angular-material/1.1.8/angular-material.min.js"></script>
 
+    <!-- Materialize.css -->
+    <!-- <script src="/vendor/materialize.css/1.0.0-beta/js/materialize.min.js"></script> -->
+
     <script type="text/javascript" src="/js/global.js"></script>
-    <script type="text/javascript" src="/js/college.js"></script>
-    <script type="text/javascript" src="/js/college-ng.js"></script>
+    <script type="text/javascript" src="/js/paid.js"></script>
+    <script type="text/javascript" src="/js/paid-ng.js"></script>
 </body>
 
 </html>
