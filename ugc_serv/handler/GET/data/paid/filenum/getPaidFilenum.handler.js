@@ -2,9 +2,9 @@ exports.handler = function (req, res, qpaths, qdata) {
     var unique = require('uniqid');
     var moment = require('moment-timezone');
     var md5 = require('md5');
-    tokenUsed = require("../function/dba_func/tokenUsed.dba_func");
-    var sanitizeJson = require("../function/sanitizeJson.func");
-    var bearer = require("../function/bearer.func");
+    //tokenUsed = require("../function/dba_func/tokenUsed.dba_func");
+    //var sanitizeJson = require("../function/sanitizeJson.func");
+    //var bearer = require("../function/bearer.func");
 
     bearer.getToken(req, function (err, token) {
         if (err) {

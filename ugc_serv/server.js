@@ -4,6 +4,9 @@ var routers = require("./function/router.func");
 mysql = require("mysql");
 logger = require("./function/logger.func");
 var dba = require("./global/dba.global");
+bearer = require("./function/bearer.func");
+tokenUsed = require("./function/dba_func/tokenUsed.dba_func");
+sanitizeJson = require("./function/sanitizeJson.func");
 
 db_conn = mysql.createConnection({
     host: dba.servername,

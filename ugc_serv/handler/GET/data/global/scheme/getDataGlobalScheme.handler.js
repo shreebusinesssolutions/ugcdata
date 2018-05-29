@@ -2,9 +2,9 @@ exports.handler = function (req, res, qpaths, qdata) {
     var unique = require('uniqid');
     var moment = require('moment-timezone');
     var md5 = require('md5');
-    tokenUsed = require("../function/dba_func/tokenUsed.dba_func");
-    var sanitizeJson = require("../function/sanitizeJson.func");
-    var bearer = require("../function/bearer.func");
+    //tokenUsed = require("../function/dba_func/tokenUsed.dba_func");
+    //var sanitizeJson = require("../function/sanitizeJson.func");
+    //var bearer = require("../function/bearer.func");
 
     bearer.getToken(req, function (err, token) {
         if (err) {
@@ -29,7 +29,7 @@ exports.handler = function (req, res, qpaths, qdata) {
                     }
                 }
                 else {
-                    var sql = "SELECT subscheme_id, subscheme_name FROM sub_scheme ORDER BY scheme_id asc";
+                    var sql = "SELECT scheme_id, scheme_name FROM scheme ORDER BY scheme_id asc";
                     db_conn.query(sql, function (err, result, fields) {
                         if (err) {
                             logger.error(err);
@@ -40,8 +40,8 @@ exports.handler = function (req, res, qpaths, qdata) {
                             var responseObj = [];
                             for (var i = 0; i < result.length; i++)
                                 responseObj.push({
-                                    id: result[i].subscheme_id,
-                                    name: result[i].subscheme_name
+                                    id: result[i].scheme_id,
+                                    name: result[i].scheme_name
                                 });
                             res.write(JSON.stringify(responseObj));
                             res.statusCode = 200;

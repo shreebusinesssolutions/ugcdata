@@ -5,8 +5,8 @@ exports.handler = function (req, res, qpaths, qdata) {
     var unique = require('uniqid');
     var moment = require('moment-timezone');
     var md5 = require('md5');
-    var tokeUsed = require("../function/dba_func/tokenUsed.dba_func");
-    var sanitizeJson = require("../function/sanitizeJson.func");
+    //var tokenUsed = require("../function/dba_func/tokenUsed.dba_func");
+    //var sanitizeJson = require("../function/sanitizeJson.func");
 
     var reqBodyStr = '';
     var reqBodyObj = {};
@@ -37,7 +37,7 @@ exports.handler = function (req, res, qpaths, qdata) {
                     if (currTime.isSameOrBefore(moment(createdTime.add({
                         minutes: result[0].timeout_mins
                     }).format("YYYY-MM-DDTHH:mm:ss.SSSZZ")))) {
-                        tokeUsed(reqBodyObj.token, function (err) {
+                        tokenUsed(reqBodyObj.token, function (err) {
                             if (err) {
                                 logger.error(err);
                                 res.statusCode = 500;

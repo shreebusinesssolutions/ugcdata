@@ -5,8 +5,7 @@ exports.handler = function (req, res, qpaths, qdata) {
     var unique = require('uniqid');
     var moment = require('moment');
     var md5 = require('md5');
-    var bearer = require("../function/bearer.func");
-    var sanitizeJson = require("../function/sanitizeJson.func");
+    //var sanitizeJson = require("../function/sanitizeJson.func");
 
     var reqBodyStr = '';
     var reqBodyObj = {};

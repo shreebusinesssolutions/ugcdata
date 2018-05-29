@@ -8,12 +8,12 @@ var _getDataGlobalSubScheme = require("../handler/GET/data/global/subscheme/getD
 var _getPaidFilenum = require("../handler/GET/data/paid/filenum/getPaidFilenum.handler");
 var _getPaidMasterfilenum = require("../handler/GET/data/paid/masterfilenum/getPaidMasterfilenum.handler");
 var _getPaidYear = require("../handler/GET/data/paid/year/getPaidYear.handler");
-var _getPaidPaid = require("../handlerr/GET/data/paid/paid/getPaidPaid.handler");
+var _getPaidPaid = require("../handler/GET/data/paid/paid/getPaidPaid.handler");
 var _getPaidUC = require("../handler/GET/data/paid/uc/getPaidUC.handler");
 var _getPaidPlan = require("../handler/GET/data/paid/plan/getPaidPlan.handler");
 
-var _getPaidReportCount = require("../handler/GET/report/count/getReportPaidCount.handler");
-var _getPaidReport = require("../handler/GET/report/getReportPaid.handler");
+var _getPaidReportCount = require("../handler/GET/report/paid/count/getReportPaidCount.handler");
+var _getPaidReport = require("../handler/GET/report/paid/getReportPaid.handler");
 
 var logger = require("../function/logger.func");
 
