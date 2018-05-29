@@ -9,6 +9,9 @@ var _getPaidUC = require("../handler/getPaidUC.handler");
 var _getPaidScheme = require("../handler/getPaidScheme.handler");
 var _getPaidSubScheme = require("../handler/getPaidSubScheme.handler");
 var _getPaidPlan = require("../handler/getPaidPlan.handler");
+var _getPaidReportCount = require("../handler/getReportPaidCount.handler");
+var _getPaidReport = require("../handler/getReportPaid.handler");
+
 var logger = require("../function/logger.func");
 
 exports.route = function (method, pathname) {
@@ -34,6 +37,10 @@ exports.route = function (method, pathname) {
         return _getPaidSubScheme;
     else if (method == "GET" && /^\/data\/paid\/plan\//.test(pathname))
         return _getPaidPlan;
+    else if (method == "GET" && /^\/report\/paid\/count\//.test(pathname))
+        return _getPaidReportCount;
+    else if (method == "GET" && /^\/report\/paid\//.test(pathname))
+        return _getPaidReport;
     else {
         logger.error(pathname + " (" + method + ") Not found.", { method: "router()" });
         return false;
