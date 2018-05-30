@@ -186,7 +186,7 @@
                                                 style="width: 100%;" md-on-add="vm.filterChanged('autoNum')" md-on-remove="vm.filterChanged('autoNum')">
                                                 <md-autocomplete md-selected-item="vm.filter.autoNum.selectedItem" md-search-text="vm.filter.autoNum.search" md-min-length="0"
                                                     md-items="autoNum in vm.querySearchAutoNum(vm.filter.autoNum.search)" md-item-text="autoNum"
-                                                    placeholder="Search File Number">
+                                                    placeholder="Search Auto Number">
                                                     <span class="w3-small" md-highlight-text="vm.filter.autoNum.search">{{autoNum}}</span>
                                                 </md-autocomplete>
                                                 <md-chip-template>
@@ -223,7 +223,7 @@
                                             </md-checkbox>
                                         </fieldset>
                                     </div>
-                                    <!-- <div class="w3-col m5 w3-padding-small">
+                                    <div class="w3-col m5 w3-padding-small">
                                         <fieldset class="primary w3-padding-small">
                                             <legend>Master File Number</legend>
                                             <md-chips ng-model="vm.filter.masterFileNum.selected" md-autocomplete-snap md-transform-chip="vm.transformMasterFileNumChip($chip)"
@@ -245,7 +245,7 @@
                                                 Include Blanks
                                             </md-checkbox>
                                         </fieldset>
-                                    </div> -->
+                                    </div>
                                 </div>
                                 <!-- <div class="w3-row">
                                     <div class="w3-col m3 w3-padding-small">
