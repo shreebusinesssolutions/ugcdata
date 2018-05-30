@@ -26,14 +26,14 @@ var PendingCtrl = (function () {
                 hasBlanks: false,
                 includeBlanks: false
             },
-            // fileNum: {
-            //     selected: [],
-            //     selectedItem: null,
-            //     search: "",
-            //     every: null,
-            //     hasBlanks: false,
-            //     includeBlanks: false
-            // },
+            fileNum: {
+                selected: [],
+                selectedItem: null,
+                search: "",
+                every: null,
+                hasBlanks: false,
+                includeBlanks: false
+            },
             // masterFileNum: {
             //     selected: [],
             //     selectedItem: null,
@@ -119,18 +119,18 @@ var PendingCtrl = (function () {
                 _this.httpResponseError(response);
             });
         }, 100);
-        // this.$timeout(function () {
-        //     _this.$http({
-        //         method: "GET",
-        //         url: "/ugc_serv/data/paid/filenum/"
-        //     }).then(function successCallback(response) {
-        //         _this.filter.fileNum.every = response.data;
-        //         if (response.data.indexOf("(Blank)") >= 0)
-        //             _this.filter.fileNum.hasBlanks = true;
-        //     }, function errorCallback(response) {
-        //         _this.httpResponseError(response);
-        //     });
-        // }, 100);
+        this.$timeout(function () {
+            _this.$http({
+                method: "GET",
+                url: "/ugc_serv/data/pending/filenum/"
+            }).then(function successCallback(response) {
+                _this.filter.fileNum.every = response.data;
+                if (response.data.indexOf("(Blank)") >= 0)
+                    _this.filter.fileNum.hasBlanks = true;
+            }, function errorCallback(response) {
+                _this.httpResponseError(response);
+            });
+        }, 100);
         // this.$timeout(function () {
         //     _this.$http({
         //         method: "GET",
@@ -335,13 +335,13 @@ var PendingCtrl = (function () {
         var results = query ? this.filter.autoNum.every.filter(createFilterFor(query)) : this.filter.autoNum.every.filter(createFilterFor(''));
         return results;
     };
-    // PendingCtrl.prototype.transformFileNumChip = function (chip) {
-    //     return chip
-    // };
-    // PendingCtrl.prototype.querySearchFileNum = function (query) {
-    //     var results = query ? this.filter.fileNum.every.filter(createFilterFor(query)) : this.filter.fileNum.every.filter(createFilterFor(''));
-    //     return results;
-    // };
+    PendingCtrl.prototype.transformFileNumChip = function (chip) {
+        return chip
+    };
+    PendingCtrl.prototype.querySearchFileNum = function (query) {
+        var results = query ? this.filter.fileNum.every.filter(createFilterFor(query)) : this.filter.fileNum.every.filter(createFilterFor(''));
+        return results;
+    };
     // PendingCtrl.prototype.transformMasterFileNumChip = function (chip) {
     //     return chip
     // };
