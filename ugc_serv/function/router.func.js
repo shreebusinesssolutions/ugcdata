@@ -15,7 +15,8 @@ var _getDataPaidPlan = require("../handler/GET/data/paid/plan/getDataPaidPlan.ha
 var _getDataPaidReportCount = require("../handler/GET/report/paid/count/getReportPaidCount.handler");
 var _getDataPaidReport = require("../handler/GET/report/paid/getReportPaid.handler");
 
-var _getDataPendingFilenum = require("../handler/GET/data/pending/autonum/getDataPendingAutonum.handler");
+var _getDataPendingAutonum = require("../handler/GET/data/pending/autonum/getDataPendingAutonum.handler");
+var _getDataPendingFilenum = require("../handler/GET/data/pending/filenum/getDataPendingFilenum.handler");
 
 var logger = require("../function/logger.func");
 
@@ -51,6 +52,8 @@ exports.route = function (method, pathname) {
         return _getDataPaidReport;
 
     else if (method == "GET" && /^\/data\/pending\/autonum\//.test(pathname))
+        return _getDataPendingAutonum;
+    else if (method == "GET" && /^\/data\/pending\/filenum\//.test(pathname))
         return _getDataPendingFilenum;
 
     else {
