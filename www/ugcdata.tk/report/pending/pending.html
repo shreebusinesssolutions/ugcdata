@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <title>Paid - UGC Data</title>
+    <title>Pending - UGC Data</title>
 
     <!-- Favicon -->
     <link rel="apple-touch-icon" sizes="57x57" href="/img/favicon/apple-icon-57x57.png">
@@ -59,7 +59,7 @@
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="/css/global.css" />
-    <link rel="stylesheet" href="/css/paid.css" />
+    <link rel="stylesheet" href="/css/pending.css" />
 </head>
 
 <body class="w3-light-grey">
@@ -67,10 +67,10 @@
 
     <div class="su-template-holder" su-include-template="/template/sidenav.template.json"></div>
 
-    <div id="ng-app" ng-app="PaidApp" ng-controller="PaidCtrl as vm" ng-cloak>
+    <div id="ng-app" ng-app="PendingApp" ng-controller="PendingCtrl as vm" ng-cloak>
         <div class="w3-card w3-white w3-padding-large w3-right-align w3-xxlarge w3-text-theme-primary">
             <div class="w3-row">
-                Plan XI and XII Paid and UC
+                Plan XI Pending
             </div>
             <div class="w3-row w3-left-align">
                 <md-button class="md-primary w3-small w3-margin-0 w3-text-theme-primary" href="/main">
@@ -83,7 +83,7 @@
                     <md-menu-content class="w3-padding-0" width="4">
                         <md-menu-item>
                             <md-menu class="w3-padding-0 w3-margin-0">
-                                <md-button class="md-primary w3-small w3-margin-0 w3-text-theme-primary w3-padding-small" style="width: 100%; height: 100%; text-align: left;"
+                                <md-button class="md-primary w3-small w3-margin-0 w3-theme-primary-d2 w3-hover-theme-primary w3-padding-small" style="width: 100%; height: 100%; text-align: left;"
                                     ng-click="vm.openMenu($mdMenu, $event)">
                                     <i class="fas fa-table"></i>&nbsp;Reports&nbsp;
                                     <i class="fas fa-chevron-right w3-right w3-padding-large"></i>
@@ -95,7 +95,8 @@
                                         </md-button>
                                     </md-menu-item>
                                     <md-menu-item>
-                                        <md-button class="md-primary w3-small w3-margin-0 w3-text-theme-accent" onclick="window.location.href='/report/pending/'" ng-disabled="true">
+                                        <md-button class="md-primary w3-small w3-margin-0 w3-theme-primary-d2" onclick="window.location.href='/report/pending/'"
+                                            ng-disabled="true">
                                             <i class="fas fa-table"></i>&nbsp;Pending
                                         </md-button>
                                     </md-menu-item>
@@ -134,14 +135,15 @@
                             </md-button>
                         </md-menu-item>
                         <md-menu-item>
-                            <md-button class="md-primary w3-small w3-margin-0 w3-text-theme-accent" onclick="window.location.href='/report/pending/'" ng-disabled="true">
+                            <md-button class="md-primary w3-small w3-margin-0 w3-theme-primary-d2" onclick="window.location.href='/report/pending/'"
+                                ng-disabled="true">
                                 <i class="fas fa-table"></i>&nbsp;Pending
                             </md-button>
                         </md-menu-item>
                     </md-menu-content>
                 </md-menu>
                 <md-button class="md-primary w3-small w3-margin-0" ng-disabled="true">
-                    <i class="fas fa-school"></i>&nbsp;Colleges
+                    <i class="fas fa-table"></i>&nbsp;Pending
                 </md-button>
             </div>
         </div>
@@ -177,7 +179,29 @@
                                     <i>(Default: AND, Currently Used: {{vm.filter.use_or?"OR":"AND"}})</i>
                                 </md-checkbox>
                                 <div class="w3-row">
-                                    <div class="w3-col m6 w3-padding-small">
+                                    <div class="w3-col m2 w3-padding-small">
+                                        <fieldset class="primary w3-padding-small">
+                                            <legend>Auto Number</legend>
+                                            <md-chips ng-model="vm.filter.autoNum.selected" md-autocomplete-snap md-transform-chip="vm.transformAutoNumChip($chip)" md-require-match="true"
+                                                style="width: 100%;" md-on-add="vm.filterChanged('autoNum')" md-on-remove="vm.filterChanged('autoNum')">
+                                                <md-autocomplete md-selected-item="vm.filter.autoNum.selectedItem" md-search-text="vm.filter.autoNum.search" md-min-length="0"
+                                                    md-items="autoNum in vm.querySearchAutoNum(vm.filter.autoNum.search)" md-item-text="autoNum"
+                                                    placeholder="Search File Number">
+                                                    <span class="w3-small" md-highlight-text="vm.filter.autoNum.search">{{autoNum}}</span>
+                                                </md-autocomplete>
+                                                <md-chip-template>
+                                                    <span>
+                                                        {{$chip}}
+                                                    </span>
+                                                </md-chip-template>
+                                            </md-chips>
+                                            <md-checkbox class="w3-margin-top" ng-model="vm.filter.autoNum.includeBlanks" ng-disabled="!vm.filter.autoNum.hasBlanks"
+                                                aria-label="Include Blanks AutoNum" ng-change="vm.toggleBlanks('autoNum')">
+                                                Include Blanks
+                                            </md-checkbox>
+                                        </fieldset>
+                                    </div>
+                                    <!-- <div class="w3-col m5 w3-padding-small">
                                         <fieldset class="primary w3-padding-small">
                                             <legend>File Number</legend>
                                             <md-chips ng-model="vm.filter.fileNum.selected" md-autocomplete-snap md-transform-chip="vm.transformFileNumChip($chip)" md-require-match="true"
@@ -198,8 +222,8 @@
                                                 Include Blanks
                                             </md-checkbox>
                                         </fieldset>
-                                    </div>
-                                    <div class="w3-col m6 w3-padding-small">
+                                    </div> -->
+                                    <!-- <div class="w3-col m5 w3-padding-small">
                                         <fieldset class="primary w3-padding-small">
                                             <legend>Master File Number</legend>
                                             <md-chips ng-model="vm.filter.masterFileNum.selected" md-autocomplete-snap md-transform-chip="vm.transformMasterFileNumChip($chip)"
@@ -221,9 +245,9 @@
                                                 Include Blanks
                                             </md-checkbox>
                                         </fieldset>
-                                    </div>
+                                    </div> -->
                                 </div>
-                                <div class="w3-row">
+                                <!-- <div class="w3-row">
                                     <div class="w3-col m3 w3-padding-small">
                                         <fieldset class="primary w3-padding-small">
                                             <legend>College ID</legend>
@@ -318,8 +342,8 @@
                                             </md-slider-container>
                                         </fieldset>
                                     </div>
-                                </div>
-                                <div class="w3-row">
+                                </div> -->
+                                <!-- <div class="w3-row">
                                     <div class="w3-col m5 w3-padding-small">
                                         <fieldset class="primary w3-padding-small">
                                             <legend>Scheme</legend>
@@ -387,15 +411,10 @@
                                             </md-checkbox>
                                         </fieldset>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                         <div class="w3-margin-top w3-padding w3-center">
-                            <!-- <md-button ng-disabled="vm.mode.report.getting" class="md-raised md-primary" ng-click="vm.getReport()">
-                                Get Report&nbsp;
-                                <i ng-show="!vm.mode.report.getting" class="fas fa-chevron-right"></i>
-                                <i ng-show="vm.mode.report.getting" class="fas fa-circle-notch fa-spin"></i>
-                            </md-button> -->
                             <div class="w3-padding-small" ng-show="vm.mode.report.getting && !vm.mode.report.loaded" layout="row" layout-sm="column"
                                 layout-align="space-around">
                                 <md-progress-circular md-mode="indeterminate"></md-progress-circular>
@@ -492,8 +511,8 @@
     <!-- <script src="/vendor/materialize.css/1.0.0-beta/js/materialize.min.js"></script> -->
 
     <script type="text/javascript" src="/js/global.js"></script>
-    <script type="text/javascript" src="/js/paid.js"></script>
-    <script type="text/javascript" src="/js/paid-ng.js"></script>
+    <script type="text/javascript" src="/js/pending.js"></script>
+    <script type="text/javascript" src="/js/pending-ng.js"></script>
 </body>
 
 </html>
