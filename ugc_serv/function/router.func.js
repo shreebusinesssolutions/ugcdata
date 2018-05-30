@@ -5,15 +5,17 @@ var _getDataGlobalCollege = require("../handler/GET/data/global/college/getDataG
 var _getDataGlobalScheme = require("../handler/GET/data/global/scheme/getDataGlobalScheme.handler");
 var _getDataGlobalSubScheme = require("../handler/GET/data/global/subscheme/getDataGlobalSubscheme.handler");
 
-var _getPaidFilenum = require("../handler/GET/data/paid/filenum/getPaidFilenum.handler");
-var _getPaidMasterfilenum = require("../handler/GET/data/paid/masterfilenum/getPaidMasterfilenum.handler");
-var _getPaidYear = require("../handler/GET/data/paid/year/getPaidYear.handler");
-var _getPaidPaid = require("../handler/GET/data/paid/paid/getPaidPaid.handler");
-var _getPaidUC = require("../handler/GET/data/paid/uc/getPaidUC.handler");
-var _getPaidPlan = require("../handler/GET/data/paid/plan/getPaidPlan.handler");
+var _getDataPaidFilenum = require("../handler/GET/data/paid/filenum/getDataPaidFilenum.handler");
+var _getDataPaidMasterfilenum = require("../handler/GET/data/paid/masterfilenum/getDataPaidMasterfilenum.handler");
+var _getDataPaidYear = require("../handler/GET/data/paid/year/getDataPaidYear.handler");
+var _getDataPaidPaid = require("../handler/GET/data/paid/paid/getDataPaidPaid.handler");
+var _getDataPaidUC = require("../handler/GET/data/paid/uc/getDataPaidUC.handler");
+var _getDataPaidPlan = require("../handler/GET/data/paid/plan/getDataPaidPlan.handler");
 
-var _getPaidReportCount = require("../handler/GET/report/paid/count/getReportPaidCount.handler");
-var _getPaidReport = require("../handler/GET/report/paid/getReportPaid.handler");
+var _getDataPaidReportCount = require("../handler/GET/report/paid/count/getReportPaidCount.handler");
+var _getDataPaidReport = require("../handler/GET/report/paid/getReportPaid.handler");
+
+var _getDataPendingFilenum = require("../handler/GET/data/pending/autonum/getDataPendingAutonum.handler");
 
 var logger = require("../function/logger.func");
 
@@ -31,22 +33,26 @@ exports.route = function (method, pathname) {
         return _getDataGlobalSubScheme;
 
     else if (method == "GET" && /^\/data\/paid\/filenum\//.test(pathname))
-        return _getPaidFilenum;
+        return _getDataPaidFilenum;
     else if (method == "GET" && /^\/data\/paid\/masterfilenum\//.test(pathname))
-        return _getPaidMasterfilenum;
+        return _getDataPaidMasterfilenum;
     else if (method == "GET" && /^\/data\/paid\/year\//.test(pathname))
-        return _getPaidYear;
+        return _getDataPaidYear;
     else if (method == "GET" && /^\/data\/paid\/paid\//.test(pathname))
-        return _getPaidPaid;
+        return _getDataPaidPaid;
     else if (method == "GET" && /^\/data\/paid\/uc\//.test(pathname))
-        return _getPaidUC;
+        return _getDataPaidUC;
     else if (method == "GET" && /^\/data\/paid\/plan\//.test(pathname))
-        return _getPaidPlan;
+        return _getDataPaidPlan;
 
     else if (method == "GET" && /^\/report\/paid\/count\//.test(pathname))
-        return _getPaidReportCount;
+        return _getDataPaidReportCount;
     else if (method == "GET" && /^\/report\/paid\//.test(pathname))
-        return _getPaidReport;
+        return _getDataPaidReport;
+
+    else if (method == "GET" && /^\/data\/pending\/autonum\//.test(pathname))
+        return _getDataPendingFilenum;
+
     else {
         logger.error(pathname + " (" + method + ") Not found.", { method: "router()" });
         return false;
