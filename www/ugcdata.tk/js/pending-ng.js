@@ -182,6 +182,19 @@ var PendingCtrl = (function () {
                 _this.httpResponseError(response);
             });
         }, 100);
+        this.$timeout(function () {
+            _this.$http({
+                method: "GET",
+                url: "/ugc_serv/data/pending/sanctiondate/"
+            }).then(function successCallback(response) {
+                _this.filter.sanctionDate.scaleMin = response.data.min;
+                _this.filter.sanctionDate.scaleMax = response.data.max;
+                _this.filter.sanctionDate.min = response.data.min;
+                _this.filter.sanctionDate.max = response.data.max;
+            }, function errorCallback(response) {
+                _this.httpResponseError(response);
+            });
+        }, 100);
         // this.$timeout(function () {
         //     _this.$http({
         //         method: "GET",
@@ -694,6 +707,11 @@ angular
             .accentPalette('yellow').dark();
         $mdThemingProvider.theme('dark-primary').backgroundPalette('blue').dark();
         $mdThemingProvider.theme('dark-accent').backgroundPalette('red').dark();
+    })
+    .config(function ($mdDateLocaleProvider) {
+        $mdDateLocaleProvider.formatDate = function (date) {
+            return moment(date).format('DD-MMM-YYYY');
+        }
     })
     .run(function ($http) {
         $http.defaults.headers.common.Authorization = 'Bearer ' + cust_localStorage.getItem("token");
