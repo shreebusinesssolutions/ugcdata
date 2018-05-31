@@ -86,38 +86,30 @@ var PendingCtrl = (function () {
                 max: null,
                 includeBlanks: false
             },
-            // year: {
-            //     selected: [],
-            //     selectedItem: null,
-            //     search: "",
-            //     every: null,
-            //     hasBlanks: false,
-            //     includeBlanks: false
-            // },
-            // scheme: {
-            //     selected: [],
-            //     selectedItem: null,
-            //     search: "",
-            //     every: null,
-            //     hasBlanks: false,
-            //     includeBlanks: false
-            // },
-            // subScheme: {
-            //     selected: [],
-            //     selectedItem: null,
-            //     search: "",
-            //     every: null,
-            //     hasBlanks: false,
-            //     includeBlanks: false
-            // },
-            // plan: {
-            //     selected: [],
-            //     selectedItem: null,
-            //     search: "",
-            //     every: null,
-            //     hasBlanks: false,
-            //     includeBlanks: false
-            // }
+            scheme: {
+                selected: [],
+                selectedItem: null,
+                search: "",
+                every: null,
+                hasBlanks: false,
+                includeBlanks: false
+            },
+            subScheme: {
+                selected: [],
+                selectedItem: null,
+                search: "",
+                every: null,
+                hasBlanks: false,
+                includeBlanks: false
+            },
+            year: {
+                selected: [],
+                selectedItem: null,
+                search: "",
+                every: null,
+                hasBlanks: false,
+                includeBlanks: false
+            },
         };
 
         this.reportData = {
@@ -243,50 +235,38 @@ var PendingCtrl = (function () {
                 _this.httpResponseError(response);
             });
         }, 100);
-        // this.$timeout(function () {
-        //     _this.$http({
-        //         method: "GET",
-        //         url: "/ugc_serv/data/paid/year/"
-        //     }).then(function successCallback(response) {
-        //         _this.filter.year.every = response.data;
-        //         if (response.data.indexOf("(Blank)") >= 0)
-        //             _this.filter.year.hasBlanks = true;
-        //     }, function errorCallback(response) {
-        //         _this.httpResponseError(response);
-        //     });
-        // }, 100);
-        // this.$timeout(function () {
-        //     _this.$http({
-        //         method: "GET",
-        //         url: "/ugc_serv/data/global/scheme/"
-        //     }).then(function successCallback(response) {
-        //         _this.filter.scheme.every = response.data;
-        //     }, function errorCallback(response) {
-        //         _this.httpResponseError(response);
-        //     });
-        // }, 100);
-        // this.$timeout(function () {
-        //     _this.$http({
-        //         method: "GET",
-        //         url: "/ugc_serv/data/global/subscheme/"
-        //     }).then(function successCallback(response) {
-        //         _this.filter.subScheme.every = response.data;
-        //     }, function errorCallback(response) {
-        //         _this.httpResponseError(response);
-        //     });
-        // }, 100);
-        // this.$timeout(function () {
-        //     _this.$http({
-        //         method: "GET",
-        //         url: "/ugc_serv/data/paid/plan/"
-        //     }).then(function successCallback(response) {
-        //         _this.filter.plan.every = response.data;
-        //         if (response.data.indexOf("(Blank)") >= 0)
-        //             _this.filter.plan.hasBlanks = true;
-        //     }, function errorCallback(response) {
-        //         _this.httpResponseError(response);
-        //     });
-        // }, 100);
+        this.$timeout(function () {
+            _this.$http({
+                method: "GET",
+                url: "/ugc_serv/data/global/scheme/"
+            }).then(function successCallback(response) {
+                _this.filter.scheme.every = response.data;
+            }, function errorCallback(response) {
+                _this.httpResponseError(response);
+            });
+        }, 100);
+        this.$timeout(function () {
+            _this.$http({
+                method: "GET",
+                url: "/ugc_serv/data/global/subscheme/"
+            }).then(function successCallback(response) {
+                _this.filter.subScheme.every = response.data;
+            }, function errorCallback(response) {
+                _this.httpResponseError(response);
+            });
+        }, 100);
+        this.$timeout(function () {
+            _this.$http({
+                method: "GET",
+                url: "/ugc_serv/data/pending/year/"
+            }).then(function successCallback(response) {
+                _this.filter.year.every = response.data;
+                if (response.data.indexOf("(Blank)") >= 0)
+                    _this.filter.year.hasBlanks = true;
+            }, function errorCallback(response) {
+                _this.httpResponseError(response);
+            });
+        }, 100);
     }
 
     PendingCtrl.prototype.showNotif = function (message, timeout = 3000, errorToast = false) {
@@ -425,34 +405,28 @@ var PendingCtrl = (function () {
         var results = query ? this.filter.remarks.every.filter(createFilterFor(query)) : this.filter.remarks.every.filter(createFilterFor(''));
         return results;
     };
-    // PendingCtrl.prototype.transformYearChip = function (chip) {
-    //     return chip
-    // };
-    // PendingCtrl.prototype.querySearchYear = function (query) {
-    //     var results = query ? this.filter.year.every.filter(createFilterFor(query)) : this.filter.year.every.filter(createFilterFor(''));
-    //     return results;
-    // };
-    // PendingCtrl.prototype.transformSchemeChip = function (chip) {
-    //     return chip.id
-    // };
-    // PendingCtrl.prototype.querySearchScheme = function (query) {
-    //     var results = query ? this.filter.scheme.every.filter(createFilterObjFor(query)) : this.filter.scheme.every.filter(createFilterObjFor(''));
-    //     return results;
-    // };
-    // PendingCtrl.prototype.transformSubSchemeChip = function (chip) {
-    //     return chip.id
-    // };
-    // PendingCtrl.prototype.querySearchSubScheme = function (query) {
-    //     var results = query ? this.filter.subScheme.every.filter(createFilterObjFor(query)) : this.filter.subScheme.every.filter(createFilterObjFor(''));
-    //     return results;
-    // };
-    // PendingCtrl.prototype.transformPlanChip = function (chip) {
-    //     return chip
-    // };
-    // PendingCtrl.prototype.querySearchPlan = function (query) {
-    //     var results = query ? this.filter.plan.every.filter(createFilterFor(query)) : this.filter.plan.every.filter(createFilterFor(''));
-    //     return results;
-    // };
+    PendingCtrl.prototype.transformSchemeChip = function (chip) {
+        return chip.id
+    };
+    PendingCtrl.prototype.querySearchScheme = function (query) {
+        var results = query ? this.filter.scheme.every.filter(createFilterObjFor(query)) : this.filter.scheme.every.filter(createFilterObjFor(''));
+        return results;
+    };
+    PendingCtrl.prototype.transformSubSchemeChip = function (chip) {
+        return chip.id
+    };
+    PendingCtrl.prototype.querySearchSubScheme = function (query) {
+        var results = query ? this.filter.subScheme.every.filter(createFilterObjFor(query)) : this.filter.subScheme.every.filter(createFilterObjFor(''));
+        return results;
+    };
+    PendingCtrl.prototype.transformYearChip = function (chip) {
+        return chip
+    };
+    PendingCtrl.prototype.querySearchYear = function (query) {
+        var results = query ? this.filter.year.every.filter(createFilterFor(query)) : this.filter.year.every.filter(createFilterFor(''));
+        return results;
+    };
+
     PendingCtrl.prototype.getReport = function (min, max) {
         var _this = this;
         _this.mode.report.getting = true;

@@ -315,28 +315,6 @@
                                             </md-checkbox>
                                         </fieldset>
                                     </div>
-                                    <!-- <div class="w3-col m3 w3-padding-small">
-                                        <fieldset class="primary w3-padding-small">
-                                            <legend>Year</legend>
-                                            <md-chips ng-model="vm.filter.year.selected" md-autocomplete-snap md-transform-chip="vm.transformYearChip($chip)" md-require-match="true"
-                                                style="width: 100%;" md-on-add="vm.filterChanged('year')" md-on-remove="vm.filterChanged('year')">
-                                                <md-autocomplete md-selected-item="vm.filter.year.selectedItem" md-search-text="vm.filter.year.search" md-min-length="0"
-                                                    md-items="year in vm.querySearchYear(vm.filter.year.search)" md-item-text="year"
-                                                    placeholder="Search Year">
-                                                    <span class="w3-small" md-highlight-text="vm.filter.year.search">{{year}}</span>
-                                                </md-autocomplete>
-                                                <md-chip-template>
-                                                    <span>
-                                                        {{$chip}}
-                                                    </span>
-                                                </md-chip-template>
-                                            </md-chips>
-                                            <md-checkbox class="w3-margin-top" ng-model="vm.filter.year.includeBlanks" ng-disabled="!vm.filter.year.hasBlanks" aria-label="Include Blanks Year"
-                                                ng-change="vm.toggleBlanks('year')">
-                                                Include Blanks
-                                            </md-checkbox>
-                                        </fieldset>
-                                    </div> -->
                                 </div>
                                 <div class="w3-row">
                                     <div class="w3-col m4 w3-padding-small">
@@ -424,8 +402,8 @@
                                         </fieldset>
                                     </div>
                                 </div>
-                                <!-- <div class="w3-row">
-                                    <div class="w3-col m5 w3-padding-small">
+                                <div class="w3-row">
+                                    <div class="w3-col m4 w3-padding-small">
                                         <fieldset class="primary w3-padding-small">
                                             <legend>Scheme</legend>
                                             <md-chips ng-model="vm.filter.scheme.selected" md-autocomplete-snap md-transform-chip="vm.transformSchemeChip($chip)" md-require-match="true"
@@ -433,7 +411,7 @@
                                                 <md-autocomplete md-selected-item="vm.filter.scheme.selectedItem" md-search-text="vm.filter.scheme.search" md-min-length="0"
                                                     md-items="scheme in vm.querySearchScheme(vm.filter.scheme.search)" md-item-text="scheme.id"
                                                     placeholder="Search Scheme">
-                                                    <span class="w3-small" md-highlight-text="vm.filter.scheme.search">{{scheme.id}}({{scheme.name}})</span>
+                                                    <span class="w3-small" md-highlight-text="vm.filter.scheme.search">{{scheme.id}} ({{scheme.name}})</span>
                                                 </md-autocomplete>
                                                 <md-chip-template>
                                                     <span>
@@ -456,7 +434,7 @@
                                                 <md-autocomplete md-selected-item="vm.filter.subScheme.selectedItem" md-search-text="vm.filter.subScheme.search" md-min-length="0"
                                                     md-items="subScheme in vm.querySearchSubScheme(vm.filter.subScheme.search)"
                                                     md-item-text="subScheme.id" placeholder="Search Sub Scheme">
-                                                    <span class="w3-small" md-highlight-text="vm.filter.subScheme.search">{{subScheme.id}}({{subScheme.name}})</span>
+                                                    <span class="w3-small" md-highlight-text="vm.filter.subScheme.search">{{subScheme.id}} ({{subScheme.name}})</span>
                                                 </md-autocomplete>
                                                 <md-chip-template>
                                                     <span>
@@ -470,15 +448,15 @@
                                             </md-checkbox>
                                         </fieldset>
                                     </div>
-                                    <div class="w3-col m3 w3-padding-small">
+                                    <div class="w3-col m2 w3-padding-small">
                                         <fieldset class="primary w3-padding-small">
-                                            <legend>Plan File</legend>
-                                            <md-chips ng-model="vm.filter.plan.selected" md-autocomplete-snap md-transform-chip="vm.transformPlanChip($chip)" md-require-match="true"
-                                                style="width: 100%;" md-on-add="vm.filterChanged('plan')" md-on-remove="vm.filterChanged('plan')">
-                                                <md-autocomplete md-selected-item="vm.filter.plan.selectedItem" md-search-text="vm.filter.plan.search" md-min-length="0"
-                                                    md-items="plan in vm.querySearchPlan(vm.filter.plan.search)" md-item-text="plan"
-                                                    placeholder="Search Plan">
-                                                    <span class="w3-small" md-highlight-text="vm.filter.plan.search">{{plan}}</span>
+                                            <legend>Year</legend>
+                                            <md-chips ng-model="vm.filter.year.selected" md-autocomplete-snap md-transform-chip="vm.transformYearChip($chip)" md-require-match="true"
+                                                style="width: 100%;" md-on-add="vm.filterChanged('year')" md-on-remove="vm.filterChanged('year')">
+                                                <md-autocomplete md-selected-item="vm.filter.year.selectedItem" md-search-text="vm.filter.year.search" md-min-length="0"
+                                                    md-items="year in vm.querySearchYear(vm.filter.year.search)" md-item-text="year"
+                                                    placeholder="Search Year">
+                                                    <span class="w3-small" md-highlight-text="vm.filter.year.search">{{year}}</span>
                                                 </md-autocomplete>
                                                 <md-chip-template>
                                                     <span>
@@ -486,13 +464,13 @@
                                                     </span>
                                                 </md-chip-template>
                                             </md-chips>
-                                            <md-checkbox class="w3-margin-top" ng-model="vm.filter.plan.includeBlanks" ng-disabled="!vm.filter.plan.hasBlanks" aria-label="Include Blanks Plan"
-                                                ng-change="vm.toggleBlanks('plan')">
+                                            <md-checkbox class="w3-margin-top" ng-model="vm.filter.year.includeBlanks" ng-disabled="!vm.filter.year.hasBlanks" aria-label="Include Blanks Year"
+                                                ng-change="vm.toggleBlanks('year')">
                                                 Include Blanks
                                             </md-checkbox>
                                         </fieldset>
                                     </div>
-                                </div> -->
+                                </div>
                             </div>
                         </div>
                         <div class="w3-margin-top w3-padding w3-center">
