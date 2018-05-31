@@ -12,8 +12,8 @@ var _getDataPaidPaid = require("../handler/GET/data/paid/paid/getDataPaidPaid.ha
 var _getDataPaidUc = require("../handler/GET/data/paid/uc/getDataPaidUc.handler");
 var _getDataPaidPlan = require("../handler/GET/data/paid/plan/getDataPaidPlan.handler");
 
-var _getDataPaidReportCount = require("../handler/GET/report/paid/count/getReportPaidCount.handler");
-var _getDataPaidReport = require("../handler/GET/report/paid/getReportPaid.handler");
+var _getReportPaidCount = require("../handler/GET/report/paid/count/getReportPaidCount.handler");
+var _getReportPaid = require("../handler/GET/report/paid/getReportPaid.handler");
 
 var _getDataPendingAutonum = require("../handler/GET/data/pending/autonum/getDataPendingAutonum.handler");
 var _getDataPendingFilenum = require("../handler/GET/data/pending/filenum/getDataPendingFilenum.handler");
@@ -24,6 +24,9 @@ var _getDataPendingPaid = require("../handler/GET/data/pending/paid/getDataPendi
 var _getDataPendingUc = require("../handler/GET/data/pending/uc/getDataPendingUc.handler");
 var _getDataPendingPendinguc = require("../handler/GET/data/pending/pendinguc/getDataPendingPendinguc.handler");
 var _getDataPendingYear = require("../handler/GET/data/pending/year/getDataPendingYear.handler");
+
+var _getReportPendingCount = require("../handler/GET/report/pending/count/getReportPendingCount.handler");
+var _getReportPending = require("../handler/GET/report/pending/gerReportPending.handler");
 
 
 var logger = require("../function/logger.func");
@@ -55,9 +58,9 @@ exports.route = function (method, pathname) {
         return _getDataPaidPlan;
 
     else if (method == "GET" && /^\/report\/paid\/count\//.test(pathname))
-        return _getDataPaidReportCount;
+        return _getReportPaidCount;
     else if (method == "GET" && /^\/report\/paid\//.test(pathname))
-        return _getDataPaidReport;
+        return _getReportPaid;
 
     else if (method == "GET" && /^\/data\/pending\/autonum\//.test(pathname))
         return _getDataPendingAutonum;
@@ -77,6 +80,11 @@ exports.route = function (method, pathname) {
         return _getDataPendingPendinguc;
     else if (method == "GET" && /^\/data\/pending\/year\//.test(pathname))
         return _getDataPendingYear;
+
+    else if (method == "GET" && /^\/report\/pending\/count\//.test(pathname))
+        return _getReportPendingCount;
+    else if (method == "GET" && /^\/report\/pending\//.test(pathname))
+        return _getReportPending;
 
     else {
         logger.error(pathname + " (" + method + ") Not found.", { method: "router()" });
