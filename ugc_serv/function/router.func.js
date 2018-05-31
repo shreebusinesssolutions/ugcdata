@@ -20,6 +20,7 @@ var _getDataPendingFilenum = require("../handler/GET/data/pending/filenum/getDat
 var _getDataPendingMasterfilenum = require("../handler/GET/data/pending/masterfilenum/getDataPendingMasterfilenum.handler");
 var _getDataPendingRemarks = require("../handler/GET/data/pending/remarks/getDataPendingRemarks.handler");
 var _getDataPendingSanctiondate = require("../handler/GET/data/pending/sanctiondate/getDataPendingSanctiondate.handler");
+var _getDataPendingPaid = require("../handler/GET/data/pending/paid/getDataPendingPaid.handler");
 
 
 var logger = require("../function/logger.func");
@@ -65,6 +66,8 @@ exports.route = function (method, pathname) {
         return _getDataPendingRemarks;
     else if (method == "GET" && /^\/data\/pending\/sanctiondate\//.test(pathname))
         return _getDataPendingSanctiondate;
+    else if (method == "GET" && /^\/data\/pending\/paid\//.test(pathname))
+        return _getDataPendingPaid;
 
     else {
         logger.error(pathname + " (" + method + ") Not found.", { method: "router()" });
