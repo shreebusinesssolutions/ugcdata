@@ -437,16 +437,20 @@ var PendingCtrl = (function () {
         _this.mode.report.loaded = false;
         _this.$http({
             method: "GET",
-            url: "/ugc_serv/report/paid/count/?use_or=" + decodeURI(_this.filter.use_or)
+            url: "/ugc_serv/report/pending/count/?use_or=" + decodeURI(_this.filter.use_or)
+                + "&autoNum=" + decodeURI(_this.filter.autoNum.selected.join(";,;"))
                 + "&fileNum=" + decodeURI(_this.filter.fileNum.selected.join(";,;"))
                 + "&masterFileNum=" + decodeURI(_this.filter.masterFileNum.selected.join(";,;"))
                 + "&collegeId=" + decodeURI(_this.filter.college.selected.join(";,;"))
-                + "&year=" + decodeURI(_this.filter.year.selected.join(";,;"))
-                + "&paid=" + decodeURI(_this.filter.paid.min) + ";,;" + decodeURI(_this.filter.paid.max)
-                + "&uc=" + decodeURI(_this.filter.uc.min) + ";,;" + decodeURI(_this.filter.uc.max)
+                + "&remarks=" + decodeURI(_this.filter.remarks.selected.join(";,;"))
+                + "&sanctionDate=" + decodeURI(_this.filter.sanctionDate.min) + ";,;" + decodeURI(_this.filter.sanctionDate.max) + ";,;" + decodeURI(_this.filter.sanctionDate.includeBlanks)
+                + "&paid=" + decodeURI(_this.filter.paid.min) + ";,;" + decodeURI(_this.filter.paid.max) + ";,;" + decodeURI(_this.filter.paid.includeBlanks)
+                + "&uc=" + decodeURI(_this.filter.uc.min) + ";,;" + decodeURI(_this.filter.uc.max) + ";,;" + decodeURI(_this.filter.uc.includeBlanks)
+                + "&pendingUc=" + decodeURI(_this.filter.pendinguc.min) + ";,;" + decodeURI(_this.filter.pendinguc.max) + ";,;" + decodeURI(_this.filter.pendinguc.includeBlanks)
                 + "&scheme=" + decodeURI(_this.filter.scheme.selected.join(";,;"))
                 + "&subScheme=" + decodeURI(_this.filter.subScheme.selected.join(";,;"))
-                + "&plan=" + decodeURI(_this.filter.plan.selected.join(";,;"))
+                + "&year=" + decodeURI(_this.filter.year.selected.join(";,;"))
+                + "&caseCleared=" + decodeURI(_this.filter.cleared.yes) + ";,;" + decodeURI(_this.filter.cleared.no)
         }).then(function successCallback(response) {
             _this.reportData.totalCount = response.data;
             _this.reportData.limit.min = 0;
@@ -460,56 +464,73 @@ var PendingCtrl = (function () {
                     function () {
                         _this.$http({
                             method: "GET",
-                            url: "/ugc_serv/report/paid/?use_or=" + decodeURI(_this.filter.use_or)
+                            url: "/ugc_serv/report/pending/count/?use_or=" + decodeURI(_this.filter.use_or)
+                                + "&autoNum=" + decodeURI(_this.filter.autoNum.selected.join(";,;"))
                                 + "&fileNum=" + decodeURI(_this.filter.fileNum.selected.join(";,;"))
                                 + "&masterFileNum=" + decodeURI(_this.filter.masterFileNum.selected.join(";,;"))
                                 + "&collegeId=" + decodeURI(_this.filter.college.selected.join(";,;"))
-                                + "&year=" + decodeURI(_this.filter.year.selected.join(";,;"))
-                                + "&paid=" + decodeURI(_this.filter.paid.min) + ";,;" + decodeURI(_this.filter.paid.max)
-                                + "&uc=" + decodeURI(_this.filter.uc.min) + ";,;" + decodeURI(_this.filter.uc.max)
+                                + "&remarks=" + decodeURI(_this.filter.remarks.selected.join(";,;"))
+                                + "&sanctionDate=" + decodeURI(_this.filter.sanctionDate.min) + ";,;" + decodeURI(_this.filter.sanctionDate.max) + ";,;" + decodeURI(_this.filter.sanctionDate.includeBlanks)
+                                + "&paid=" + decodeURI(_this.filter.paid.min) + ";,;" + decodeURI(_this.filter.paid.max) + ";,;" + decodeURI(_this.filter.paid.includeBlanks)
+                                + "&uc=" + decodeURI(_this.filter.uc.min) + ";,;" + decodeURI(_this.filter.uc.max) + ";,;" + decodeURI(_this.filter.uc.includeBlanks)
+                                + "&pendingUc=" + decodeURI(_this.filter.pendinguc.min) + ";,;" + decodeURI(_this.filter.pendinguc.max) + ";,;" + decodeURI(_this.filter.pendinguc.includeBlanks)
                                 + "&scheme=" + decodeURI(_this.filter.scheme.selected.join(";,;"))
                                 + "&subScheme=" + decodeURI(_this.filter.subScheme.selected.join(";,;"))
-                                + "&plan=" + decodeURI(_this.filter.plan.selected.join(";,;"))
+                                + "&year=" + decodeURI(_this.filter.year.selected.join(";,;"))
+                                + "&caseCleared=" + decodeURI(_this.filter.cleared.yes) + ";,;" + decodeURI(_this.filter.cleared.no)
                                 + "&limit=" + _this.reportData.limit.min + ";,;" + _this.reportData.limit.max
                         }).then(function successCallback(response) {
                             if ($.fn.dataTable.isDataTable('#dataTable')) {
                                 console.log("Destrying", dtTable);
                                 dtTable.destroy(true);
-                                document.getElementById("divDataTable").innerHTML = '<table id="dataTable" class="table table-striped table-bordered compact hover order-column" style="width:100%">\
+                                document.getElementById("divDataTable").innerHTML = '\
+                                    <table id="dataTable" class="table table-striped table-bordered compact hover order-column" style="width:100%">\
                                         <thead>\
                                             <tr>\
                                                 <th>Entry Num</th>\
-                                                <th>File Num</th>\
-                                                <th>Master File Num</th>\
+                                                <th>Auto Num</th>\
                                                 <th>College ID</th>\
-                                                <th>Year</th>\
+                                                <th>File Num</th>\
+                                                <th>Remarks</th>\
+                                                <th>Master File Num</th>\
+                                                <th>Sanction Date</th>\
                                                 <th>Paid</th>\
                                                 <th>UC</th>\
+                                                <th>Pendgin UC</th>\
                                                 <th>Scheme ID</th>\
                                                 <th>Sub-scheme ID</th>\
-                                                <th>Plan Files</th>\
+                                                <th>Year</th>\
+                                                <th>Case Cleared</th>\
                                             </tr>\
                                         </thead>\
                                         <tfoot>\
                                             <tr>\
                                                 <th>Entry Num</th>\
-                                                <th>File Num</th>\
-                                                <th>Master File Num</th>\
+                                                <th>Auto Num</th>\
                                                 <th>College ID</th>\
-                                                <th>Year</th>\
+                                                <th>File Num</th>\
+                                                <th>Remarks</th>\
+                                                <th>Master File Num</th>\
+                                                <th>Sanction Date</th>\
                                                 <th>Paid</th>\
                                                 <th>UC</th>\
+                                                <th>Pendgin UC</th>\
                                                 <th>Scheme ID</th>\
                                                 <th>Sub-scheme ID</th>\
-                                                <th>Plan Files</th>\
+                                                <th>Year</th>\
+                                                <th>Case Cleared</th>\
                                             </tr>\
                                         </tfoot>\
                                     </table>';
                             }
                             _this.$timeout(function () {
+                                $.fn.dataTable.moment("DD/MMM/YYYY");
                                 dtTable = $('#dataTable').DataTable({
                                     "deferRender": true,
-                                    "lengthMenu": [50, 100],
+                                    "lengthMenu": [
+                                        [50, 100, -1],
+                                        [50, 100, "All"]
+                                    ],
                                     "destroy": true
                                 });
                                 // var oSettings = $('.dataTable').dataTable().fnSettings();
@@ -546,57 +567,74 @@ var PendingCtrl = (function () {
                 _this.mode.report.loaded = false;
                 _this.$http({
                     method: "GET",
-                    url: "/ugc_serv/report/paid/?use_or=" + decodeURI(_this.filter.use_or)
+                    url: "/ugc_serv/report/pending/count/?use_or=" + decodeURI(_this.filter.use_or)
+                        + "&autoNum=" + decodeURI(_this.filter.autoNum.selected.join(";,;"))
                         + "&fileNum=" + decodeURI(_this.filter.fileNum.selected.join(";,;"))
                         + "&masterFileNum=" + decodeURI(_this.filter.masterFileNum.selected.join(";,;"))
                         + "&collegeId=" + decodeURI(_this.filter.college.selected.join(";,;"))
-                        + "&year=" + decodeURI(_this.filter.year.selected.join(";,;"))
-                        + "&paid=" + decodeURI(_this.filter.paid.min) + ";,;" + decodeURI(_this.filter.paid.max)
-                        + "&uc=" + decodeURI(_this.filter.uc.min) + ";,;" + decodeURI(_this.filter.uc.max)
+                        + "&remarks=" + decodeURI(_this.filter.remarks.selected.join(";,;"))
+                        + "&sanctionDate=" + decodeURI(_this.filter.sanctionDate.min) + ";,;" + decodeURI(_this.filter.sanctionDate.max) + ";,;" + decodeURI(_this.filter.sanctionDate.includeBlanks)
+                        + "&paid=" + decodeURI(_this.filter.paid.min) + ";,;" + decodeURI(_this.filter.paid.max) + ";,;" + decodeURI(_this.filter.paid.includeBlanks)
+                        + "&uc=" + decodeURI(_this.filter.uc.min) + ";,;" + decodeURI(_this.filter.uc.max) + ";,;" + decodeURI(_this.filter.uc.includeBlanks)
+                        + "&pendingUc=" + decodeURI(_this.filter.pendinguc.min) + ";,;" + decodeURI(_this.filter.pendinguc.max) + ";,;" + decodeURI(_this.filter.pendinguc.includeBlanks)
                         + "&scheme=" + decodeURI(_this.filter.scheme.selected.join(";,;"))
                         + "&subScheme=" + decodeURI(_this.filter.subScheme.selected.join(";,;"))
-                        + "&plan=" + decodeURI(_this.filter.plan.selected.join(";,;"))
+                        + "&year=" + decodeURI(_this.filter.year.selected.join(";,;"))
+                        + "&caseCleared=" + decodeURI(_this.filter.cleared.yes) + ";,;" + decodeURI(_this.filter.cleared.no)
                         + "&limit=" + _this.reportData.limit.min + ";,;" + _this.reportData.maxChunkSize
                 }).then(function successCallback(response) {
                     if ($.fn.dataTable.isDataTable('#dataTable')) {
                         console.log("Destrying", dtTable);
                         dtTable.destroy(true);
-                        document.getElementById("divDataTable").innerHTML = '<table id="dataTable" class="table table-striped table-bordered compact hover order-column" style="width:100%">\
-                                <thead>\
-                                    <tr>\
-                                        <th>Entry Num</th>\
-                                        <th>File Num</th>\
-                                        <th>Master File Num</th>\
-                                        <th>College ID</th>\
-                                        <th>Year</th>\
-                                        <th>Paid</th>\
-                                        <th>UC</th>\
-                                        <th>Scheme ID</th>\
-                                        <th>Sub-scheme ID</th>\
-                                        <th>Plan Files</th>\
-                                    </tr>\
-                                </thead>\
-                                <tfoot>\
-                                    <tr>\
-                                        <th>Entry Num</th>\
-                                        <th>File Num</th>\
-                                        <th>Master File Num</th>\
-                                        <th>College ID</th>\
-                                        <th>Year</th>\
-                                        <th>Paid</th>\
-                                        <th>UC</th>\
-                                        <th>Scheme ID</th>\
-                                        <th>Sub-scheme ID</th>\
-                                        <th>Plan Files</th>\
-                                    </tr>\
-                                </tfoot>\
-                            </table>';
+                        document.getElementById("divDataTable").innerHTML = '\
+                        <table id="dataTable" class="table table-striped table-bordered compact hover order-column" style="width:100%">\
+                            <thead>\
+                                <tr>\
+                                    <th>Entry Num</th>\
+                                    <th>Auto Num</th>\
+                                    <th>College ID</th>\
+                                    <th>File Num</th>\
+                                    <th>Remarks</th>\
+                                    <th>Master File Num</th>\
+                                    <th>Sanction Date</th>\
+                                    <th>Paid</th>\
+                                    <th>UC</th>\
+                                    <th>Pendgin UC</th>\
+                                    <th>Scheme ID</th>\
+                                    <th>Sub-scheme ID</th>\
+                                    <th>Year</th>\
+                                    <th>Case Cleared</th>\
+                                </tr>\
+                            </thead>\
+                            <tfoot>\
+                                <tr>\
+                                    <th>Entry Num</th>\
+                                    <th>Auto Num</th>\
+                                    <th>College ID</th>\
+                                    <th>File Num</th>\
+                                    <th>Remarks</th>\
+                                    <th>Master File Num</th>\
+                                    <th>Sanction Date</th>\
+                                    <th>Paid</th>\
+                                    <th>UC</th>\
+                                    <th>Pendgin UC</th>\
+                                    <th>Scheme ID</th>\
+                                    <th>Sub-scheme ID</th>\
+                                    <th>Year</th>\
+                                    <th>Case Cleared</th>\
+                                </tr>\
+                            </tfoot>\
+                        </table>';
                     }
                     _this.$timeout(function () {
+                        $.fn.dataTable.moment("DD/MMM/YYYY");
                         dtTable = $('#dataTable').DataTable({
                             "deferRender": true,
-                            "lengthMenu": [50],
-                            "destroy": true,
+                            "lengthMenu": [
+                                [50, 100, -1],
+                                [50, 100, "All"]
+                            ],
+                            "destroy": true
                         });
                         console.log(response.data.data.length);
                         for (var i = 0; i < response.data.data.length; i++) {
