@@ -64,7 +64,19 @@ var PendingCtrl = (function () {
                 min: null,
                 max: null,
                 includeBlanks: false
-            }
+            },
+            paid: {
+                scaleMin: null,
+                scaleMax: null,
+                min: null,
+                max: null
+            },
+            // uc: {
+            //     scaleMin: null,
+            //     scaleMax: null,
+            //     min: null,
+            //     max: null
+            // },
             // year: {
             //     selected: [],
             //     selectedItem: null,
@@ -72,18 +84,6 @@ var PendingCtrl = (function () {
             //     every: null,
             //     hasBlanks: false,
             //     includeBlanks: false
-            // },
-            // paid: {
-            //     scaleMin: null,
-            //     scaleMax: null,
-            //     min: null,
-            //     max: null
-            // },
-            // uc: {
-            //     scaleMin: null,
-            //     scaleMax: null,
-            //     min: null,
-            //     max: null
             // },
             // scheme: {
             //     selected: [],
@@ -195,31 +195,19 @@ var PendingCtrl = (function () {
                 _this.httpResponseError(response);
             });
         }, 100);
-        // this.$timeout(function () {
-        //     _this.$http({
-        //         method: "GET",
-        //         url: "/ugc_serv/data/paid/year/"
-        //     }).then(function successCallback(response) {
-        //         _this.filter.year.every = response.data;
-        //         if (response.data.indexOf("(Blank)") >= 0)
-        //             _this.filter.year.hasBlanks = true;
-        //     }, function errorCallback(response) {
-        //         _this.httpResponseError(response);
-        //     });
-        // }, 100);
-        // this.$timeout(function () {
-        //     _this.$http({
-        //         method: "GET",
-        //         url: "/ugc_serv/data/paid/paid/"
-        //     }).then(function successCallback(response) {
-        //         _this.filter.paid.scaleMin = response.data.min;
-        //         _this.filter.paid.scaleMax = response.data.max;
-        //         _this.filter.paid.min = response.data.min;
-        //         _this.filter.paid.max = response.data.max;
-        //     }, function errorCallback(response) {
-        //         _this.httpResponseError(response);
-        //     });
-        // }, 100);
+        this.$timeout(function () {
+            _this.$http({
+                method: "GET",
+                url: "/ugc_serv/data/pending/paid/"
+            }).then(function successCallback(response) {
+                _this.filter.paid.scaleMin = response.data.min;
+                _this.filter.paid.scaleMax = response.data.max;
+                _this.filter.paid.min = response.data.min;
+                _this.filter.paid.max = response.data.max;
+            }, function errorCallback(response) {
+                _this.httpResponseError(response);
+            });
+        }, 100);
         // this.$timeout(function () {
         //     _this.$http({
         //         method: "GET",
@@ -229,6 +217,18 @@ var PendingCtrl = (function () {
         //         _this.filter.uc.scaleMax = response.data.max;
         //         _this.filter.uc.min = response.data.min;
         //         _this.filter.uc.max = response.data.max;
+        //     }, function errorCallback(response) {
+        //         _this.httpResponseError(response);
+        //     });
+        // }, 100);
+        // this.$timeout(function () {
+        //     _this.$http({
+        //         method: "GET",
+        //         url: "/ugc_serv/data/paid/year/"
+        //     }).then(function successCallback(response) {
+        //         _this.filter.year.every = response.data;
+        //         if (response.data.indexOf("(Blank)") >= 0)
+        //             _this.filter.year.hasBlanks = true;
         //     }, function errorCallback(response) {
         //         _this.httpResponseError(response);
         //     });
