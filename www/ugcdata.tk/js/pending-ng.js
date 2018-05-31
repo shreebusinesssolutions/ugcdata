@@ -376,6 +376,13 @@ var PendingCtrl = (function () {
         var results = query ? this.filter.college.every.filter(createFilterFor(query)) : this.filter.college.every.filter(createFilterFor(''));
         return results;
     };
+    PendingCtrl.prototype.transformRemarksChip = function (chip) {
+        return chip
+    };
+    PendingCtrl.prototype.querySearchRemarks = function (query) {
+        var results = query ? this.filter.remarks.every.filter(createFilterFor(query)) : this.filter.remarks.every.filter(createFilterFor(''));
+        return results;
+    };
     // PendingCtrl.prototype.transformYearChip = function (chip) {
     //     return chip
     // };
