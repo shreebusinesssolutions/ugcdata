@@ -187,10 +187,10 @@ var PendingCtrl = (function () {
                 method: "GET",
                 url: "/ugc_serv/data/pending/sanctiondate/"
             }).then(function successCallback(response) {
-                _this.filter.sanctionDate.scaleMin = response.data.min;
-                _this.filter.sanctionDate.scaleMax = response.data.max;
-                _this.filter.sanctionDate.min = response.data.min;
-                _this.filter.sanctionDate.max = response.data.max;
+                _this.filter.sanctionDate.scaleMin = new Date(response.data.min);
+                _this.filter.sanctionDate.scaleMax = new Date(response.data.max);
+                _this.filter.sanctionDate.min = new Date(response.data.min);
+                _this.filter.sanctionDate.max = new Date(response.data.max);
             }, function errorCallback(response) {
                 _this.httpResponseError(response);
             });
