@@ -42,14 +42,14 @@ var PendingCtrl = (function () {
                 hasBlanks: false,
                 includeBlanks: false
             },
-            // college: {
-            //     selected: [],
-            //     selectedItem: null,
-            //     search: "",
-            //     every: null,
-            //     hasBlanks: false,
-            //     includeBlanks: false
-            // },
+            college: {
+                selected: [],
+                selectedItem: null,
+                search: "",
+                every: null,
+                hasBlanks: false,
+                includeBlanks: false
+            },
             // year: {
             //     selected: [],
             //     selectedItem: null,
@@ -143,18 +143,18 @@ var PendingCtrl = (function () {
                 _this.httpResponseError(response);
             });
         }, 100);
-        // this.$timeout(function () {
-        //     _this.$http({
-        //         method: "GET",
-        //         url: "/ugc_serv/data/global/college/"
-        //     }).then(function successCallback(response) {
-        //         _this.filter.college.every = response.data;
-        //         if (response.data.indexOf("(Blank)") >= 0)
-        //             _this.filter.college.hasBlanks = true;
-        //     }, function errorCallback(response) {
-        //         _this.httpResponseError(response);
-        //     });
-        // }, 100);
+        this.$timeout(function () {
+            _this.$http({
+                method: "GET",
+                url: "/ugc_serv/data/global/college/"
+            }).then(function successCallback(response) {
+                _this.filter.college.every = response.data;
+                if (response.data.indexOf("(Blank)") >= 0)
+                    _this.filter.college.hasBlanks = true;
+            }, function errorCallback(response) {
+                _this.httpResponseError(response);
+            });
+        }, 100);
         // this.$timeout(function () {
         //     _this.$http({
         //         method: "GET",
@@ -349,13 +349,13 @@ var PendingCtrl = (function () {
         var results = query ? this.filter.masterFileNum.every.filter(createFilterFor(query)) : this.filter.masterFileNum.every.filter(createFilterFor(''));
         return results;
     };
-    // PendingCtrl.prototype.transformCollegeChip = function (chip) {
-    //     return chip
-    // };
-    // PendingCtrl.prototype.querySearchCollege = function (query) {
-    //     var results = query ? this.filter.college.every.filter(createFilterFor(query)) : this.filter.college.every.filter(createFilterFor(''));
-    //     return results;
-    // };
+    PendingCtrl.prototype.transformCollegeChip = function (chip) {
+        return chip
+    };
+    PendingCtrl.prototype.querySearchCollege = function (query) {
+        var results = query ? this.filter.college.every.filter(createFilterFor(query)) : this.filter.college.every.filter(createFilterFor(''));
+        return results;
+    };
     // PendingCtrl.prototype.transformYearChip = function (chip) {
     //     return chip
     // };
