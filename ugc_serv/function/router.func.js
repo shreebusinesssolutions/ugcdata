@@ -9,7 +9,7 @@ var _getDataPaidFilenum = require("../handler/GET/data/paid/filenum/getDataPaidF
 var _getDataPaidMasterfilenum = require("../handler/GET/data/paid/masterfilenum/getDataPaidMasterfilenum.handler");
 var _getDataPaidYear = require("../handler/GET/data/paid/year/getDataPaidYear.handler");
 var _getDataPaidPaid = require("../handler/GET/data/paid/paid/getDataPaidPaid.handler");
-var _getDataPaidUC = require("../handler/GET/data/paid/uc/getDataPaidUC.handler");
+var _getDataPaidUc = require("../handler/GET/data/paid/uc/getDataPaidUc.handler");
 var _getDataPaidPlan = require("../handler/GET/data/paid/plan/getDataPaidPlan.handler");
 
 var _getDataPaidReportCount = require("../handler/GET/report/paid/count/getReportPaidCount.handler");
@@ -21,6 +21,7 @@ var _getDataPendingMasterfilenum = require("../handler/GET/data/pending/masterfi
 var _getDataPendingRemarks = require("../handler/GET/data/pending/remarks/getDataPendingRemarks.handler");
 var _getDataPendingSanctiondate = require("../handler/GET/data/pending/sanctiondate/getDataPendingSanctiondate.handler");
 var _getDataPendingPaid = require("../handler/GET/data/pending/paid/getDataPendingPaid.handler");
+var _getDataPendingUc = require("../handler/GET/data/pending/uc/getDataPendingUc.handler");
 
 
 var logger = require("../function/logger.func");
@@ -47,7 +48,7 @@ exports.route = function (method, pathname) {
     else if (method == "GET" && /^\/data\/paid\/paid\//.test(pathname))
         return _getDataPaidPaid;
     else if (method == "GET" && /^\/data\/paid\/uc\//.test(pathname))
-        return _getDataPaidUC;
+        return _getDataPaidUc;
     else if (method == "GET" && /^\/data\/paid\/plan\//.test(pathname))
         return _getDataPaidPlan;
 
@@ -68,6 +69,8 @@ exports.route = function (method, pathname) {
         return _getDataPendingSanctiondate;
     else if (method == "GET" && /^\/data\/pending\/paid\//.test(pathname))
         return _getDataPendingPaid;
+    else if (method == "GET" && /^\/data\/pending\/uc\//.test(pathname))
+        return _getDataPendingUc;
 
     else {
         logger.error(pathname + " (" + method + ") Not found.", { method: "router()" });
