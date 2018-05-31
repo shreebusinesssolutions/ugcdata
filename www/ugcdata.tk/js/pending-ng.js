@@ -110,6 +110,10 @@ var PendingCtrl = (function () {
                 hasBlanks: false,
                 includeBlanks: false
             },
+            cleared: {
+                yes: true,
+                no: true
+            }
         };
 
         this.reportData = {
