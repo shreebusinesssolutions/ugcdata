@@ -339,7 +339,7 @@
                                     </div> -->
                                 </div>
                                 <div class="w3-row">
-                                    <div class="w3-col m3 w3-padding-small">
+                                    <div class="w3-col m4 w3-padding-small">
                                         <fieldset class="primary w3-padding-small">
                                             <legend>Paid</legend>
                                             <md-slider-container>
@@ -362,6 +362,9 @@
                                                         aria-controls="paid-max-slider">
                                                 </md-input-container>
                                             </md-slider-container>
+                                            <md-checkbox class="w3-margin-top" ng-model="vm.filter.paid.includeBlanks" aria-label="Include Blanks Paid">
+                                                Include Blanks
+                                            </md-checkbox>
                                         </fieldset>
                                     </div>
                                     <!-- <div class="w3-col m3 w3-padding-small">

@@ -69,7 +69,8 @@ var PendingCtrl = (function () {
                 scaleMin: null,
                 scaleMax: null,
                 min: null,
-                max: null
+                max: null,
+                includeBlanks: false
             },
             // uc: {
             //     scaleMin: null,
