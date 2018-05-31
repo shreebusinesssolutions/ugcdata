@@ -270,6 +270,28 @@
                                             </md-checkbox>
                                         </fieldset>
                                     </div>
+                                    <div class="w3-col m3 w3-padding-small">
+                                        <fieldset class="primary w3-padding-small">
+                                            <legend>Remarks</legend>
+                                            <md-chips ng-model="vm.filter.remarks.selected" md-autocomplete-snap md-transform-chip="vm.transformRemarksChip($chip)" md-require-match="true"
+                                                style="width: 100%;" md-on-add="vm.filterChanged('remarks')" md-on-remove="vm.filterChanged('remarks')">
+                                                <md-autocomplete md-selected-item="vm.filter.remarks.selectedItem" md-search-text="vm.filter.remarks.search" md-min-length="0"
+                                                    md-items="remarks in vm.querySearchRemarks(vm.filter.remarks.search)" md-item-text="remarks"
+                                                    placeholder="Search Remarks">
+                                                    <span class="w3-small" md-highlight-text="vm.filter.remarks.search">{{remarks}}</span>
+                                                </md-autocomplete>
+                                                <md-chip-template>
+                                                    <span>
+                                                        {{$chip}}
+                                                    </span>
+                                                </md-chip-template>
+                                            </md-chips>
+                                            <md-checkbox class="w3-margin-top" ng-model="vm.filter.remarks.includeBlanks" ng-disabled="!vm.filter.remarks.hasBlanks" aria-label="Include Blanks Remarks"
+                                                ng-change="vm.toggleBlanks('remarks')">
+                                                Include Blanks
+                                            </md-checkbox>
+                                        </fieldset>
+                                    </div>
                                     <!-- <div class="w3-col m3 w3-padding-small">
                                         <fieldset class="primary w3-padding-small">
                                             <legend>Year</legend>

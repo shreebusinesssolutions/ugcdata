@@ -50,6 +50,14 @@ var PendingCtrl = (function () {
                 hasBlanks: false,
                 includeBlanks: false
             },
+            remarks: {
+                selected: [],
+                selectedItem: null,
+                search: "",
+                every: null,
+                hasBlanks: false,
+                includeBlanks: false
+            },
             // year: {
             //     selected: [],
             //     selectedItem: null,
@@ -151,6 +159,18 @@ var PendingCtrl = (function () {
                 _this.filter.college.every = response.data;
                 if (response.data.indexOf("(Blank)") >= 0)
                     _this.filter.college.hasBlanks = true;
+            }, function errorCallback(response) {
+                _this.httpResponseError(response);
+            });
+        }, 100);
+        this.$timeout(function () {
+            _this.$http({
+                method: "GET",
+                url: "/ugc_serv/data/pending/remarks/"
+            }).then(function successCallback(response) {
+                _this.filter.remarks.every = response.data;
+                if (response.data.indexOf("(Blank)") >= 0)
+                    _this.filter.remarks.hasBlanks = true;
             }, function errorCallback(response) {
                 _this.httpResponseError(response);
             });
