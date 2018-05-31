@@ -235,10 +235,10 @@ var PendingCtrl = (function () {
                 method: "GET",
                 url: "/ugc_serv/data/pending/pendinguc/"
             }).then(function successCallback(response) {
-                _this.filter.uc.scaleMin = response.data.min;
-                _this.filter.uc.scaleMax = response.data.max;
-                _this.filter.uc.min = response.data.min;
-                _this.filter.uc.max = response.data.max;
+                _this.filter.pendingUc.scaleMin = response.data.min;
+                _this.filter.pendingUc.scaleMax = response.data.max;
+                _this.filter.pendingUc.min = response.data.min;
+                _this.filter.pendingUc.max = response.data.max;
             }, function errorCallback(response) {
                 _this.httpResponseError(response);
             });
