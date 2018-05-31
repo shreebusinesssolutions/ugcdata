@@ -138,9 +138,9 @@ exports.handler = function (req, res, qpaths, qdata) {
                                 sub_query.push("(remarks IS NULL OR remarks IN (SELECT DISTINCT remarks from plan_11_pending))")
                             }
                             if (qdata.sanctionDate[2] == true)
-                                sub_query.push("(sanction_date IS null OR sanction_date BETWEEN '" + qdata.sanctionDate[0] + "' AND  '" + qdata.sanctionDate[1] + "')");
+                                sub_query.push("(sanction_date IS null OR sanction_date BETWEEN '" + moment(qdata.sanctionDate[0]).subtract(1, "d").format("YYYY-MM-DD") + "' AND  '" + moment(qdata.sanctionDate[1]).add(1, "d").format("YYYY-MM-DD") + "')");
                             else
-                                sub_query.push("(sanction_date IS NOT null OR sanction_date BETWEEN '" + qdata.sanctionDate[0] + "' AND  '" + qdata.sanctionDate[1] + "')");
+                                sub_query.push("(sanction_date IS NOT null OR sanction_date BETWEEN '" + moment(qdata.sanctionDate[0]).subtract(1, "d").format("YYYY-MM-DD") + "' AND  '" + moment(qdata.sanctionDate[1]).add(1, "d").format("YYYY-MM-DD") + "')");
                             if (qdata.paid[2] == true)
                                 sub_query.push("(paid IS null OR paid BETWEEN '" + qdata.paid[0] + "' AND  '" + qdata.paid[1] + "')");
                             else
@@ -150,9 +150,9 @@ exports.handler = function (req, res, qpaths, qdata) {
                             else
                                 sub_query.push("(uc IS NOT null OR uc BETWEEN '" + qdata.uc[0] + "' AND  '" + qdata.uc[1] + "')");
                             if (qdata.pendingUc[2] == true)
-                                sub_query.push("(pending_uc IS null OR pending_uc BETWEEN '" + qdata.pending_uc[0] + "' AND  '" + qdata.pending_uc[1] + "')");
+                                sub_query.push("(pending_uc IS null OR pending_uc BETWEEN '" + qdata.pendingUc[0] + "' AND  '" + qdata.pendingUc[1] + "')");
                             else
-                                sub_query.push("(pending_uc IS NOT null OR pending_uc BETWEEN '" + qdata.pending_uc[0] + "' AND  '" + qdata.pending_uc[1] + "')");
+                                sub_query.push("(pending_uc IS NOT null OR pending_uc BETWEEN '" + qdata.pendingUc[0] + "' AND  '" + qdata.pendingUc[1] + "')");
                             if (qdata.scheme.length > 0) {
                                 var k = "scheme";
                                 if (qdata[k].indexOf("(Blank)") >= 0) {

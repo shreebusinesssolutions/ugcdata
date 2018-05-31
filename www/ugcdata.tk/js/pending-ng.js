@@ -443,10 +443,10 @@ var PendingCtrl = (function () {
                 + "&masterFileNum=" + decodeURI(_this.filter.masterFileNum.selected.join(";,;"))
                 + "&collegeId=" + decodeURI(_this.filter.college.selected.join(";,;"))
                 + "&remarks=" + decodeURI(_this.filter.remarks.selected.join(";,;"))
-                + "&sanctionDate=" + decodeURI(_this.filter.sanctionDate.min) + ";,;" + decodeURI(_this.filter.sanctionDate.max) + ";,;" + decodeURI(_this.filter.sanctionDate.includeBlanks)
+                + "&sanctionDate=" + decodeURI(moment(_this.filter.sanctionDate.min).toISOString()) + ";,;" + decodeURI(moment(_this.filter.sanctionDate.max).toISOString()) + ";,;" + decodeURI(_this.filter.sanctionDate.includeBlanks)
                 + "&paid=" + decodeURI(_this.filter.paid.min) + ";,;" + decodeURI(_this.filter.paid.max) + ";,;" + decodeURI(_this.filter.paid.includeBlanks)
                 + "&uc=" + decodeURI(_this.filter.uc.min) + ";,;" + decodeURI(_this.filter.uc.max) + ";,;" + decodeURI(_this.filter.uc.includeBlanks)
-                + "&pendingUc=" + decodeURI(_this.filter.pendinguc.min) + ";,;" + decodeURI(_this.filter.pendinguc.max) + ";,;" + decodeURI(_this.filter.pendinguc.includeBlanks)
+                + "&pendingUc=" + decodeURI(_this.filter.pendingUc.min) + ";,;" + decodeURI(_this.filter.pendingUc.max) + ";,;" + decodeURI(_this.filter.pendingUc.includeBlanks)
                 + "&scheme=" + decodeURI(_this.filter.scheme.selected.join(";,;"))
                 + "&subScheme=" + decodeURI(_this.filter.subScheme.selected.join(";,;"))
                 + "&year=" + decodeURI(_this.filter.year.selected.join(";,;"))
@@ -464,16 +464,16 @@ var PendingCtrl = (function () {
                     function () {
                         _this.$http({
                             method: "GET",
-                            url: "/ugc_serv/report/pending/count/?use_or=" + decodeURI(_this.filter.use_or)
+                            url: "/ugc_serv/report/pending/?use_or=" + decodeURI(_this.filter.use_or)
                                 + "&autoNum=" + decodeURI(_this.filter.autoNum.selected.join(";,;"))
                                 + "&fileNum=" + decodeURI(_this.filter.fileNum.selected.join(";,;"))
                                 + "&masterFileNum=" + decodeURI(_this.filter.masterFileNum.selected.join(";,;"))
                                 + "&collegeId=" + decodeURI(_this.filter.college.selected.join(";,;"))
                                 + "&remarks=" + decodeURI(_this.filter.remarks.selected.join(";,;"))
-                                + "&sanctionDate=" + decodeURI(_this.filter.sanctionDate.min) + ";,;" + decodeURI(_this.filter.sanctionDate.max) + ";,;" + decodeURI(_this.filter.sanctionDate.includeBlanks)
+                                + "&sanctionDate=" + decodeURI(moment(_this.filter.sanctionDate.min).toISOString()) + ";,;" + decodeURI(moment(_this.filter.sanctionDate.max).toISOString()) + ";,;" + decodeURI(_this.filter.sanctionDate.includeBlanks)
                                 + "&paid=" + decodeURI(_this.filter.paid.min) + ";,;" + decodeURI(_this.filter.paid.max) + ";,;" + decodeURI(_this.filter.paid.includeBlanks)
                                 + "&uc=" + decodeURI(_this.filter.uc.min) + ";,;" + decodeURI(_this.filter.uc.max) + ";,;" + decodeURI(_this.filter.uc.includeBlanks)
-                                + "&pendingUc=" + decodeURI(_this.filter.pendinguc.min) + ";,;" + decodeURI(_this.filter.pendinguc.max) + ";,;" + decodeURI(_this.filter.pendinguc.includeBlanks)
+                                + "&pendingUc=" + decodeURI(_this.filter.pendingUc.min) + ";,;" + decodeURI(_this.filter.pendingUc.max) + ";,;" + decodeURI(_this.filter.pendingUc.includeBlanks)
                                 + "&scheme=" + decodeURI(_this.filter.scheme.selected.join(";,;"))
                                 + "&subScheme=" + decodeURI(_this.filter.subScheme.selected.join(";,;"))
                                 + "&year=" + decodeURI(_this.filter.year.selected.join(";,;"))
@@ -524,7 +524,7 @@ var PendingCtrl = (function () {
                                     </table>';
                             }
                             _this.$timeout(function () {
-                                $.fn.dataTable.moment("DD/MMM/YYYY");
+                                $.fn.dataTable.moment("DD-MMM-YYYY");
                                 dtTable = $('#dataTable').DataTable({
                                     "deferRender": true,
                                     "lengthMenu": [
@@ -543,6 +543,8 @@ var PendingCtrl = (function () {
                                 if (response.data.data.length == 0)
                                     _this.showAlert("No more data", "No more data to fetch.");
                                 for (var i = 0; i < response.data.data.length; i++) {
+                                    if (response.data.data[i][6])
+                                        response.data.data[i][6] = moment(response.data.data[i][6]).format("DD-MMM-YYYY");
                                     dtTable.row.add(response.data.data[i]).draw(false);
                                 }
                                 _this.mode.report.getting = false;
@@ -567,16 +569,16 @@ var PendingCtrl = (function () {
                 _this.mode.report.loaded = false;
                 _this.$http({
                     method: "GET",
-                    url: "/ugc_serv/report/pending/count/?use_or=" + decodeURI(_this.filter.use_or)
+                    url: "/ugc_serv/report/pending/?use_or=" + decodeURI(_this.filter.use_or)
                         + "&autoNum=" + decodeURI(_this.filter.autoNum.selected.join(";,;"))
                         + "&fileNum=" + decodeURI(_this.filter.fileNum.selected.join(";,;"))
                         + "&masterFileNum=" + decodeURI(_this.filter.masterFileNum.selected.join(";,;"))
                         + "&collegeId=" + decodeURI(_this.filter.college.selected.join(";,;"))
                         + "&remarks=" + decodeURI(_this.filter.remarks.selected.join(";,;"))
-                        + "&sanctionDate=" + decodeURI(_this.filter.sanctionDate.min) + ";,;" + decodeURI(_this.filter.sanctionDate.max) + ";,;" + decodeURI(_this.filter.sanctionDate.includeBlanks)
+                        + "&sanctionDate=" + decodeURI(moment(_this.filter.sanctionDate.min).toISOString()) + ";,;" + decodeURI(moment(_this.filter.sanctionDate.max).toISOString()) + ";,;" + decodeURI(_this.filter.sanctionDate.includeBlanks)
                         + "&paid=" + decodeURI(_this.filter.paid.min) + ";,;" + decodeURI(_this.filter.paid.max) + ";,;" + decodeURI(_this.filter.paid.includeBlanks)
                         + "&uc=" + decodeURI(_this.filter.uc.min) + ";,;" + decodeURI(_this.filter.uc.max) + ";,;" + decodeURI(_this.filter.uc.includeBlanks)
-                        + "&pendingUc=" + decodeURI(_this.filter.pendinguc.min) + ";,;" + decodeURI(_this.filter.pendinguc.max) + ";,;" + decodeURI(_this.filter.pendinguc.includeBlanks)
+                        + "&pendingUc=" + decodeURI(_this.filter.pendingUc.min) + ";,;" + decodeURI(_this.filter.pendingUc.max) + ";,;" + decodeURI(_this.filter.pendingUc.includeBlanks)
                         + "&scheme=" + decodeURI(_this.filter.scheme.selected.join(";,;"))
                         + "&subScheme=" + decodeURI(_this.filter.subScheme.selected.join(";,;"))
                         + "&year=" + decodeURI(_this.filter.year.selected.join(";,;"))
@@ -627,7 +629,7 @@ var PendingCtrl = (function () {
                         </table>';
                     }
                     _this.$timeout(function () {
-                        $.fn.dataTable.moment("DD/MMM/YYYY");
+                        $.fn.dataTable.moment("DD-MMM-YYYY");
                         dtTable = $('#dataTable').DataTable({
                             "deferRender": true,
                             "lengthMenu": [
@@ -638,6 +640,8 @@ var PendingCtrl = (function () {
                         });
                         console.log(response.data.data.length);
                         for (var i = 0; i < response.data.data.length; i++) {
+                            if (response.data.data[i][6])
+                                response.data.data[i][6] = moment(response.data.data[i][6]).format("DD-MMM-YYYY");
                             dtTable.row.add(response.data.data[i]).draw(false);
                         }
                         _this.mode.report.getting = false;
@@ -680,6 +684,8 @@ var PendingCtrl = (function () {
             if (response.data.data.length == 0)
                 _this.showAlert("No more data", "No more data to fetch.");
             for (var i = 0; i < response.data.data.length; i++) {
+                if (response.data.data[i][6])
+                    response.data.data[i][6] = moment(response.data.data[i][6]).format("DD-MMM-YYYY");
                 dtTable.row.add(response.data.data[i]).draw(false);
             }
             _this.mode.report.getting = false;
