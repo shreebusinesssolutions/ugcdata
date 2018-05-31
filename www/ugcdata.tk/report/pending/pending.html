@@ -286,8 +286,29 @@
                                                     </span>
                                                 </md-chip-template>
                                             </md-chips>
-                                            <md-checkbox class="w3-margin-top" ng-model="vm.filter.remarks.includeBlanks" ng-disabled="!vm.filter.remarks.hasBlanks" aria-label="Include Blanks Remarks"
-                                                ng-change="vm.toggleBlanks('remarks')">
+                                            <md-checkbox class="w3-margin-top" ng-model="vm.filter.remarks.includeBlanks" ng-disabled="!vm.filter.remarks.hasBlanks"
+                                                aria-label="Include Blanks Remarks" ng-change="vm.toggleBlanks('remarks')">
+                                                Include Blanks
+                                            </md-checkbox>
+                                        </fieldset>
+                                    </div>
+                                    <div class="w3-col m4 w3-padding-small">
+                                        <fieldset class="primary w3-padding-small">
+                                            <legend>Sanction Date</legend>
+                                            <div class="w3-row">
+                                                <div class="w3-col m6">
+                                                    <md-datepicker ng-model="vm.filter.sanctionDate.min" md-placeholder="Start Date" md-min-date="vm.filter.sanctionDate.scaleMin"
+                                                        md-max-date="vm.filter.sanctionDate.max"></md-datepicker>
+                                                </div>
+                                                <!-- <div class="w3-col m2">
+                                                    <div class="w3-badge w3-theme-primary w3-padding">TO</div>
+                                                </div> -->
+                                                <div class="w3-col m6">
+                                                    <md-datepicker ng-model="vm.filter.sanctionDate.max" md-placeholder="End Date" md-min-date="vm.filter.sanctionDate.min"
+                                                        md-max-date="vm.filter.sanctionDate.scaleMax"></md-datepicker>
+                                                </div>
+                                            </div>
+                                            <md-checkbox class="w3-margin-top" ng-model="vm.filter.sanctionDate.includeBlanks" aria-label="Include Blanks Sanction Date">
                                                 Include Blanks
                                             </md-checkbox>
                                         </fieldset>

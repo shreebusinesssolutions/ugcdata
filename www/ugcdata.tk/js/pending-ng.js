@@ -58,6 +58,13 @@ var PendingCtrl = (function () {
                 hasBlanks: false,
                 includeBlanks: false
             },
+            sanctionDate: {
+                scaleMin: null,
+                scaleMax: null,
+                min: null,
+                max: null,
+                includeBlanks: false
+            }
             // year: {
             //     selected: [],
             //     selectedItem: null,
