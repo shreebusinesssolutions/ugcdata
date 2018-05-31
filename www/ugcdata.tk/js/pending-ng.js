@@ -79,6 +79,13 @@ var PendingCtrl = (function () {
                 max: null,
                 includeBlanks: false
             },
+            pendingUc: {
+                scaleMin: null,
+                scaleMax: null,
+                min: null,
+                max: null,
+                includeBlanks: false
+            },
             // year: {
             //     selected: [],
             //     selectedItem: null,
@@ -214,6 +221,19 @@ var PendingCtrl = (function () {
             _this.$http({
                 method: "GET",
                 url: "/ugc_serv/data/pending/uc/"
+            }).then(function successCallback(response) {
+                _this.filter.uc.scaleMin = response.data.min;
+                _this.filter.uc.scaleMax = response.data.max;
+                _this.filter.uc.min = response.data.min;
+                _this.filter.uc.max = response.data.max;
+            }, function errorCallback(response) {
+                _this.httpResponseError(response);
+            });
+        }, 100);
+        this.$timeout(function () {
+            _this.$http({
+                method: "GET",
+                url: "/ugc_serv/data/pending/pendinguc/"
             }).then(function successCallback(response) {
                 _this.filter.uc.scaleMin = response.data.min;
                 _this.filter.uc.scaleMax = response.data.max;

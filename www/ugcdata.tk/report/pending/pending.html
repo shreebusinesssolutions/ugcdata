@@ -391,8 +391,36 @@
                                                 </md-input-container>
                                             </md-slider-container>
                                             <md-checkbox class="w3-margin-top" ng-model="vm.filter.uc.includeBlanks" aria-label="Include Blanks UC">
-                                                    Include Blanks
-                                                </md-checkbox>
+                                                Include Blanks
+                                            </md-checkbox>
+                                        </fieldset>
+                                    </div>
+                                    <div class="w3-col m4 w3-padding-small">
+                                        <fieldset class="primary w3-padding-small">
+                                            <legend>Pending UC</legend>
+                                            <md-slider-container>
+                                                <span>Min</span>
+                                                <md-slider flex ng-model="vm.filter.pendingUc.min" min="{{vm.filter.pendingUc.scaleMin}}" max="{{vm.filter.pendingUc.max}}" aria-label="Pending UC Min"
+                                                    id="pendingUc-min-slider">
+                                                </md-slider>
+                                                <md-input-container>
+                                                    <input flex type="number" ng-model="vm.filter.pendingUc.min" min="{{vm.filter.pendingUc.scaleMin}}" max="{{vm.filter.pendingUc.max}}" aria-label="Pending UC Min"
+                                                        aria-controls="pendingUc-min-slider">
+                                                </md-input-container>
+                                            </md-slider-container>
+                                            <md-slider-container>
+                                                <span>Max</span>
+                                                <md-slider flex ng-model="vm.filter.pendingUc.max" min="{{vm.filter.pendingUc.min}}" max="{{vm.filter.pendingUc.scaleMax}}" aria-label="Pending UC Max"
+                                                    id="pendingUc-max-slider" class="md-accent">
+                                                </md-slider>
+                                                <md-input-container>
+                                                    <input flex type="number" ng-model="vm.filter.pendingUc.max" min="{{vm.filter.pendingUc.min}}" max="{{vm.filter.pendingUc.scaleMax}}" aria-label="Pending UC Max"
+                                                        aria-controls="pendingUc-max-slider">
+                                                </md-input-container>
+                                            </md-slider-container>
+                                            <md-checkbox class="w3-margin-top" ng-model="vm.filter.pendingUc.includeBlanks" aria-label="Include Blanks Pending UC">
+                                                Include Blanks
+                                            </md-checkbox>
                                         </fieldset>
                                     </div>
                                 </div>
