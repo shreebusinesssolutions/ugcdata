@@ -149,6 +149,7 @@ var CollegeCtrl = (function () {
                         _this.$http({
                             method: "GET",
                             url: "/ugc_serv/datatable/college/?collegeId=" + decodeURI(_this.filter.college.selected.join(";,;"))
+                                + "&limit=" + _this.reportData.limit.min + ";,;" + _this.reportData.limit.max
                         }).then(function successCallback(response) {
                             if ($.fn.dataTable.isDataTable('#dataTable')) {
                                 console.log("Destrying", dtTable);
@@ -217,7 +218,8 @@ var CollegeCtrl = (function () {
                 _this.mode.report.loaded = false;
                 _this.$http({
                     method: "GET",
-                    url: "/ugc_serv/datatable/college/?collegeId=" + decodeURI(_this.filter.college.selected.join(";,;")) 
+                    url: "/ugc_serv/datatable/college/?collegeId=" + decodeURI(_this.filter.college.selected.join(";,;"))
+                        + "&limit=" + _this.reportData.limit.min + ";,;" + _this.reportData.limit.max
                 }).then(function successCallback(response) {
                     if ($.fn.dataTable.isDataTable('#dataTable')) {
                         console.log("Destrying", dtTable);
@@ -277,7 +279,6 @@ var CollegeCtrl = (function () {
         });
     };
     CollegeCtrl.prototype.loadMore = function () {
-        console.log("hi");
         var _this = scope.vm;
         _this.mode.report.getting = true;
         _this.mode.report.loaded = true;
@@ -286,7 +287,8 @@ var CollegeCtrl = (function () {
         console.log(_this.reportData);
         _this.$http({
             method: "GET",
-            url: "/ugc_serv/datatable/college/?collegeId=" + decodeURI(_this.filter.college.selected.join(";,;")) 
+            url: "/ugc_serv/datatable/college/?collegeId=" + decodeURI(_this.filter.college.selected.join(";,;"))
+                + "&limit=" + _this.reportData.limit.min + ";,;" + _this.reportData.limit.max
         }).then(function successCallback(response) {
             console.log(response.data.data.length);
             if (response.data.data.length == 0)
