@@ -166,7 +166,7 @@ var CollegeCtrl = (function () {
                                                 <th>PIN</th>\
                                                 <th>PFMS Unique Code</th>\
                                                 <th>NAAC Validity</th>\
-                                                <th>BSR Int. Paid and Intrest</th>\
+                                                <th>BSR Interest Paid and Interest</th>\
                                             </tr>\
                                         </thead>\
                                         <tfoot>\
@@ -179,7 +179,7 @@ var CollegeCtrl = (function () {
                                                 <th>PIN</th>\
                                                 <th>PFMS Unique Code</th>\
                                                 <th>NAAC Validity</th>\
-                                                <th>BSR Int. Paid and Intrest</th>\
+                                                <th>BSR Interest Paid and Interest</th>\
                                             </tr>\
                                         </tfoot>\
                                     </table>';
@@ -236,7 +236,7 @@ var CollegeCtrl = (function () {
                                         <th>PIN</th>\
                                         <th>PFMS Unique Code</th>\
                                         <th>NAAC Validity</th>\
-                                        <th>BSR Int. Paid and Intrest</th>\
+                                        <th>BSR Interest Paid and Interest</th>\
                                     </tr>\
                                 </thead>\
                                 <tfoot>\
@@ -249,7 +249,7 @@ var CollegeCtrl = (function () {
                                         <th>PIN</th>\
                                         <th>PFMS Unique Code</th>\
                                         <th>NAAC Validity</th>\
-                                        <th>BSR Int. Paid and Intrest</th>\
+                                        <th>BSR Interest Paid and Interest</th>\
                                     </tr>\
                                 </tfoot>\
                             </table>';
