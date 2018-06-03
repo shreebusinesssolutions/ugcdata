@@ -279,7 +279,7 @@ var CollegeCtrl = (function () {
         });
     };
     CollegeCtrl.prototype.loadMore = function () {
-        var _this = scope.vm;
+        var _this = this;
         _this.mode.report.getting = true;
         _this.mode.report.loaded = true;
         _this.reportData.limit.min += _this.reportData.maxChunkSize;

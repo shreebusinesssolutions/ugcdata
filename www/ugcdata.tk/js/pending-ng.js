@@ -659,8 +659,7 @@ var PendingCtrl = (function () {
         });
     };
     PendingCtrl.prototype.loadMore = function () {
-        console.log("hi");
-        var _this = scope.vm;
+        var _this = this;
         _this.mode.report.getting = true;
         _this.mode.report.loaded = true;
         _this.reportData.limit.min += _this.reportData.maxChunkSize;
