@@ -205,7 +205,8 @@ exports.handler = function (req, res, qpaths, qdata) {
                             else if (!qdata.caseCleared[0] && qdata.caseCleared[1])
                                 sub_query.push("(case_cleared != 1 AND case_cleared =0)")
                             sql += sub_query.join(" " + concat + " ");
-
+                            sql += "LIMIT " + qdata.limit[0] + ", " + qdata.limit[1]
+                            
                             db_conn.query(sql, function (err, result, fields) {
                                 if (err) {
                                     logger.error(err);

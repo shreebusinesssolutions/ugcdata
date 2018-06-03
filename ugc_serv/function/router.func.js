@@ -28,6 +28,8 @@ var _getDataPendingYear = require("../handler/GET/data/pending/year/getDataPendi
 var _getReportPendingCount = require("../handler/GET/report/pending/count/getReportPendingCount.handler");
 var _getReportPending = require("../handler/GET/report/pending/gerReportPending.handler");
 
+var _getDatatableCollege = require("../handler/GET/datatable/college/getDatatableCollege.handler");
+var _getDatatableCollegeCount = require("../handler/GET/datatable/college/count/getDatatableCollegeCount.handler");
 
 var logger = require("../function/logger.func");
 
@@ -85,6 +87,11 @@ exports.route = function (method, pathname) {
         return _getReportPendingCount;
     else if (method == "GET" && /^\/report\/pending\//.test(pathname))
         return _getReportPending;
+
+    else if (method == "GET" && /^\/datatable\/college\/count\//.test(pathname))
+        return _getDatatableCollegeCount;
+    else if (method == "GET" && /^\/datatable\/college\//.test(pathname))
+        return _getDatatableCollege;
 
     else {
         logger.error(pathname + " (" + method + ") Not found.", { method: "router()" });
