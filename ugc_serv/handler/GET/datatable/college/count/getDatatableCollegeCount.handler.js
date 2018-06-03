@@ -50,11 +50,9 @@ exports.handler = function (req, res, qpaths, qdata) {
                                 sub_query.push("college_id IN ('" + qdata[k].join("','") + "')");
                             }
                             else {
-                                sub_query.push("college_id IN (SELECT DISTINCT college_id from college))")
+                                sub_query.push("college_id IN (SELECT DISTINCT college_id from college)")
                             }
                             sql += sub_query.join(" " + concat + " ") + " ";
-                            sql += "LIMIT " + qdata.limit[0] + ", " + qdata.limit[1]
-                            console.log(sql);
                             
                             db_conn.query(sql, function (err, result, fields) {
                                 if (err) {

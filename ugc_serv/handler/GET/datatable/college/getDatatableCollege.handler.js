@@ -50,11 +50,10 @@ exports.handler = function (req, res, qpaths, qdata) {
                                 sub_query.push("college_id IN ('" + qdata[k].join("','") + "')");
                             }
                             else {
-                                sub_query.push("college_id IN (SELECT DISTINCT college_id from college))")
+                                sub_query.push("college_id IN (SELECT DISTINCT college_id from college)")
                             }
                             sql += sub_query.join(" " + concat + " ") + " ";
                             sql += "LIMIT " + qdata.limit[0] + ", " + qdata.limit[1]
-                            console.log(sql);
                             
                             db_conn.query(sql, function (err, result, fields) {
                                 if (err) {
@@ -66,16 +65,15 @@ exports.handler = function (req, res, qpaths, qdata) {
                                     var responseObj = [];
                                     for (var i = 0; i < result.length; i++) {
                                         responseObj.push([
-                                            result[i].entry_num,
-                                            result[i].file_num,
-                                            result[i].master_file_num,
-                                            result[i].college_id,
-                                            result[i].year,
-                                            result[i].paid,
-                                            result[i].uc,
-                                            result[i].scheme_id,
-                                            result[i].subscheme_id,
-                                            result[i].plan_files
+                                            result[i].college_id, 
+                                            result[i].old_college_id, 
+                                            result[i].college_name, 
+                                            result[i].addr1, 
+                                            result[i].addr2, 
+                                            result[i].pin, 
+                                            result[i].pfms_unique_code, 
+                                            result[i].naac_validity, 
+                                            result[i].bsr_intrest_paid_and_intrest
                                         ]);
                                     }
                                     res.write(JSON.stringify({
