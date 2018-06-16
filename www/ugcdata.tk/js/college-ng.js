@@ -13,6 +13,9 @@ var CollegeCtrl = (function () {
             report: {
                 getting: false,
                 loaded: false
+            },
+            edit: {
+                saving: false
             }
         };
 
@@ -37,6 +40,23 @@ var CollegeCtrl = (function () {
             data: []
         };
 
+        this.edit = {
+            collegeId: {
+                selected: [],
+                selectedItem: null,
+                search: "",
+                every: null,
+            },
+            oldCollegeId: null,
+            collegeName: null,
+            address1: null,
+            address2: null,
+            pin: null,
+            pfmsCode: null,
+            naacValidity: null,
+            bsrInterest: null
+        };
+
         var _this = this;
         this.$timeout(function () {
             _this.$http({
@@ -46,6 +66,7 @@ var CollegeCtrl = (function () {
                 _this.filter.college.every = response.data;
                 if (response.data.indexOf("(Blank)") >= 0)
                     _this.filter.college.hasBlanks = true;
+                _this.edit.collegeId.every = response.data;
             }, function errorCallback(response) {
                 _this.httpResponseError(response);
             });
@@ -121,6 +142,7 @@ var CollegeCtrl = (function () {
     CollegeCtrl.prototype.openMenu = function ($$mdMenu, $$event) {
         $$mdMenu.open($$event);
     };
+
     CollegeCtrl.prototype.transformCollegeChip = function (chip) {
         return chip;
     };
@@ -128,6 +150,7 @@ var CollegeCtrl = (function () {
         var results = query ? this.filter.college.every.filter(createFilterFor(query)) : this.filter.college.every.filter(createFilterFor(''));
         return results;
     };
+
     CollegeCtrl.prototype.getReport = function (min, max) {
         var _this = this;
         _this.mode.report.getting = true;
@@ -185,6 +208,7 @@ var CollegeCtrl = (function () {
                                     </table>';
                             }
                             _this.$timeout(function () {
+                                $.fn.dataTable.moment("DD-MMM-YYYY");
                                 dtTable = $('#dataTable').DataTable({
                                     "deferRender": true,
                                     "lengthMenu": [50, 100],
@@ -194,6 +218,8 @@ var CollegeCtrl = (function () {
                                 if (response.data.data.length == 0)
                                     _this.showAlert("No more data", "No more data to fetch.");
                                 for (var i = 0; i < response.data.data.length; i++) {
+                                    if (response.data.data[i][7])
+                                        response.data.data[i][7] = moment(response.data.data[i][7]).format("DD-MMM-YYYY");
                                     dtTable.row.add(response.data.data[i]).draw(false);
                                 }
                                 _this.mode.report.getting = false;
@@ -255,6 +281,7 @@ var CollegeCtrl = (function () {
                             </table>';
                     }
                     _this.$timeout(function () {
+                        $.fn.dataTable.moment("DD-MMM-YYYY");
                         dtTable = $('#dataTable').DataTable({
                             "deferRender": true,
                             "lengthMenu": [50],
@@ -262,6 +289,8 @@ var CollegeCtrl = (function () {
                         });
                         console.log(response.data.data.length);
                         for (var i = 0; i < response.data.data.length; i++) {
+                            if (response.data.data[i][7])
+                                response.data.data[i][7] = moment(response.data.data[i][7]).format("DD-MMM-YYYY");
                             dtTable.row.add(response.data.data[i]).draw(false);
                         }
                         _this.mode.report.getting = false;
@@ -305,6 +334,14 @@ var CollegeCtrl = (function () {
         });
     };
 
+    CollegeCtrl.prototype.transformEditCollegeIdChip = function (chip) {
+        return chip;
+    };
+    CollegeCtrl.prototype.querySearchEditCollegeId = function (query) {
+        var results = query ? this.edit.collegeId.every.filter(createFilterFor(query)) : this.edit.collegeId.every.filter(createFilterFor(''));
+        return results;
+    };
+
     function createFilterFor(query) {
         var lowercaseQuery = angular.lowercase(query);
 
@@ -321,6 +358,61 @@ var CollegeCtrl = (function () {
         };
     }
 
+    CollegeCtrl.prototype.editCollegeIdChanged = function () {
+        var _this = this;
+        if (_this.edit.collegeId.selected.length == 0) {
+            _this.edit.oldCollegeId = null;
+            _this.edit.collegeName = null;
+            _this.edit.address1 = null;
+            _this.edit.address2 = null;
+            _this.edit.pin = null;
+            _this.edit.pfmsCode = null;
+            _this.edit.naacValidity = null;
+            _this.edit.bsrInterest = null;
+        }
+        else {
+            _this.$http({
+                method: "GET",
+                url: "/ugc_serv/college?college_id=" + _this.edit.collegeId.selected[0]
+            }).then(function successCallback(response) {
+                _this.edit.oldCollegeId = response.data.oldCollegeId ? response.data.oldCollegeId : "";
+                _this.edit.collegeName = response.data.collegeName ? response.data.collegeName : "";
+                _this.edit.address1 = response.data.address1 ? response.data.address1 : "";
+                _this.edit.address2 = response.data.address2 ? response.data.address2 : "";
+                _this.edit.pin = response.data.pin ? response.data.pin : "";
+                _this.edit.pfmsCode = response.data.pfmsCode ? response.data.pfmsCode : "";
+                _this.edit.naacValidity = response.data.naacValidity ? new Date(response.data.naacValidity) : null;
+                _this.edit.bsrInterest = response.data.bsrInterest ? response.data.bsrInterest : "";
+            }, function errorCallback(response) {
+                _this.httpResponseError(response);
+            });
+        }
+    };
+    CollegeCtrl.prototype.editSave = function () {
+        var _this = this;
+        _this.mode.edit.saving = true;
+        _this.$http({
+            method: "POST",
+            url: "/ugc_serv/college/",
+            data: {
+                collegeId: _this.edit.collegeId.selected[0],
+                oldCollegeId: _this.edit.oldCollegeId ? _this.edit.oldCollegeId : "null",
+                collegeName: _this.edit.collegeName,
+                address1: _this.edit.address1,
+                address2: _this.edit.address2,
+                pin: _this.edit.pin,
+                pfmsCode: _this.edit.pfmsCode ? _this.edit.pfmsCode : "null",
+                naacValidity: _this.edit.naacValidity ? moment(_this.edit.naacValidity).format("YYYY-MM-DD") : "null",
+                bsrInterest: _this.edit.bsrInterest ? _this.edit.bsrInterest : "null"
+            }
+        }).then(function successCallback(response) {
+            _this.showNotif("College data updated successfully.");
+            _this.mode.edit.saving = false;
+        }, function errorCallback(response) {
+            _this.httpResponseError(response);
+            _this.mode.edit.saving = false;
+        });
+    };
     CollegeCtrl.prototype.httpResponseError = function (response) {
         var _this = this;
         console.log("error", response);
@@ -333,7 +425,8 @@ var CollegeCtrl = (function () {
         else {
             _this.showNotif("Something went wrong. Please try again later.", 3000, true);
         }
-    }
+    };
+
     CollegeCtrl.$inject = [
         '$scope',
         '$mdDialog',
@@ -359,6 +452,11 @@ angular
             .accentPalette('yellow').dark();
         $mdThemingProvider.theme('dark-primary').backgroundPalette('blue').dark();
         $mdThemingProvider.theme('dark-accent').backgroundPalette('red').dark();
+    })
+    .config(function ($mdDateLocaleProvider) {
+        $mdDateLocaleProvider.formatDate = function (date) {
+            return moment(date).format('DD-MMM-YYYY');
+        }
     })
     .run(function ($http) {
         $http.defaults.headers.common.Authorization = 'Bearer ' + cust_localStorage.getItem("token");
