@@ -51,10 +51,10 @@ exports.handler = function (req, res, qpaths, qdata) {
                         sql += "addr2 = '" + reqBodyObj.address2 + "', ";
                         sql += "pin = " + reqBodyObj.pin + ", ";
                         sql += "pfms_unique_code = '" + reqBodyObj.pfmsCode + "', ";
-                        sql += "naac_validity='" + reqBodyObj.naacValidity + "', ";
+                        sql += "naac_validity = '" + reqBodyObj.naacValidity + "', ";
                         sql += "bsr_intrest_paid_and_intrest = '" + reqBodyObj.bsrInterest + "' ";
                         sql += "WHERE college_id = '" + reqBodyObj.collegeId + "'";
-                        console.log(sql);
+                        sql = sql.replace(/'null'/g, "null");
                         db_conn.query(sql, function (err, result, fields) {
                             if (err) {
                                 logger.error(err);

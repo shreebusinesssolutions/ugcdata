@@ -396,14 +396,14 @@ var CollegeCtrl = (function () {
             url: "/ugc_serv/college/",
             data: {
                 collegeId: _this.edit.collegeId.selected[0],
-                oldCollegeId: _this.edit.oldCollegeId ? _this.edit.oldCollegeId : "null",
+                oldCollegeId: _this.edit.oldCollegeId ? _this.edit.oldCollegeId : null,
                 collegeName: _this.edit.collegeName,
                 address1: _this.edit.address1,
                 address2: _this.edit.address2,
                 pin: _this.edit.pin,
-                pfmsCode: _this.edit.pfmsCode ? _this.edit.pfmsCode : "null",
-                naacValidity: _this.edit.naacValidity ? moment(_this.edit.naacValidity).format("YYYY-MM-DD") : "null",
-                bsrInterest: _this.edit.bsrInterest ? _this.edit.bsrInterest : "null"
+                pfmsCode: _this.edit.pfmsCode ? _this.edit.pfmsCode : null,
+                naacValidity: _this.edit.naacValidity ? moment(_this.edit.naacValidity).format("YYYY-MM-DD") : null,
+                bsrInterest: _this.edit.bsrInterest ? _this.edit.bsrInterest : null
             }
         }).then(function successCallback(response) {
             _this.showNotif("College data updated successfully.");
