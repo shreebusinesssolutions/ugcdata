@@ -430,14 +430,14 @@ var CollegeCtrl = (function () {
         });
     };
 
-    CollegeCtrl.prototype.addCollege = function() {
+    CollegeCtrl.prototype.addCollege = function () {
         var _this = this;
         _this.mode.add.saving = true;
         _this.$http({
             method: "POST",
             url: "/ugc_serv/college/",
             data: {
-                collegeId: _this.add.collegeId.,
+                collegeId: _this.add.collegeId,
                 oldCollegeId: _this.add.oldCollegeId ? _this.add.oldCollegeId : "null",
                 collegeName: _this.add.collegeName,
                 address1: _this.add.address1,
@@ -447,9 +447,15 @@ var CollegeCtrl = (function () {
                 naacValidity: _this.add.naacValidity ? moment(_this.add.naacValidity).format("YYYY-MM-DD") : "null",
                 bsrInterest: _this.add.bsrInterest ? _this.add.bsrInterest : "null"
             }
-        })
+        }).then(function successCallback(response) {
+            _this.showNotif("College added successfully.");
+            _this.mode.add.saving = false;
+        }, function errorCallback(response) {
+            _this.httpResponseError(response);
+            _this.mode.add.saving = false;
+        });
     };
-    
+
     CollegeCtrl.prototype.httpResponseError = function (response) {
         var _this = this;
         console.log("error", response);
