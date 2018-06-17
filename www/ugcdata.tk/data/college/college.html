@@ -142,8 +142,9 @@
             </div>
         </div>
         <br />
+        {{vm.selectedTabIndex}}
         <div class="w3-card w3-white">
-            <md-tabs md-dynamic-height class="md-primary">
+            <md-tabs md-dynamic-height md-selected="vm.selectedTabIndex" class="md-primary">
                 <!-- md-dynamic-height md-border-bottom> -->
                 <md-tab label="View">
                     <md-content class="w3-white">
@@ -336,8 +337,8 @@
                             <div class="w3-row">
                                 <md-button class="md-primary md-raised w3-right" ng-disabled="vm.mode.edit.saving || editForm.$invalid" ng-click="vm.editSave()">
                                     Save&nbsp;
-                                    <i class="fas fa-save" ng-if="!vm.mode.edit.saving"></i>
-                                    <i class="fas fa-circle-notch fa-spin" ng-if="vm.mode.edit.saving"></i>
+                                    <i class="fas fa-save" ng-show="!vm.mode.edit.saving"></i>
+                                    <i class="fas fa-circle-notch fa-spin" ng-show="vm.mode.edit.saving"></i>
                                 </md-button>
                             </div>
                         </form>
@@ -358,9 +359,9 @@
                                             <div ng-message="college-id-exists">College ID aldready exists.</div>
                                         </div>
                                         <md-icon>
-                                            <i ng-if="addForm.collegeId.$invalid && !vm.mode.add.checkingCollegeId" class="fas fa-times w3-text-red"></i>
-                                            <i ng-if="!addForm.collegeId.$invalid && !vm.mode.add.checkingCollegeId" class="fas fa-check w3-text-green"></i>
-                                            <i ng-if="!addForm.collegeId.$invalid && vm.mode.add.checkingCollegeId" class="fas fa-circle-notch fa-spin w3-text-grey"></i>
+                                            <i ng-show="addForm.collegeId.$invalid && !vm.mode.add.checkingCollegeId" class="fas fa-times w3-text-red"></i>
+                                            <i ng-show="!addForm.collegeId.$invalid && !vm.mode.add.checkingCollegeId" class="fas fa-check w3-text-green"></i>
+                                            <i ng-show="!addForm.collegeId.$invalid && vm.mode.add.checkingCollegeId" class="fas fa-circle-notch fa-spin w3-text-grey"></i>
                                         </md-icon>
                                     </md-input-container>
                                 </div>
@@ -446,8 +447,8 @@
                             <div class="w3-row">
                                 <md-button class="md-primary md-raised w3-right" ng-disabled="vm.mode.add.saving || addForm.$invalid" ng-click="vm.addCollege()">
                                     Add College&nbsp;
-                                    <i class="fas fa-plus" ng-if="!vm.mode.add.saving"></i>
-                                    <i class="fas fa-circle-notch fa-spin" ng-if="vm.mode.add.saving"></i>
+                                    <i class="fas fa-plus" ng-show="!vm.mode.add.saving"></i>
+                                    <i class="fas fa-circle-notch fa-spin" ng-show="vm.mode.add.saving"></i>
                                 </md-button>
                             </div>
                         </form>

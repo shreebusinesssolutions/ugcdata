@@ -9,6 +9,8 @@ var CollegeCtrl = (function () {
         this.accent = 'red';
         this.white = 'white';
 
+        this.selectedTabIndex = 0;
+
         this.mode = {
             report: {
                 getting: false,
@@ -228,7 +230,24 @@ var CollegeCtrl = (function () {
                                 dtTable = $('#dataTable').DataTable({
                                     "deferRender": true,
                                     "lengthMenu": [50, 100],
-                                    "destroy": true
+                                    "destroy": true,
+                                    fnRowCallback: function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+                                        $(nRow).on('click', function () {
+                                            scope = angular.element(document.getElementById("ng-app")).scope();
+                                            scope.$apply(function() {
+                                                scope.vm.edit.collegeId.selected = [aData[0]];
+                                                scope.vm.edit.oldCollegeId = aData[1];
+                                                scope.vm.edit.collegeName = aData[2];
+                                                scope.vm.edit.address1 = aData[3];
+                                                scope.vm.edit.address2 = aData[4];
+                                                scope.vm.edit.pin = aData[5];
+                                                scope.vm.edit.pfmsCode = aData[6];
+                                                scope.vm.edit.naacValidity = new Date(aData[7]);
+                                                scope.vm.edit.bsrInterest = aData[8];
+                                                scope.vm.selectedTabIndex = 1;
+                                            })
+                                        });
+                                    }
                                 });
                                 console.log(response.data.data.length);
                                 if (response.data.data.length == 0)
@@ -238,6 +257,11 @@ var CollegeCtrl = (function () {
                                         response.data.data[i][7] = moment(response.data.data[i][7]).format("DD-MMM-YYYY");
                                     dtTable.row.add(response.data.data[i]).draw(false);
                                 }
+                                console.log("row click not working 1");
+                                // $('#dataTable').on('click', 'tr', function () {
+                                //     //console.log(dtTable.row(this).data());
+                                //     console.log("hi");
+                                // });
                                 _this.mode.report.getting = false;
                                 _this.mode.report.loaded = true;
                             }, 1000);
@@ -302,6 +326,23 @@ var CollegeCtrl = (function () {
                             "deferRender": true,
                             "lengthMenu": [50],
                             "destroy": true,
+                            fnRowCallback: function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+                                $(nRow).on('click', function () {
+                                    scope = angular.element(document.getElementById("ng-app")).scope();
+                                    scope.$apply(function() {
+                                        scope.vm.edit.collegeId.selected = [aData[0]];
+                                        scope.vm.edit.oldCollegeId = aData[1];
+                                        scope.vm.edit.collegeName = aData[2];
+                                        scope.vm.edit.address1 = aData[3];
+                                        scope.vm.edit.address2 = aData[4];
+                                        scope.vm.edit.pin = aData[5];
+                                        scope.vm.edit.pfmsCode = aData[6];
+                                        scope.vm.edit.naacValidity = new Date(aData[7]);
+                                        scope.vm.edit.bsrInterest = aData[8];
+                                        scope.vm.selectedTabIndex = 1;
+                                    })
+                                });
+                            }
                         });
                         console.log(response.data.data.length);
                         for (var i = 0; i < response.data.data.length; i++) {
