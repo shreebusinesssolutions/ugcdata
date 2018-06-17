@@ -15,7 +15,8 @@ var CollegeCtrl = (function () {
                 loaded: false
             },
             edit: {
-                saving: false
+                saving: false,
+                getting: false
             }
         };
 
@@ -360,6 +361,7 @@ var CollegeCtrl = (function () {
 
     CollegeCtrl.prototype.editCollegeIdChanged = function () {
         var _this = this;
+        _this.mode.edit.getting = true;
         if (_this.edit.collegeId.selected.length == 0) {
             _this.edit.oldCollegeId = null;
             _this.edit.collegeName = null;
@@ -369,6 +371,7 @@ var CollegeCtrl = (function () {
             _this.edit.pfmsCode = null;
             _this.edit.naacValidity = null;
             _this.edit.bsrInterest = null;
+            _this.mode.edit.getting = false;
         }
         else {
             _this.$http({
@@ -383,8 +386,10 @@ var CollegeCtrl = (function () {
                 _this.edit.pfmsCode = response.data.pfmsCode ? response.data.pfmsCode : "";
                 _this.edit.naacValidity = response.data.naacValidity ? new Date(response.data.naacValidity) : null;
                 _this.edit.bsrInterest = response.data.bsrInterest ? response.data.bsrInterest : "";
+                _this.mode.edit.getting = false;
             }, function errorCallback(response) {
                 _this.httpResponseError(response);
+                _this.mode.edit.getting = false;
             });
         }
     };
