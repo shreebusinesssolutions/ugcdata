@@ -34,20 +34,32 @@ exports.handler = function (req, res, qpaths, qdata) {
                             res.statusMessage = "Internal Server Error";
                             res.end();
                         } else {
-                            var responseObj = {
-                                oldCollegeId: result[0].old_college_id,
-                                collegeName: result[0].college_name,
-                                address1: result[0].addr1,
-                                address2: result[0].addr2,
-                                pin: result[0].pin,
-                                pfmsCode: result[0].pfms_unique_code,
-                                naacValidity: result[0].naac_validity,
-                                bsrInterest: result[0].bsr_intrest_paid_and_intrest
-                            };
-                            res.write(JSON.stringify(responseObj));
-                            res.statusCode = 200;
-                            res.statusMessage = "OK";
-                            res.end();
+                            if (result.length == 0) {
+                                res.statusCode = 404;
+                                res.statusMessage = qdata.college_id + " Not Found";
+                                res.end();
+                            }
+                            else if (result.length == 1) {
+                                var responseObj = {
+                                    oldCollegeId: result[0].old_college_id,
+                                    collegeName: result[0].college_name,
+                                    address1: result[0].addr1,
+                                    address2: result[0].addr2,
+                                    pin: result[0].pin,
+                                    pfmsCode: result[0].pfms_unique_code,
+                                    naacValidity: result[0].naac_validity,
+                                    bsrInterest: result[0].bsr_intrest_paid_and_intrest
+                                };
+                                res.write(JSON.stringify(responseObj));
+                                res.statusCode = 200;
+                                res.statusMessage = "OK";
+                                res.end();
+                            }
+                            else {
+                                res.statusCode = 500;
+                                res.statusMessage = "Internal Server Error";
+                                res.end();
+                            }
                         }
                     })
                 }
