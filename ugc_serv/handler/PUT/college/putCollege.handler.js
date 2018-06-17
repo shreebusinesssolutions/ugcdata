@@ -43,18 +43,17 @@ exports.handler = function (req, res, qpaths, qdata) {
                             "naacValidity",
                             "bsrInterest"
                         ]);
-                        var sql = "INSERT INTO college (college_id, old_college_id, college_name, addr1, addr2, pin, pfms_unique_code, naac_validity, bsr_intrest_paid_and_intrest) ";
-                        sql += "VALUES (";
-                        sql += "'" + reqBodyObj.collegeId + "', ";
-                        sql += "'" + reqBodyObj.oldCollegeId + "', ";
-                        sql += "'" + reqBodyObj.collegeName + "', ";
-                        sql += "'" + reqBodyObj.address1 + "', ";
-                        sql += "'" + reqBodyObj.address2 + "', ";
-                        sql += "" + reqBodyObj.pin + ", ";
-                        sql += "'" + reqBodyObj.pfmsCode + "', ";
-                        sql += "'" + reqBodyObj.naacValidity + "', ";
-                        sql += "'" + reqBodyObj.bsrInterest + "'";
-                        sql += ")";
+                        var sql = "UPDATE college ";
+                        sql += "SET ";
+                        sql += "old_college_id = '" + reqBodyObj.oldCollegeId + "', ";
+                        sql += "college_name = '" + reqBodyObj.collegeName + "', ";
+                        sql += "addr1 = '" + reqBodyObj.address1 + "', ";
+                        sql += "addr2 = '" + reqBodyObj.address2 + "', ";
+                        sql += "pin = " + reqBodyObj.pin + ", ";
+                        sql += "pfms_unique_code = '" + reqBodyObj.pfmsCode + "', ";
+                        sql += "naac_validity = '" + reqBodyObj.naacValidity + "', ";
+                        sql += "bsr_intrest_paid_and_intrest = '" + reqBodyObj.bsrInterest + "' ";
+                        sql += "WHERE college_id = '" + reqBodyObj.collegeId + "'";
                         sql = sql.replace(/'null'/g, "null");
                         db_conn.query(sql, function (err, result, fields) {
                             if (err) {

@@ -32,6 +32,7 @@ var _getDatatableCollege = require("../handler/GET/datatable/college/getDatatabl
 var _getDatatableCollegeCount = require("../handler/GET/datatable/college/count/getDatatableCollegeCount.handler");
 
 var _getCollege = require("../handler/GET/college/getCollege.handler");
+var _putCollege = require("../handler/POST/college/putCollege.handler");
 var _postCollege = require("../handler/POST/college/postCollege.handler");
 
 var logger = require("../function/logger.func");
@@ -98,6 +99,8 @@ exports.route = function (method, pathname) {
 
     else if (method == "GET" && /^\/college/.test(pathname))
         return _getCollege;
+    else if (method == "PUT" && /^\/college\//.test(pathname))
+        return _putCollege;
     else if (method == "POST" && /^\/college\//.test(pathname))
         return _postCollege;
 
