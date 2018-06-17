@@ -15,8 +15,10 @@ var CollegeCtrl = (function () {
                 loaded: false
             },
             edit: {
-                saving: false,
-                getting: false
+                saving: false
+            },
+            add: {
+                checkingCollegeId: false
             }
         };
 
@@ -48,6 +50,18 @@ var CollegeCtrl = (function () {
                 search: "",
                 every: null,
             },
+            oldCollegeId: null,
+            collegeName: null,
+            address1: null,
+            address2: null,
+            pin: null,
+            pfmsCode: null,
+            naacValidity: null,
+            bsrInterest: null
+        };
+
+        this.add = {
+            collegeId: null,
             oldCollegeId: null,
             collegeName: null,
             address1: null,
@@ -397,7 +411,7 @@ var CollegeCtrl = (function () {
         var _this = this;
         _this.mode.edit.saving = true;
         _this.$http({
-            method: "POST",
+            method: "PUT",
             url: "/ugc_serv/college/",
             data: {
                 collegeId: _this.edit.collegeId.selected[0],
@@ -418,6 +432,27 @@ var CollegeCtrl = (function () {
             _this.mode.edit.saving = false;
         });
     };
+
+    CollegeCtrl.prototype.addCollege = function() {
+        var _this = this;
+        _this.mode.add.saving = true;
+        _this.$http({
+            method: "POST",
+            url: "/ugc_serv/college/",
+            data: {
+                collegeId: _this.add.collegeId.,
+                oldCollegeId: _this.add.oldCollegeId ? _this.add.oldCollegeId : "null",
+                collegeName: _this.add.collegeName,
+                address1: _this.add.address1,
+                address2: _this.add.address2,
+                pin: _this.add.pin,
+                pfmsCode: _this.add.pfmsCode ? _this.add.pfmsCode : "null",
+                naacValidity: _this.add.naacValidity ? moment(_this.add.naacValidity).format("YYYY-MM-DD") : "null",
+                bsrInterest: _this.add.bsrInterest ? _this.add.bsrInterest : "null"
+            }
+        })
+    };
+    
     CollegeCtrl.prototype.httpResponseError = function (response) {
         var _this = this;
         console.log("error", response);
@@ -457,6 +492,32 @@ angular
             .accentPalette('yellow').dark();
         $mdThemingProvider.theme('dark-primary').backgroundPalette('blue').dark();
         $mdThemingProvider.theme('dark-accent').backgroundPalette('red').dark();
+    })
+    .directive('ngCustvalidatorCollegeid', function () {
+        return {
+            require: 'ngModel',
+            link: function (scope, element, attrs, ngModel) {
+                ngModel.$parsers.push(function (value) {
+                    if (/^[A-Z0-9]+$/.test(value)) {
+                        scope.vm.mode.add.checkingCollegeId = true;
+                        scope.vm.$http({
+                            method: "GET",
+                            url: "/ugc_serv/college?college_id=" + value
+                        }).then(function successCallback(response) {
+                            ngModel.$setValidity("college-id-exists", false);
+                            scope.vm.mode.add.checkingCollegeId = false;
+                        }, function errorCallback(response) {
+                            if (response.status == 404 && /^[A-Z0-9]+ Not Found$/.test(response.statusText))
+                                ngModel.$setValidity("college-id-exists", true);
+                            else
+                                scope.vm.httpResponseError(response);
+                            scope.vm.mode.add.checkingCollegeId = false;
+                        });
+                    }
+                    return value;
+                });
+            }
+        }
     })
     .config(function ($mdDateLocaleProvider) {
         $mdDateLocaleProvider.formatDate = function (date) {
