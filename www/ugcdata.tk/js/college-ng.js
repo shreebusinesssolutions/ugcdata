@@ -18,7 +18,8 @@ var CollegeCtrl = (function () {
                 saving: false
             },
             add: {
-                checkingCollegeId: false
+                checkingCollegeId: false,
+                saving: false
             }
         };
 
