@@ -32,7 +32,7 @@ var _getDatatableCollege = require("../handler/GET/datatable/college/getDatatabl
 var _getDatatableCollegeCount = require("../handler/GET/datatable/college/count/getDatatableCollegeCount.handler");
 
 var _getCollege = require("../handler/GET/college/getCollege.handler");
-var _putCollege = require("../handler/POST/college/putCollege.handler");
+var _putCollege = require("../handler/PUT/college/putCollege.handler");
 var _postCollege = require("../handler/POST/college/postCollege.handler");
 
 var logger = require("../function/logger.func");
