@@ -469,7 +469,8 @@ var PaidCtrl = (function () {
                                         },
                                         {
                                             extend: 'print',
-                                            text: 'Print all'
+                                            text: 'Print all (manual)',
+                                            autoPrint: false
                                         },
                                         {
                                             extend: 'print',
@@ -593,7 +594,8 @@ var PaidCtrl = (function () {
                                 },
                                 {
                                     extend: 'print',
-                                    text: 'Print all'
+                                    text: 'Print all (manual)',
+                                    autoPrint: false
                                 },
                                 {
                                     extend: 'print',

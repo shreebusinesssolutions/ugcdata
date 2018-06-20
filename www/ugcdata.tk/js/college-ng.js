@@ -263,7 +263,8 @@ var CollegeCtrl = (function () {
                                         },
                                         {
                                             extend: 'print',
-                                            text: 'Print all'
+                                            text: 'Print all (manual)',
+                                            autoPrint: false
                                         },
                                         {
                                             extend: 'print',
@@ -386,7 +387,8 @@ var CollegeCtrl = (function () {
                                 },
                                 {
                                     extend: 'print',
-                                    text: 'Print all'
+                                    text: 'Print all (manual)',
+                                    autoPrint: false
                                 },
                                 {
                                     extend: 'print',
