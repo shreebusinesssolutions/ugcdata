@@ -434,16 +434,54 @@ var PaidCtrl = (function () {
                             }
                             _this.$timeout(function () {
                                 dtTable = $('#dataTable').DataTable({
-                                    "deferRender": true,
-                                    "lengthMenu": [50, 100],
-                                    "destroy": true
+                                    deferRender: true,
+                                    lengthMenu: [
+                                        [50, 100, -1],
+                                        [50, 100, "All"]
+                                    ],
+                                    destroy: true,
+                                    fnRowCallback: function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+                                        $(nRow).on('click', function () {
+                                            scope = angular.element(document.getElementById("ng-app")).scope();
+                                            scope.$apply(function () {
+                                                scope.vm.edit.collegeId.selected = [aData[0]];
+                                                scope.vm.edit.oldCollegeId = aData[1];
+                                                scope.vm.edit.collegeName = aData[2];
+                                                scope.vm.edit.address1 = aData[3];
+                                                scope.vm.edit.address2 = aData[4];
+                                                scope.vm.edit.pin = aData[5];
+                                                scope.vm.edit.pfmsCode = aData[6];
+                                                scope.vm.edit.naacValidity = new Date(aData[7]);
+                                                scope.vm.edit.bsrInterest = aData[8];
+                                                scope.vm.selectedTabIndex = 1;
+                                            })
+                                        });
+                                    },
+                                    dom: 'lfBrtip',
+                                    buttons: [
+                                        {
+                                            extend: 'excel',
+                                            text: 'Save as Excel'
+                                        },
+                                        {
+                                            extend: 'csv',
+                                            text: 'Save as CSV'
+                                        },
+                                        {
+                                            extend: 'print',
+                                            text: 'Print all'
+                                        },
+                                        {
+                                            extend: 'print',
+                                            text: 'Print current page',
+                                            exportOptions: {
+                                                modifier: {
+                                                    page: 'current'
+                                                }
+                                            }
+                                        }
+                                    ]
                                 });
-                                // var oSettings = $('.dataTable').dataTable().fnSettings();
-                                // var iTotalRecords = oSettings.fnRecordsTotal();
-                                // for (i = 0; i <= iTotalRecords; i++) {
-                                //     console.log(i);
-                                //     $('.dataTable').dataTable().fnDeleteRow(0, null, true);
-                                // }
                                 console.log(response.data.data.length);
                                 if (response.data.data.length == 0)
                                     _this.showAlert("No more data", "No more data to fetch.");
@@ -520,9 +558,53 @@ var PaidCtrl = (function () {
                     }
                     _this.$timeout(function () {
                         dtTable = $('#dataTable').DataTable({
-                            "deferRender": true,
-                            "lengthMenu": [50],
-                            "destroy": true,
+                            deferRender: true,
+                            lengthMenu: [
+                                [50, 100, -1],
+                                [50, 100, "All"]
+                            ],
+                            destroy: true,
+                            fnRowCallback: function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+                                $(nRow).on('click', function () {
+                                    scope = angular.element(document.getElementById("ng-app")).scope();
+                                    scope.$apply(function () {
+                                        scope.vm.edit.collegeId.selected = [aData[0]];
+                                        scope.vm.edit.oldCollegeId = aData[1];
+                                        scope.vm.edit.collegeName = aData[2];
+                                        scope.vm.edit.address1 = aData[3];
+                                        scope.vm.edit.address2 = aData[4];
+                                        scope.vm.edit.pin = aData[5];
+                                        scope.vm.edit.pfmsCode = aData[6];
+                                        scope.vm.edit.naacValidity = new Date(aData[7]);
+                                        scope.vm.edit.bsrInterest = aData[8];
+                                        scope.vm.selectedTabIndex = 1;
+                                    })
+                                });
+                            },
+                            dom: 'lfBrtip',
+                            buttons: [
+                                {
+                                    extend: 'excel',
+                                    text: 'Save as Excel'
+                                },
+                                {
+                                    extend: 'csv',
+                                    text: 'Save as CSV'
+                                },
+                                {
+                                    extend: 'print',
+                                    text: 'Print all'
+                                },
+                                {
+                                    extend: 'print',
+                                    text: 'Print current page',
+                                    exportOptions: {
+                                        modifier: {
+                                            page: 'current'
+                                        }
+                                    }
+                                }
+                            ]
                         });
                         console.log(response.data.data.length);
                         for (var i = 0; i < response.data.data.length; i++) {
