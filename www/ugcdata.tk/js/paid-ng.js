@@ -435,10 +435,7 @@ var PaidCtrl = (function () {
                             _this.$timeout(function () {
                                 dtTable = $('#dataTable').DataTable({
                                     deferRender: true,
-                                    lengthMenu: [
-                                        [50, 100, -1],
-                                        [50, 100, "All"]
-                                    ],
+                                    lengthMenu: [50, 100],
                                     destroy: true,
                                     fnRowCallback: function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
                                         $(nRow).on('click', function () {
@@ -560,10 +557,7 @@ var PaidCtrl = (function () {
                     _this.$timeout(function () {
                         dtTable = $('#dataTable').DataTable({
                             deferRender: true,
-                            lengthMenu: [
-                                [50, 100, -1],
-                                [50, 100, "All"]
-                            ],
+                            lengthMenu: [50, 100],
                             destroy: true,
                             fnRowCallback: function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
                                 $(nRow).on('click', function () {
