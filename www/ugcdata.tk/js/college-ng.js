@@ -228,13 +228,16 @@ var CollegeCtrl = (function () {
                             _this.$timeout(function () {
                                 $.fn.dataTable.moment("DD-MMM-YYYY");
                                 dtTable = $('#dataTable').DataTable({
-                                    "deferRender": true,
-                                    "lengthMenu": [50, 100],
-                                    "destroy": true,
+                                    deferRender: true,
+                                    lengthMenu: [
+                                        [50, 100, -1],
+                                        [50, 100, "All"]
+                                    ],
+                                    destroy: true,
                                     fnRowCallback: function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
                                         $(nRow).on('click', function () {
                                             scope = angular.element(document.getElementById("ng-app")).scope();
-                                            scope.$apply(function() {
+                                            scope.$apply(function () {
                                                 scope.vm.edit.collegeId.selected = [aData[0]];
                                                 scope.vm.edit.oldCollegeId = aData[1];
                                                 scope.vm.edit.collegeName = aData[2];
@@ -247,8 +250,33 @@ var CollegeCtrl = (function () {
                                                 scope.vm.selectedTabIndex = 1;
                                             })
                                         });
-                                    }
+                                    },
+                                    dom: 'lfBrtip',
+                                    buttons: [
+                                        {
+                                            extend: 'excel',
+                                            text: 'Save as Excel'
+                                        },
+                                        {
+                                            extend: 'csv',
+                                            text: 'Save as CSV'
+                                        },
+                                        {
+                                            extend: 'print',
+                                            text: 'Print all'
+                                        },
+                                        {
+                                            extend: 'print',
+                                            text: 'Print current page',
+                                            exportOptions: {
+                                                modifier: {
+                                                    page: 'current'
+                                                }
+                                            }
+                                        }
+                                    ]
                                 });
+                                //dtTable.buttons().container().appendTo($('.col-sm-6:eq(0)', dtTable.table().container()));
                                 console.log(response.data.data.length);
                                 if (response.data.data.length == 0)
                                     _this.showAlert("No more data", "No more data to fetch.");
@@ -323,13 +351,16 @@ var CollegeCtrl = (function () {
                     _this.$timeout(function () {
                         $.fn.dataTable.moment("DD-MMM-YYYY");
                         dtTable = $('#dataTable').DataTable({
-                            "deferRender": true,
-                            "lengthMenu": [50],
-                            "destroy": true,
+                            deferRender: true,
+                            lengthMenu: [
+                                [50, 100, -1],
+                                [50, 100, "All"]
+                            ],
+                            destroy: true,
                             fnRowCallback: function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
                                 $(nRow).on('click', function () {
                                     scope = angular.element(document.getElementById("ng-app")).scope();
-                                    scope.$apply(function() {
+                                    scope.$apply(function () {
                                         scope.vm.edit.collegeId.selected = [aData[0]];
                                         scope.vm.edit.oldCollegeId = aData[1];
                                         scope.vm.edit.collegeName = aData[2];
@@ -342,8 +373,33 @@ var CollegeCtrl = (function () {
                                         scope.vm.selectedTabIndex = 1;
                                     })
                                 });
-                            }
+                            },
+                            dom: 'lfBrtip',
+                            buttons: [
+                                {
+                                    extend: 'excel',
+                                    text: 'Save as Excel'
+                                },
+                                {
+                                    extend: 'csv',
+                                    text: 'Save as CSV'
+                                },
+                                {
+                                    extend: 'print',
+                                    text: 'Print all'
+                                },
+                                {
+                                    extend: 'print',
+                                    text: 'Print current page',
+                                    exportOptions: {
+                                        modifier: {
+                                            page: 'current'
+                                        }
+                                    }
+                                }
+                            ]
                         });
+                        //dtTable.buttons().container().appendTo($('.col-sm-6:eq(0)', dtTable.table().container()));
                         console.log(response.data.data.length);
                         for (var i = 0; i < response.data.data.length; i++) {
                             if (response.data.data[i][7])
