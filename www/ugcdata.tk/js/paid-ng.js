@@ -507,12 +507,12 @@ var PaidCtrl = (function () {
                                                     }
                                                 }
                                                 for (var i = 0; i < scope.vm.filter.subScheme.every.length; i++) {
-                                                    if (scope.vm.filter.subScheme.every[i].id == aData[7]) {
+                                                    if (scope.vm.filter.subScheme.every[i].id == aData[8]) {
                                                         scope.vm.edit.subSchemeId.selectedItem = scope.vm.filter.subScheme.every[i]
                                                         break;
                                                     }
                                                 }
-                                                scope.vm.edit.plan = aData[8];
+                                                scope.vm.edit.plan = aData[9];
                                                 scope.vm.selectedTabIndex = 1;
                                             })
                                         });
