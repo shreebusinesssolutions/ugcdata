@@ -451,23 +451,6 @@ var CollegeCtrl = (function () {
         var results = query ? this.edit.collegeId.every.filter(createFilterFor(query)) : this.edit.collegeId.every.filter(createFilterFor(''));
         return results;
     };
-
-    function createFilterFor(query) {
-        var lowercaseQuery = angular.lowercase(query);
-
-        return function filterFn(item) {
-            return (item.toLowerCase().indexOf(lowercaseQuery) === 0);
-        };
-    }
-
-    function createFilterObjFor(query) {
-        var lowercaseQuery = angular.lowercase(query);
-
-        return function filterFn(item) {
-            return (item.id.toLowerCase().indexOf(lowercaseQuery) === 0) || (item.name.toLowerCase().indexOf(lowercaseQuery) === 0);
-        };
-    }
-
     CollegeCtrl.prototype.editCollegeIdChanged = function () {
         var _this = this;
         _this.mode.edit.getting = true;
@@ -528,6 +511,7 @@ var CollegeCtrl = (function () {
         });
     };
 
+    /*****************Add Tab Functions************************/
     CollegeCtrl.prototype.addCollege = function () {
         var _this = this;
         _this.mode.add.saving = true;
@@ -554,6 +538,22 @@ var CollegeCtrl = (function () {
         });
     };
 
+
+    /*****************Common Functions************************/
+    function createFilterFor(query) {
+        var lowercaseQuery = angular.lowercase(query);
+
+        return function filterFn(item) {
+            return (item.toLowerCase().indexOf(lowercaseQuery) === 0);
+        };
+    }
+    function createFilterObjFor(query) {
+        var lowercaseQuery = angular.lowercase(query);
+
+        return function filterFn(item) {
+            return (item.id.toLowerCase().indexOf(lowercaseQuery) === 0) || (item.name.toLowerCase().indexOf(lowercaseQuery) === 0);
+        };
+    }
     CollegeCtrl.prototype.httpResponseError = function (response) {
         var _this = this;
         console.log("error", response);

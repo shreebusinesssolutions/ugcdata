@@ -15,6 +15,10 @@ var PaidCtrl = (function () {
             report: {
                 getting: false,
                 loaded: false
+            },
+            edit: {
+                getting: false,
+                saving: false
             }
         };
 
@@ -108,7 +112,7 @@ var PaidCtrl = (function () {
                 every: null
             },
             fileNum: null,
-            masterFilenum: null,
+            masterFileNum: null,
             collegeId: {
                 selectedItem: null,
                 search: "",
@@ -200,8 +204,10 @@ var PaidCtrl = (function () {
     PaidCtrl.prototype.openMenu = function ($$mdMenu, $$event) {
         $$mdMenu.open($$event);
     };
+
     PaidCtrl.prototype.selectedTabIndexChanged = function () {
         var _this = this;
+        console.log(_this.selectedTabIndex);
         if (_this.selectedTabIndex == 0) {
             _this.$http({
                 method: "GET",
@@ -330,20 +336,7 @@ var PaidCtrl = (function () {
             console.log(_this.selectedTabIndex);
         }
     };
-    // PaidCtrl.prototype.clearSearchFileNumber = function () {
-    //     this.filter.fileNum.search = "";
-    // };
-    // PaidCtrl.prototype.loadFileNumbers = function () {
-    //     var _this = this;
-    //     return _this.$http({
-    //         method: "GET",
-    //         url: "/ugc_serv/data/paid/filenum/"
-    //     }).then(function successCallback(response) {
-    //         _this.filter.fileNum.every = response.data;
-    //     }, function errorCallback(response) {
-    //         console.log("error", response);
-    //     });
-    // }
+
     PaidCtrl.prototype.toggleBlanks = function (filter) {
         var _this = this;
         if (_this.filter[filter].hasBlanks) {
@@ -380,7 +373,7 @@ var PaidCtrl = (function () {
         return chip
     };
     PaidCtrl.prototype.querySearchCollege = function (query) {
-        var results = query ? this.filter.college.every.filter(createFilterFor(query)) : this.filter.college.every.filter(createFilterFor(''));
+        var results = query ? this.filter.college.every.filter(createFilterObjFor(query)) : this.filter.college.every.filter(createFilterObjFor(''));
         return results;
     };
     PaidCtrl.prototype.transformYearChip = function (chip) {
@@ -498,18 +491,28 @@ var PaidCtrl = (function () {
                                                 scope.vm.edit.entryNum.selected = [aData[0]]
                                                 scope.vm.edit.fileNum = aData[1];
                                                 scope.vm.edit.masterFileNum = aData[2];
-                                                for (var i=0;i<scope.vm.filter.collegeId.every.length;i++) {
-                                                    
+                                                for (var i = 0; i < scope.vm.filter.college.every.length; i++) {
+                                                    if (scope.vm.filter.college.every[i].id == aData[3]) {
+                                                        scope.vm.edit.collegeId.selectedItem = scope.vm.filter.college.every[i]
+                                                        break;
+                                                    }
                                                 }
-                                                scope.vm.edit.collegeId.selected = [aData[3]];
-                                                scope.vm.edit.oldCollegeId = aData[1];
-                                                scope.vm.edit.collegeName = aData[2];
-                                                scope.vm.edit.address1 = aData[3];
-                                                scope.vm.edit.address2 = aData[4];
-                                                scope.vm.edit.pin = aData[5];
-                                                scope.vm.edit.pfmsCode = aData[6];
-                                                scope.vm.edit.naacValidity = new Date(aData[7]);
-                                                scope.vm.edit.bsrInterest = aData[8];
+                                                scope.vm.edit.year = aData[4];
+                                                scope.vm.edit.paid = aData[5];
+                                                scope.vm.edit.uc = aData[6];
+                                                for (var i = 0; i < scope.vm.filter.scheme.every.length; i++) {
+                                                    if (scope.vm.filter.scheme.every[i].id == aData[7]) {
+                                                        scope.vm.edit.schemeId.selectedItem = scope.vm.filter.scheme.every[i]
+                                                        break;
+                                                    }
+                                                }
+                                                for (var i = 0; i < scope.vm.filter.subScheme.every.length; i++) {
+                                                    if (scope.vm.filter.subScheme.every[i].id == aData[7]) {
+                                                        scope.vm.edit.subSchemeId.selectedItem = scope.vm.filter.subScheme.every[i]
+                                                        break;
+                                                    }
+                                                }
+                                                scope.vm.edit.plan = aData[8];
                                                 scope.vm.selectedTabIndex = 1;
                                             })
                                         });
@@ -623,15 +626,31 @@ var PaidCtrl = (function () {
                                 $(nRow).on('click', function () {
                                     scope = angular.element(document.getElementById("ng-app")).scope();
                                     scope.$apply(function () {
-                                        scope.vm.edit.collegeId.selected = [aData[0]];
-                                        scope.vm.edit.oldCollegeId = aData[1];
-                                        scope.vm.edit.collegeName = aData[2];
-                                        scope.vm.edit.address1 = aData[3];
-                                        scope.vm.edit.address2 = aData[4];
-                                        scope.vm.edit.pin = aData[5];
-                                        scope.vm.edit.pfmsCode = aData[6];
-                                        scope.vm.edit.naacValidity = new Date(aData[7]);
-                                        scope.vm.edit.bsrInterest = aData[8];
+                                        scope.vm.edit.entryNum.selected = [aData[0]]
+                                        scope.vm.edit.fileNum = aData[1];
+                                        scope.vm.edit.masterFileNum = aData[2];
+                                        for (var i = 0; i < scope.vm.filter.college.every.length; i++) {
+                                            if (scope.vm.filter.college.every[i].id == aData[3]) {
+                                                scope.vm.edit.collegeId.selectedItem = scope.vm.filter.college.every[i]
+                                                break;
+                                            }
+                                        }
+                                        scope.vm.edit.year = aData[4];
+                                        scope.vm.edit.paid = aData[5];
+                                        scope.vm.edit.uc = aData[6];
+                                        for (var i = 0; i < scope.vm.filter.scheme.every.length; i++) {
+                                            if (scope.vm.filter.scheme.every[i].id == aData[7]) {
+                                                scope.vm.edit.schemeId.selectedItem = scope.vm.filter.scheme.every[i]
+                                                break;
+                                            }
+                                        }
+                                        for (var i = 0; i < scope.vm.filter.subScheme.every.length; i++) {
+                                            if (scope.vm.filter.subScheme.every[i].id == aData[8]) {
+                                                scope.vm.edit.subSchemeId.selectedItem = scope.vm.filter.subScheme.every[i]
+                                                break;
+                                            }
+                                        }
+                                        scope.vm.edit.plan = aData[9];
                                         scope.vm.selectedTabIndex = 1;
                                     })
                                 });
@@ -725,7 +744,7 @@ var PaidCtrl = (function () {
         return results;
     };
     PaidCtrl.prototype.querySearchEditCollegeId = function (query) {
-        var results = query ? this.edit.collegeId.every.filter(createFilterFor(query)) : this.edit.collegeId.every.filter(createFilterFor(''));
+        var results = query ? this.edit.collegeId.every.filter(createFilterObjFor(query)) : this.edit.collegeId.every.filter(createFilterObjFor(''));
         return results;
     };
     PaidCtrl.prototype.querySearchEditSchemeId = function (query) {
@@ -736,10 +755,70 @@ var PaidCtrl = (function () {
         var results = query ? this.edit.subSchemeId.every.filter(createFilterObjFor(query)) : this.edit.subSchemeId.every.filter(createFilterObjFor(''));
         return results;
     };
+    PaidCtrl.prototype.editEntryNumChanged = function () {
+        var _this = this;
+        _this.mode.edit.getting = true;
+        if (_this.edit.entryNum.selected.length == 0) {
+            _this.edit.fileNum = null;
+            _this.edit.masterFileNum=null;
+            _this.edit.collegeId.selectedItem = null;
+            _this.edit.paid= null;
+            _this.edit.uc= null;
+            _this.edit.schemeId.selectedItem=null;
+            _this.edit.subSchemeId.selectedItem= null;
+            _this.edit.year= null;
+            _this.edit.plan= null;
+            _this.mode.edit.getting = false;
+        }
+        else {
+            _this.$http({
+                method: "GET",
+                url: "/ugc_serv/reportdata/paid?entry_num=" + _this.edit.entryNum.selected[0]
+            }).then(function successCallback(response) {
+                _this.edit.fileNum = response.data.fileNum ? response.data.fileNum : "";
+                _this.edit.masterFileNum = response.data.masterFileNum ? response.data.masterFileNum : "";
+                _this.edit.collegeId.selectedItem = response.data.college ? response.data.college : null;
+                _this.edit.paid = response.data.paid ? response.data.paid : "";
+                _this.edit.uc = response.data.uc ? response.data.uc : "";
+                _this.edit.schemeId.selectedItem = response.data.scheme ? response.data.scheme : null;
+                _this.edit.subSchemeId.selectedItem = response.data.subScheme ? response.data.subScheme : null;
+                _this.edit.year = response.data.year ? response.data.year : "";
+                _this.edit.plan = response.data.plan ? response.data.plan : "";
+                _this.mode.edit.getting = false;
+            }, function errorCallback(response) {
+                _this.httpResponseError(response);
+                _this.mode.edit.getting = false;
+            });
+        }
+    };
+    PaidCtrl.prototype.editSave = function() {
+        var _this = this;
+        _this.mode.edit.saving = true;
+        _this.$http({
+            method: "PUT",
+            url: "/ugc_serv/college/",
+            data: {
+                collegeId: _this.edit.collegeId.selected[0],
+                oldCollegeId: _this.edit.oldCollegeId ? _this.edit.oldCollegeId : null,
+                collegeName: _this.edit.collegeName,
+                address1: _this.edit.address1,
+                address2: _this.edit.address2,
+                pin: _this.edit.pin,
+                pfmsCode: _this.edit.pfmsCode ? _this.edit.pfmsCode : null,
+                naacValidity: _this.edit.naacValidity ? moment(_this.edit.naacValidity).format("YYYY-MM-DD") : null,
+                bsrInterest: _this.edit.bsrInterest ? _this.edit.bsrInterest : null
+            }
+        }).then(function successCallback(response) {
+            _this.showNotif("College data updated successfully.");
+            _this.mode.edit.saving = false;
+        }, function errorCallback(response) {
+            _this.httpResponseError(response);
+            _this.mode.edit.saving = false;
+        });
+    }
 
     function createFilterFor(query) {
         var lowercaseQuery = angular.lowercase(query);
-
         return function filterFn(item) {
             return (item.toLowerCase().indexOf(lowercaseQuery) === 0);
         };
@@ -747,9 +826,11 @@ var PaidCtrl = (function () {
 
     function createFilterObjFor(query) {
         var lowercaseQuery = angular.lowercase(query);
-
         return function filterFn(item) {
-            return (item.id.toLowerCase().indexOf(lowercaseQuery) === 0) || (item.name.toLowerCase().indexOf(lowercaseQuery) === 0);
+            if (item.id != null && item.name != null)
+                return (item.id.toLowerCase().indexOf(lowercaseQuery) === 0) || (item.name.toLowerCase().indexOf(lowercaseQuery) === 0);
+            else
+                return (item.id.toLowerCase().indexOf(lowercaseQuery) === 0)
         };
     }
 
