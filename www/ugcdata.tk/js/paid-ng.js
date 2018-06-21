@@ -675,6 +675,15 @@ var PaidCtrl = (function () {
         });
     };
 
+
+    PaidCtrl.prototype.transformEditEntryNumChip = function (chip) {
+        return chip
+    };
+    PaidCtrl.prototype.querySearchEditEntryNum = function (query) {
+        var results = query ? this.edit.entryNum.every.filter(createFilterFor(query)) : this.edit.entryNum.every.filter(createFilterFor(''));
+        return results;
+    };
+
     function createFilterFor(query) {
         var lowercaseQuery = angular.lowercase(query);
 
