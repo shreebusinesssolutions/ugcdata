@@ -98,6 +98,15 @@ var PaidCtrl = (function () {
             data: []
         };
 
+        this.edit={
+            entryNum: {
+                selected: [],
+                selectedItem: null,
+                search: "",
+                every: null
+            }
+        }
+
         var _this = this;
         this.$timeout(function () {
             _this.$http({
@@ -205,6 +214,16 @@ var PaidCtrl = (function () {
                 _this.httpResponseError(response);
             });
         }, 100);
+        this.$timeout(function() {
+            _this.$http({
+                method: "GET",
+                url: "/ugc_serv/data/paid/entrynum/"
+            }).then(function successCallback(response) {
+                _this.edit.entryNum.every = response.data;
+            }, function errorCallback(response) {
+                _this.httpResponseError(response);
+            });
+        }, 1000);
     }
 
     PaidCtrl.prototype.showNotif = function (message, timeout = 3000, errorToast = false) {

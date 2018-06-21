@@ -165,8 +165,7 @@
         </div>
         <br />
         <div class="w3-card w3-white">
-            <md-tabs md-dynamic-height class="md-primary">
-                <!-- md-dynamic-height md-border-bottom> -->
+            <md-tabs md-dynamic-height md-selected="vm.selectedTabIndex" class="md-primary">
                 <md-tab label="View">
                     <md-content class="w3-white">
                         <h1 class="w3-xlarge w3-padding w3-margin-0">View Report</h1>
@@ -476,7 +475,116 @@
                 <md-tab label="Edit">
                     <md-content class="w3-padding w3-white">
                         <h1 class="w3-xlarge">Edit Report</h1>
-
+                        <div class="w3-row w3-margin-bottom">
+                            <div class="w3-col m6">
+                                <md-chips ng-model="vm.edit.entryNum.selected" md-autocomplete-snap md-transform-chip="vm.transformEntryNumNumChip($chip)"
+                                    md-require-match="true" md-max-chips="1" style="width: 100%;" md-on-add="vm.editEntryNumChanged()"
+                                    md-on-remove="vm.editEntryNumChanged()">
+                                    <md-autocomplete md-selected-item="vm.edit.entryNum.selectedItem" md-search-text="vm.edit.entryNum.search" md-min-length="0"
+                                        md-items="entryNum in vm.querySearchEditEntryNum(vm.edit.entryNum.search)" md-item-text="entryNum"
+                                        placeholder="Search Entry Num">
+                                        <span class="w3-small" md-highlight-text="vm.edit.entryNum.search">{{entryNum}}</span>
+                                    </md-autocomplete>
+                                    <md-chip-template>
+                                        <span>
+                                            {{$chip}}
+                                        </span>
+                                    </md-chip-template>
+                                </md-chips>
+                            </div>
+                        </div>
+                        <md-divider></md-divider>
+                        <!-- <div class="w3-row w3-center">
+                            <div class="w3-padding-small" ng-show="vm.mode.edit.getting" layout="row" layout-sm="column" layout-align="space-around">
+                                <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+                            </div>
+                        </div> -->
+                        <!-- <form name="editForm" ng-show="!vm.mode.edit.getting">
+                            <div class="w3-row w3-margin-top">
+                                <div class="w3-col m6">
+                                    <md-input-container style="width: 100%;">
+                                        <label>Old College ID</label>
+                                        <input name="oldCollegeId" ng-model="vm.edit.oldCollegeId" ng-disabled="!(vm.edit.collegeId.selected.length > 0)">
+                                    </md-input-container>
+                                </div>
+                                <div class="w3-col m6">
+                                    <md-input-container style="width: 100%;">
+                                        <label>College Name</label>
+                                        <input name="collegeName" ng-model="vm.edit.collegeName" ng-disabled="!(vm.edit.collegeId.selected.length > 0)" required>
+                                        <div ng-messages="editForm.collegeName.$error">
+                                            <div ng-message="required">This is required.</div>
+                                        </div>
+                                    </md-input-container>
+                                </div>
+                            </div>
+                            <div class="w3-row">
+                                <div class="w3-col m6">
+                                    <md-input-container style="width: 100%;">
+                                        <label>Address 1</label>
+                                        <input name="address1" ng-model="vm.edit.address1" ng-disabled="!(vm.edit.collegeId.selected.length > 0)" required>
+                                        <div ng-messages="editForm.address1.$error">
+                                            <div ng-message="required">This is required.</div>
+                                        </div>
+                                    </md-input-container>
+                                </div>
+                                <div class="w3-col m6">
+                                    <md-input-container style="width: 100%;">
+                                        <label>
+                                            Address 2&nbsp;
+                                            <span style="font-size: 0.8em;">(District and/or State)</span>
+                                        </label>
+                                        <input name="address2" ng-model="vm.edit.address2" ng-disabled="!(vm.edit.collegeId.selected.length > 0)" required>
+                                        <div ng-messages="editForm.address2.$error">
+                                            <div ng-message="required">This is required.</div>
+                                        </div>
+                                    </md-input-container>
+                                </div>
+                            </div>
+                            <div class="w3-row">
+                                <div class="w3-col m4">
+                                    <md-input-container style="width: 100%;">
+                                        <label>PIN</label>
+                                        <input name="pin" ng-model="vm.edit.pin" ng-disabled="!(vm.edit.collegeId.selected.length > 0)" required ng-pattern="/^[0-9]{6}$/">
+                                        <div ng-messages="editForm.pin.$error">
+                                            <div ng-message="required">This is required.</div>
+                                            <div ng-message="pattern">Invalid PIN.</div>
+                                        </div>
+                                    </md-input-container>
+                                </div>
+                                <div class="w3-col m4">
+                                    <md-input-container style="width: 100%;">
+                                        <label>PFMS Unique Code</label>
+                                        <input name="pfmsCode" ng-model="vm.edit.pfmsCode" ng-disabled="!(vm.edit.collegeId.selected.length > 0)">
+                                    </md-input-container>
+                                </div>
+                                <div class="w3-col m4">
+                                    <md-input-container class="md-icon-float md-button-right md-block">
+                                        <label>NAAC Validity</label>
+                                        <md-datepicker ng-model="vm.edit.naacValidity" ng-disabled="!(vm.edit.collegeId.selected.length > 0)"></md-datepicker>
+                                        <div class="button-group" style="position: absolute; right: 0px; top: 0px; margin: 0;" ng-click="vm.edit.naacValidity = null">
+                                            <md-button class="md-icon-button md-accent" aria-label="Clear">
+                                                <i class="fas fa-trash-alt w3-medium"></i>
+                                            </md-button>
+                                        </div>
+                                    </md-input-container>
+                                </div>
+                            </div>
+                            <div class="w3-row">
+                                <div class="w3-col m12">
+                                    <md-input-container style="width: 100%;">
+                                        <label>BSR Interest Paid and Interest</label>
+                                        <input name="bsrInterest" ng-model="vm.edit.bsrInterest" ng-disabled="!(vm.edit.collegeId.selected.length > 0)">
+                                    </md-input-container>
+                                </div>
+                            </div>
+                            <div class="w3-row">
+                                <md-button class="md-primary md-raised w3-right" ng-disabled="vm.mode.edit.saving || editForm.$invalid" ng-click="vm.editSave()">
+                                    Save&nbsp;
+                                    <i class="fas fa-save" ng-show="!vm.mode.edit.saving"></i>
+                                    <i class="fas fa-circle-notch fa-spin" ng-show="vm.mode.edit.saving"></i>
+                                </md-button>
+                            </div>
+                        </form> -->
                     </md-content>
                 </md-tab>
                 <md-tab label="Add">
