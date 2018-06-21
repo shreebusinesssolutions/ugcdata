@@ -29,7 +29,7 @@ exports.handler = function (req, res, qpaths, qdata) {
                     }
                 }
                 else {
-                    var sql = "SELECT DISTINCT college_id FROM college ORDER BY college_id asc";
+                    var sql = "SELECT DISTINCT college_id, college_name FROM college ORDER BY college_id asc";
                     db_conn.query(sql, function (err, result, fields) {
                         if (err) {
                             logger.error(err);
@@ -39,7 +39,10 @@ exports.handler = function (req, res, qpaths, qdata) {
                         } else {
                             var responseObj = [];
                             for (var i = 0; i < result.length; i++)
-                                responseObj.push(result[i].college_id ? result[i].college_id : "(Blank)");
+                                responseObj.push({
+                                    id: result[i].college_id,
+                                    name: result[i].college_name
+                                });
                             res.write(JSON.stringify(responseObj));
                             res.statusCode = 200;
                             res.statusMessage = "OK";
