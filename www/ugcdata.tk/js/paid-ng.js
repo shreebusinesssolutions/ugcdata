@@ -9,6 +9,8 @@ var PaidCtrl = (function () {
         this.accent = 'red';
         this.white = 'white';
 
+        this.selectedTabIndex = 0;
+
         this.mode = {
             report: {
                 getting: false,
@@ -98,132 +100,35 @@ var PaidCtrl = (function () {
             data: []
         };
 
-        this.edit={
+        this.edit = {
             entryNum: {
                 selected: [],
                 selectedItem: null,
                 search: "",
                 every: null
-            }
-        }
-
-        var _this = this;
-        this.$timeout(function () {
-            _this.$http({
-                method: "GET",
-                url: "/ugc_serv/data/paid/filenum/"
-            }).then(function successCallback(response) {
-                _this.filter.fileNum.every = response.data;
-                if (response.data.indexOf("(Blank)") >= 0)
-                    _this.filter.fileNum.hasBlanks = true;
-            }, function errorCallback(response) {
-                _this.httpResponseError(response);
-            });
-        }, 100);
-        this.$timeout(function () {
-            _this.$http({
-                method: "GET",
-                url: "/ugc_serv/data/paid/masterfilenum/"
-            }).then(function successCallback(response) {
-                _this.filter.masterFileNum.every = response.data;
-                if (response.data.indexOf("(Blank)") >= 0)
-                    _this.filter.masterFileNum.hasBlanks = true;
-            }, function errorCallback(response) {
-                _this.httpResponseError(response);
-            });
-        }, 100);
-        this.$timeout(function () {
-            _this.$http({
-                method: "GET",
-                url: "/ugc_serv/data/global/college/"
-            }).then(function successCallback(response) {
-                _this.filter.college.every = response.data;
-                if (response.data.indexOf("(Blank)") >= 0)
-                    _this.filter.college.hasBlanks = true;
-            }, function errorCallback(response) {
-                _this.httpResponseError(response);
-            });
-        }, 100);
-        this.$timeout(function () {
-            _this.$http({
-                method: "GET",
-                url: "/ugc_serv/data/paid/year/"
-            }).then(function successCallback(response) {
-                _this.filter.year.every = response.data;
-                if (response.data.indexOf("(Blank)") >= 0)
-                    _this.filter.year.hasBlanks = true;
-            }, function errorCallback(response) {
-                _this.httpResponseError(response);
-            });
-        }, 100);
-        this.$timeout(function () {
-            _this.$http({
-                method: "GET",
-                url: "/ugc_serv/data/paid/paid/"
-            }).then(function successCallback(response) {
-                _this.filter.paid.scaleMin = response.data.min;
-                _this.filter.paid.scaleMax = response.data.max;
-                _this.filter.paid.min = response.data.min;
-                _this.filter.paid.max = response.data.max;
-            }, function errorCallback(response) {
-                _this.httpResponseError(response);
-            });
-        }, 100);
-        this.$timeout(function () {
-            _this.$http({
-                method: "GET",
-                url: "/ugc_serv/data/paid/uc/"
-            }).then(function successCallback(response) {
-                _this.filter.uc.scaleMin = response.data.min;
-                _this.filter.uc.scaleMax = response.data.max;
-                _this.filter.uc.min = response.data.min;
-                _this.filter.uc.max = response.data.max;
-            }, function errorCallback(response) {
-                _this.httpResponseError(response);
-            });
-        }, 100);
-        this.$timeout(function () {
-            _this.$http({
-                method: "GET",
-                url: "/ugc_serv/data/global/scheme/"
-            }).then(function successCallback(response) {
-                _this.filter.scheme.every = response.data;
-            }, function errorCallback(response) {
-                _this.httpResponseError(response);
-            });
-        }, 100);
-        this.$timeout(function () {
-            _this.$http({
-                method: "GET",
-                url: "/ugc_serv/data/global/subscheme/"
-            }).then(function successCallback(response) {
-                _this.filter.subScheme.every = response.data;
-            }, function errorCallback(response) {
-                _this.httpResponseError(response);
-            });
-        }, 100);
-        this.$timeout(function () {
-            _this.$http({
-                method: "GET",
-                url: "/ugc_serv/data/paid/plan/"
-            }).then(function successCallback(response) {
-                _this.filter.plan.every = response.data;
-                if (response.data.indexOf("(Blank)") >= 0)
-                    _this.filter.plan.hasBlanks = true;
-            }, function errorCallback(response) {
-                _this.httpResponseError(response);
-            });
-        }, 100);
-        this.$timeout(function() {
-            _this.$http({
-                method: "GET",
-                url: "/ugc_serv/data/paid/entrynum/"
-            }).then(function successCallback(response) {
-                _this.edit.entryNum.every = response.data;
-            }, function errorCallback(response) {
-                _this.httpResponseError(response);
-            });
-        }, 1000);
+            },
+            fileNum: null,
+            masterFilenum: null,
+            collegeId: {
+                selectedItem: null,
+                search: "",
+                every: null
+            },
+            paid: null,
+            uc: null,
+            schemeId: {
+                selectedItem: null,
+                search: "",
+                every: null
+            },
+            subSchemeId: {
+                selectedItem: null,
+                search: "",
+                every: null
+            },
+            year: null,
+            plan: null
+        };
     }
 
     PaidCtrl.prototype.showNotif = function (message, timeout = 3000, errorToast = false) {
@@ -294,6 +199,136 @@ var PaidCtrl = (function () {
     };
     PaidCtrl.prototype.openMenu = function ($$mdMenu, $$event) {
         $$mdMenu.open($$event);
+    };
+    PaidCtrl.prototype.selectedTabIndexChanged = function () {
+        var _this = this;
+        if (_this.selectedTabIndex == 0) {
+            _this.$http({
+                method: "GET",
+                url: "/ugc_serv/data/paid/filenum/"
+            }).then(function successCallback(response) {
+                _this.filter.fileNum.every = response.data;
+                if (response.data.indexOf("(Blank)") >= 0)
+                    _this.filter.fileNum.hasBlanks = true;
+            }, function errorCallback(response) {
+                _this.httpResponseError(response);
+            });
+            _this.$http({
+                method: "GET",
+                url: "/ugc_serv/data/paid/masterfilenum/"
+            }).then(function successCallback(response) {
+                _this.filter.masterFileNum.every = response.data;
+                if (response.data.indexOf("(Blank)") >= 0)
+                    _this.filter.masterFileNum.hasBlanks = true;
+            }, function errorCallback(response) {
+                _this.httpResponseError(response);
+            });
+            _this.$http({
+                method: "GET",
+                url: "/ugc_serv/data/global/college/"
+            }).then(function successCallback(response) {
+                _this.filter.college.every = response.data;
+                if (response.data.indexOf("(Blank)") >= 0)
+                    _this.filter.college.hasBlanks = true;
+            }, function errorCallback(response) {
+                _this.httpResponseError(response);
+            });
+            _this.$http({
+                method: "GET",
+                url: "/ugc_serv/data/paid/year/"
+            }).then(function successCallback(response) {
+                _this.filter.year.every = response.data;
+                if (response.data.indexOf("(Blank)") >= 0)
+                    _this.filter.year.hasBlanks = true;
+            }, function errorCallback(response) {
+                _this.httpResponseError(response);
+            });
+            _this.$http({
+                method: "GET",
+                url: "/ugc_serv/data/paid/paid/"
+            }).then(function successCallback(response) {
+                _this.filter.paid.scaleMin = response.data.min;
+                _this.filter.paid.scaleMax = response.data.max;
+                _this.filter.paid.min = response.data.min;
+                _this.filter.paid.max = response.data.max;
+            }, function errorCallback(response) {
+                _this.httpResponseError(response);
+            });
+            _this.$http({
+                method: "GET",
+                url: "/ugc_serv/data/paid/uc/"
+            }).then(function successCallback(response) {
+                _this.filter.uc.scaleMin = response.data.min;
+                _this.filter.uc.scaleMax = response.data.max;
+                _this.filter.uc.min = response.data.min;
+                _this.filter.uc.max = response.data.max;
+            }, function errorCallback(response) {
+                _this.httpResponseError(response);
+            });
+            _this.$http({
+                method: "GET",
+                url: "/ugc_serv/data/global/scheme/"
+            }).then(function successCallback(response) {
+                _this.filter.scheme.every = response.data;
+            }, function errorCallback(response) {
+                _this.httpResponseError(response);
+            });
+            _this.$http({
+                method: "GET",
+                url: "/ugc_serv/data/global/subscheme/"
+            }).then(function successCallback(response) {
+                _this.filter.subScheme.every = response.data;
+            }, function errorCallback(response) {
+                _this.httpResponseError(response);
+            });
+            _this.$http({
+                method: "GET",
+                url: "/ugc_serv/data/paid/plan/"
+            }).then(function successCallback(response) {
+                _this.filter.plan.every = response.data;
+                if (response.data.indexOf("(Blank)") >= 0)
+                    _this.filter.plan.hasBlanks = true;
+            }, function errorCallback(response) {
+                _this.httpResponseError(response);
+            });
+        }
+        else if (_this.selectedTabIndex == 1) {
+            _this.$http({
+                method: "GET",
+                url: "/ugc_serv/data/paid/entrynum/"
+            }).then(function successCallback(response) {
+                _this.edit.entryNum.every = response.data;
+            }, function errorCallback(response) {
+                _this.httpResponseError(response);
+            });
+            _this.$http({
+                method: "GET",
+                url: "/ugc_serv/data/global/college/"
+            }).then(function successCallback(response) {
+                _this.edit.collegeId.every = response.data;
+            }, function errorCallback(response) {
+                _this.httpResponseError(response);
+            });
+            _this.$http({
+                method: "GET",
+                url: "/ugc_serv/data/global/scheme/"
+            }).then(function successCallback(response) {
+                _this.edit.schemeId.every = response.data;
+            }, function errorCallback(response) {
+                _this.httpResponseError(response);
+            });
+            _this.$http({
+                method: "GET",
+                url: "/ugc_serv/data/global/subscheme/"
+            }).then(function successCallback(response) {
+                _this.edit.subSchemeId.every = response.data;
+            }, function errorCallback(response) {
+                _this.httpResponseError(response);
+            });
+        }
+        else if (_this.selectedTabIndex == 2) {
+            console.log(_this.selectedTabIndex);
+        }
     };
     // PaidCtrl.prototype.clearSearchFileNumber = function () {
     //     this.filter.fileNum.search = "";
@@ -460,7 +495,13 @@ var PaidCtrl = (function () {
                                         $(nRow).on('click', function () {
                                             scope = angular.element(document.getElementById("ng-app")).scope();
                                             scope.$apply(function () {
-                                                scope.vm.edit.collegeId.selected = [aData[0]];
+                                                scope.vm.edit.entryNum.selected = [aData[0]]
+                                                scope.vm.edit.fileNum = aData[1];
+                                                scope.vm.edit.masterFileNum = aData[2];
+                                                for (var i=0;i<scope.vm.filter.collegeId.every.length;i++) {
+                                                    
+                                                }
+                                                scope.vm.edit.collegeId.selected = [aData[3]];
                                                 scope.vm.edit.oldCollegeId = aData[1];
                                                 scope.vm.edit.collegeName = aData[2];
                                                 scope.vm.edit.address1 = aData[3];
@@ -681,6 +722,18 @@ var PaidCtrl = (function () {
     };
     PaidCtrl.prototype.querySearchEditEntryNum = function (query) {
         var results = query ? this.edit.entryNum.every.filter(createFilterFor(query)) : this.edit.entryNum.every.filter(createFilterFor(''));
+        return results;
+    };
+    PaidCtrl.prototype.querySearchEditCollegeId = function (query) {
+        var results = query ? this.edit.collegeId.every.filter(createFilterFor(query)) : this.edit.collegeId.every.filter(createFilterFor(''));
+        return results;
+    };
+    PaidCtrl.prototype.querySearchEditSchemeId = function (query) {
+        var results = query ? this.edit.schemeId.every.filter(createFilterObjFor(query)) : this.edit.schemeId.every.filter(createFilterObjFor(''));
+        return results;
+    };
+    PaidCtrl.prototype.querySearchEditSubSchemeId = function (query) {
+        var results = query ? this.edit.subSchemeId.every.filter(createFilterObjFor(query)) : this.edit.subSchemeId.every.filter(createFilterObjFor(''));
         return results;
     };
 
