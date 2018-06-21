@@ -39,7 +39,7 @@ exports.handler = function (req, res, qpaths, qdata) {
                         } else {
                             var responseObj = [];
                             for (var i = 0; i < result.length; i++)
-                                responseObj.push(result[i].entry_num);
+                                responseObj.push("" + result[i].entry_num);
                             res.write(JSON.stringify(responseObj));
                             res.statusCode = 200;
                             res.statusMessage = "OK";
