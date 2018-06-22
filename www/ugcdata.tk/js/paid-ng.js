@@ -859,8 +859,7 @@ var PaidCtrl = (function () {
                 plan: _this.edit.plan
             }
         }).then(function successCallback(response) {
-            _this.showNotif("New entry added successfully.");
-            _this.showAlert("New Entry Added", "New entry added with entry number: " + response.data.entryNum + ".");
+            _this.showNotif("Report entry updated successfully.");
             _this.mode.edit.saving = false;
         }, function errorCallback(response) {
             _this.httpResponseError(response);
@@ -899,7 +898,8 @@ var PaidCtrl = (function () {
                 plan: _this.add.plan
             }
         }).then(function successCallback(response) {
-            _this.showNotif("College added successfully.");
+            _this.showNotif("New entry added successfully.");
+            _this.showAlert("New Entry Added", "New entry added with entry number: " + response.data.entryNum + ".");
             _this.mode.add.saving = false;
         }, function errorCallback(response) {
             _this.httpResponseError(response);
