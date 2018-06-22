@@ -165,9 +165,8 @@
         </div>
         <br />
         <div class="w3-card w3-white">
-            <md-tabs md-dynamic-height class="md-primary">
-                <!-- md-dynamic-height md-border-bottom> -->
-                <md-tab label="View">
+            <md-tabs md-dynamic-height md-selected="vm.selectedTabIndex" class="md-primary">
+                <md-tab label="View" md-on-select="vm.selectedTabIndexChanged()">
                     <md-content class="w3-white">
                         <h1 class="w3-xlarge w3-padding w3-margin-0">View Report</h1>
                         <div class="w3-theme-primary-l5 w3-card">
@@ -262,15 +261,15 @@
                                     </div>
                                 </div>
                                 <div class="w3-row">
-                                    <div class="w3-col m3 w3-padding-small">
+                                    <div class="w3-col m4 w3-padding-small">
                                         <fieldset class="primary w3-padding-small">
                                             <legend>College ID</legend>
                                             <md-chips ng-model="vm.filter.college.selected" md-autocomplete-snap md-transform-chip="vm.transformCollegeChip($chip)" md-require-match="true"
                                                 style="width: 100%;" md-on-add="vm.filterChanged('college')" md-on-remove="vm.filterChanged('college')">
                                                 <md-autocomplete md-selected-item="vm.filter.college.selectedItem" md-search-text="vm.filter.college.search" md-min-length="0"
-                                                    md-items="college in vm.querySearchCollege(vm.filter.college.search)" md-item-text="college"
+                                                    md-items="college in vm.querySearchCollege(vm.filter.college.search)" md-item-text="college.id"
                                                     placeholder="Search College ID">
-                                                    <span class="w3-small" md-highlight-text="vm.filter.college.search">{{college}}</span>
+                                                    <span class="w3-small" md-highlight-text="vm.filter.college.search">{{college.id}} ({{college.name}})</span>
                                                 </md-autocomplete>
                                                 <md-chip-template>
                                                     <span>
@@ -284,7 +283,7 @@
                                             </md-checkbox>
                                         </fieldset>
                                     </div>
-                                    <div class="w3-col m3 w3-padding-small">
+                                    <div class="w3-col m2 w3-padding-small">
                                         <fieldset class="primary w3-padding-small">
                                             <legend>Year</legend>
                                             <md-chips ng-model="vm.filter.year.selected" md-autocomplete-snap md-transform-chip="vm.transformYearChip($chip)" md-require-match="true"
@@ -473,13 +472,145 @@
                         </div>
                     </md-content>
                 </md-tab>
-                <md-tab label="Edit">
+                <md-tab label="Edit" md-on-select="vm.selectedTabIndexChanged()">
                     <md-content class="w3-padding w3-white">
                         <h1 class="w3-xlarge">Edit Report</h1>
-
+                        <div class="w3-row w3-margin-bottom">
+                            <div class="w3-col m6">
+                                <md-chips ng-model="vm.edit.entryNum.selected" md-autocomplete-snap md-transform-chip="vm.transformEditEntryNumChip($chip)"
+                                    md-require-match="true" md-max-chips="1" style="width: 100%;" md-on-add="vm.editEntryNumChanged()"
+                                    md-on-remove="vm.editEntryNumChanged()">
+                                    <md-autocomplete md-selected-item="vm.edit.entryNum.selectedItem" md-search-text="vm.edit.entryNum.search" md-min-length="0"
+                                        md-items="entryNum in vm.querySearchEditEntryNum(vm.edit.entryNum.search)" md-item-text="entryNum"
+                                        placeholder="Search Entry Num">
+                                        <span class="w3-small" md-highlight-text="vm.edit.entryNum.search">{{entryNum}}</span>
+                                    </md-autocomplete>
+                                    <md-chip-template>
+                                        <span>
+                                            {{$chip}}
+                                        </span>
+                                    </md-chip-template>
+                                </md-chips>
+                            </div>
+                        </div>
+                        <md-divider></md-divider>
+                        <div class="w3-row w3-center">
+                            <div class="w3-padding-small" ng-show="vm.mode.edit.getting" layout="row" layout-sm="column" layout-align="space-around">
+                                <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+                            </div>
+                        </div>
+                        <form name="editForm" ng-show="!vm.mode.edit.getting">
+                            <div class="w3-row w3-margin-top">
+                                <div class="w3-col m6">
+                                    <md-input-container style="width: 100%;">
+                                        <label>File Number</label>
+                                        <input name="fileNum" ng-model="vm.edit.fileNum" ng-disabled="!(vm.edit.entryNum.selected.length > 0)">
+                                    </md-input-container>
+                                </div>
+                                <div class="w3-col m6">
+                                    <md-input-container style="width: 100%;">
+                                        <label>Master File Number</label>
+                                        <input name="masterFileNum" ng-model="vm.edit.masterFileNum" ng-disabled="!(vm.edit.entryNum.selected.length > 0)">
+                                    </md-input-container>
+                                </div>
+                            </div>
+                            <div class="w3-row">
+                                <div class="w3-col m6">
+                                    <md-autocomplete class="md-block" ng-disabled="!(vm.edit.entryNum.selected.length > 0)" required md-input-name="collegeId"
+                                        md-input-minlength="0" md-no-cache="false" md-selected-item="vm.edit.collegeId.selectedItem"
+                                        md-search-text="vm.edit.collegeId.search" md-min-length="0" md-items="college in vm.querySearchEditCollegeId(vm.edit.collegeId.search)"
+                                        md-item-text="college.id" md-floating-label="College ID" md-require-match>
+                                        <md-item-template>
+                                            <span md-highlight-text="ctrl.searchText">{{college.id}} ({{college.name}})</span>
+                                        </md-item-template>
+                                        <div ng-messages="editForm.collegeId.$error">
+                                            <div ng-message="required">This is required.</div>
+                                            <div ng-message="md-require-match">Please select an existing college.</div>
+                                        </div>
+                                    </md-autocomplete>
+                                </div>
+                                <div class="w3-col m3">
+                                    <md-input-container style="width: 100%;">
+                                        <label>Paid</label>
+                                        <input name="paid" ng-model="vm.edit.paid" type="number" required ng-disabled="!(vm.edit.entryNum.selected.length > 0)">
+                                        <div ng-messages="editForm.paid.$error">
+                                            <div ng-message="required">This is required.</div>
+                                        </div>
+                                    </md-input-container>
+                                </div>
+                                <div class="w3-col m3">
+                                    <md-input-container style="width: 100%;">
+                                        <label>UC</label>
+                                        <input name="uc" ng-model="vm.edit.uc" type="number" required ng-disabled="!(vm.edit.entryNum.selected.length > 0)">
+                                        <div ng-messages="editForm.uc.$error">
+                                            <div ng-message="required">This is required.</div>
+                                        </div>
+                                    </md-input-container>
+                                </div>
+                            </div>
+                            <div class="w3-row">
+                                <div class="w3-col m6">
+                                    <md-autocomplete class="md-block" ng-disabled="!(vm.edit.entryNum.selected.length > 0)" required md-input-name="schemeId"
+                                        md-input-minlength="0" md-no-cache="false" md-selected-item="vm.edit.schemeId.selectedItem"
+                                        md-search-text="vm.edit.schemeId.search" md-min-length="0" md-items="scheme in vm.querySearchEditSchemeId(vm.edit.schemeId.search)"
+                                        md-item-text="scheme.id" md-floating-label="Scheme ID" md-require-match>
+                                        <md-item-template>
+                                            <span md-highlight-text="ctrl.searchText">{{scheme.id}} ({{scheme.name}})</span>
+                                        </md-item-template>
+                                        <div ng-messages="editForm.schemeId.$error">
+                                            <div ng-message="required">This is required.</div>
+                                            <div ng-message="md-require-match">Please select an existing Scheme ID.</div>
+                                        </div>
+                                    </md-autocomplete>
+                                </div>
+                                <div class="w3-col m6">
+                                    <md-autocomplete class="md-block" ng-disabled="!(vm.edit.entryNum.selected.length > 0)" required md-input-name="subSchemeId"
+                                        md-input-minlength="0" md-no-cache="false" md-selected-item="vm.edit.subSchemeId.selectedItem"
+                                        md-search-text="vm.edit.subSchemeId.search" md-min-length="0" md-items="subscheme in vm.querySearchEditSubSchemeId(vm.edit.subSchemeId.search)"
+                                        md-item-text="subscheme.id" md-floating-label="Sub Scheme ID" md-require-match>
+                                        <md-item-template>
+                                            <span md-highlight-text="ctrl.searchText">{{subscheme.id}} ({{subscheme.name}})</span>
+                                        </md-item-template>
+                                        <div ng-messages="editForm.subSchemeId.$error">
+                                            <div ng-message="required">This is required.</div>
+                                            <div ng-message="md-require-match">Please select an existing Subscheme ID.</div>
+                                        </div>
+                                    </md-autocomplete>
+                                </div>
+                            </div>
+                            <div class="w3-row">
+                                <div class="w3-col m6">
+                                    <md-input-container style="width: 100%;">
+                                        <label>Year</label>
+                                        <input name="year" ng-model="vm.edit.year" required ng-disabled="!(vm.edit.entryNum.selected.length > 0)" ng-pattern="/\d{2}-\d{2}/">
+                                        <div ng-messages="editForm.year.$error">
+                                            <div ng-message="required">This is required.</div>
+                                            <div ng-message="pattern">Year must be like 16-17.</div>
+                                        </div>
+                                    </md-input-container>
+                                </div>
+                                <div class="w3-col m6">
+                                    <md-input-container style="width: 100%;">
+                                        <label>Plan Files</label>
+                                        <input name="plan" ng-model="vm.edit.plan" required ng-disabled="!(vm.edit.entryNum.selected.length > 0)" ng-pattern="/^M{0,4}(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3}) PLAN$/">
+                                        <div ng-messages="editForm.plan.$error">
+                                            <div ng-message="required">This is required.</div>
+                                            <div ng-message="pattern">Plan Files mustbe like XII PLAN.</div>
+                                        </div>
+                                    </md-input-container>
+                                </div>
+                            </div>
+                            <div class="w3-row">
+                                <md-button class="md-primary md-raised w3-right" ng-disabled="vm.mode.edit.saving || editForm.$invalid" ng-click="vm.editSave()">
+                                    Save&nbsp;
+                                    <i class="fas fa-save" ng-show="!vm.mode.edit.saving"></i>
+                                    <i class="fas fa-circle-notch fa-spin" ng-show="vm.mode.edit.saving"></i>
+                                </md-button>
+                            </div>
+                        </form>
                     </md-content>
                 </md-tab>
-                <md-tab label="Add">
+                <md-tab label="Add" md-on-select="vm.selectedTabIndexChanged()">
                     <md-content class="w3-padding w3-white">
                         <h1 class="w3-xlarge">Add Entry</h1>
 

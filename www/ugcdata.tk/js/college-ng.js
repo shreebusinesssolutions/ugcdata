@@ -17,6 +17,7 @@ var CollegeCtrl = (function () {
                 loaded: false
             },
             edit: {
+                getting: false,
                 saving: false
             },
             add: {
@@ -450,25 +451,9 @@ var CollegeCtrl = (function () {
         var results = query ? this.edit.collegeId.every.filter(createFilterFor(query)) : this.edit.collegeId.every.filter(createFilterFor(''));
         return results;
     };
-
-    function createFilterFor(query) {
-        var lowercaseQuery = angular.lowercase(query);
-
-        return function filterFn(item) {
-            return (item.toLowerCase().indexOf(lowercaseQuery) === 0);
-        };
-    }
-
-    function createFilterObjFor(query) {
-        var lowercaseQuery = angular.lowercase(query);
-
-        return function filterFn(item) {
-            return (item.id.toLowerCase().indexOf(lowercaseQuery) === 0) || (item.name.toLowerCase().indexOf(lowercaseQuery) === 0);
-        };
-    }
-
     CollegeCtrl.prototype.editCollegeIdChanged = function () {
         var _this = this;
+        _this.mode.edit.getting = true;
         if (_this.edit.collegeId.selected.length == 0) {
             _this.edit.oldCollegeId = null;
             _this.edit.collegeName = null;
@@ -478,6 +463,7 @@ var CollegeCtrl = (function () {
             _this.edit.pfmsCode = null;
             _this.edit.naacValidity = null;
             _this.edit.bsrInterest = null;
+            _this.mode.edit.getting = false;
         }
         else {
             _this.$http({
@@ -492,8 +478,10 @@ var CollegeCtrl = (function () {
                 _this.edit.pfmsCode = response.data.pfmsCode ? response.data.pfmsCode : "";
                 _this.edit.naacValidity = response.data.naacValidity ? new Date(response.data.naacValidity) : null;
                 _this.edit.bsrInterest = response.data.bsrInterest ? response.data.bsrInterest : "";
+                _this.mode.edit.getting = false;
             }, function errorCallback(response) {
                 _this.httpResponseError(response);
+                _this.mode.edit.getting = false;
             });
         }
     };
@@ -523,6 +511,7 @@ var CollegeCtrl = (function () {
         });
     };
 
+    /*****************Add Tab Functions************************/
     CollegeCtrl.prototype.addCollege = function () {
         var _this = this;
         _this.mode.add.saving = true;
@@ -549,6 +538,22 @@ var CollegeCtrl = (function () {
         });
     };
 
+
+    /*****************Common Functions************************/
+    function createFilterFor(query) {
+        var lowercaseQuery = angular.lowercase(query);
+
+        return function filterFn(item) {
+            return (item.toLowerCase().indexOf(lowercaseQuery) === 0);
+        };
+    }
+    function createFilterObjFor(query) {
+        var lowercaseQuery = angular.lowercase(query);
+
+        return function filterFn(item) {
+            return (item.id.toLowerCase().indexOf(lowercaseQuery) === 0) || (item.name.toLowerCase().indexOf(lowercaseQuery) === 0);
+        };
+    }
     CollegeCtrl.prototype.httpResponseError = function (response) {
         var _this = this;
         console.log("error", response);
