@@ -46,8 +46,8 @@ exports.handler = function (req, res, qpaths, qdata) {
                         ]);
                         var sql = "UPDATE plan_11_12_paid ";
                         sql += "SET ";
-                        sql += "file_num = '" + reqBodyObj.fileNum.replace(/'/g, "\\'") + "', ";
-                        sql += "master_file_num = '" + reqBodyObj.masterFileNum.replace(/'/g, "\\'") + "', ";
+                        sql += "file_num = '" + (reqBodyObj.fileNum ? reqBodyObj.fileNum.replace(/'/g, "\\'") : null) + "', ";
+                        sql += "master_file_num = '" + (reqBodyObj.masterFileNum ? reqBodyObj.masterFileNum.replace(/'/g, "\\'") : null) + "', ";
                         sql += "college_id = '" + reqBodyObj.collegeId + "', ";
                         sql += "year = '" + reqBodyObj.year + "', ";
                         sql += "paid = " + reqBodyObj.paid + ", ";
@@ -55,7 +55,7 @@ exports.handler = function (req, res, qpaths, qdata) {
                         sql += "scheme_id = '" + reqBodyObj.schemeId + "', ";
                         sql += "subscheme_id = '" + reqBodyObj.subSchemeId + "', ";
                         sql += "plan_files = '" + reqBodyObj.plan + "' ";
-                        sql += "WHERE entry_num = '" + reqBodyObj.entryNum.replace(/'/g, "\\'") + "'";
+                        sql += "WHERE entry_num = '" + reqBodyObj.entryNum + "'";
                         sql = sql.replace(/'null'/g, "null");
                         db_conn.query(sql, function (err, result, fields) {
                             if (err) {
