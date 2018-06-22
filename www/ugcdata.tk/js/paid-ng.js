@@ -420,7 +420,7 @@ var PaidCtrl = (function () {
         return results;
     };
     PaidCtrl.prototype.transformCollegeChip = function (chip) {
-        return chip
+        return chip.id;
     };
     PaidCtrl.prototype.querySearchCollege = function (query) {
         var results = query ? this.filter.college.every.filter(createFilterObjFor(query)) : this.filter.college.every.filter(createFilterObjFor(''));

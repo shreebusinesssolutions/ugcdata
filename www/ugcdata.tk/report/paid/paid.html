@@ -197,26 +197,6 @@
                                     <div class="w3-col m6 w3-padding-small">
                                         <fieldset class="primary w3-padding-small">
                                             <legend>File Number</legend>
-                                            <!-- <md-input-container style="width: 100%;">
-                                        <label>File Number</label>
-                                        <md-select ng-model="vm.filter.fileNum.selected" md-on-close="vm.clearSearchFileNumber()" md-on-open="vm.loadFileNumbers()"
-                                            data-md-container-class="select-header" multiple>
-                                            <md-select-header class="demo-select-header">
-                                                <input ng-model="vm.filter.fileNum.search" type="search" placeholder="Search for File Number" class="select-searchbox md-text">
-                                            </md-select-header>
-                                            <md-optgroup label="File Numbers">
-                                                <md-option ng-value="fileNum" ng-repeat="fileNum in vm.filter.fileNum.every | filter:vm.filter.fileNum.search">{{fileNum}}</md-option>
-                                            </md-optgroup>
-                                        </md-select>
-                                    </md-input-container> -->
-                                            <!-- <md-input-container class="select-searchbox">
-                                        <label>Search File Number</label>
-                                        <input ng-model="vm.filter.fileNum.search">
-                                    </md-input-container> -->
-                                            <!-- <select class="w3-round-small cust-select" ng-model="vm.filter.fileNum.selected" ng-options="fileNum for fileNum in vm.filter.fileNum.every"
-                                        multiple>
-                                    </select>
-                                    <md-chips ng-model="vm.filter.fileNum.selected" readonly="true" md-removable="true"></md-chips> -->
                                             <md-chips ng-model="vm.filter.fileNum.selected" md-autocomplete-snap md-transform-chip="vm.transformFileNumChip($chip)" md-require-match="true"
                                                 style="width: 100%;" md-on-add="vm.filterChanged('fileNum')" md-on-remove="vm.filterChanged('fileNum')">
                                                 <md-autocomplete md-selected-item="vm.filter.fileNum.selectedItem" md-search-text="vm.filter.fileNum.search" md-min-length="0"
@@ -365,7 +345,7 @@
                                                 <md-autocomplete md-selected-item="vm.filter.scheme.selectedItem" md-search-text="vm.filter.scheme.search" md-min-length="0"
                                                     md-items="scheme in vm.querySearchScheme(vm.filter.scheme.search)" md-item-text="scheme.id"
                                                     placeholder="Search Scheme">
-                                                    <span class="w3-small" md-highlight-text="vm.filter.scheme.search">{{scheme.id}}({{scheme.name}})</span>
+                                                    <span class="w3-small" md-highlight-text="vm.filter.scheme.search">{{scheme.id}} ({{scheme.name}})</span>
                                                 </md-autocomplete>
                                                 <md-chip-template>
                                                     <span>
@@ -388,7 +368,7 @@
                                                 <md-autocomplete md-selected-item="vm.filter.subScheme.selectedItem" md-search-text="vm.filter.subScheme.search" md-min-length="0"
                                                     md-items="subScheme in vm.querySearchSubScheme(vm.filter.subScheme.search)"
                                                     md-item-text="subScheme.id" placeholder="Search Sub Scheme">
-                                                    <span class="w3-small" md-highlight-text="vm.filter.subScheme.search">{{subScheme.id}}({{subScheme.name}})</span>
+                                                    <span class="w3-small" md-highlight-text="vm.filter.subScheme.search">{{subScheme.id}} ({{subScheme.name}})</span>
                                                 </md-autocomplete>
                                                 <md-chip-template>
                                                     <span>

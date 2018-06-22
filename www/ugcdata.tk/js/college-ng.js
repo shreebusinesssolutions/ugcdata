@@ -175,7 +175,7 @@ var CollegeCtrl = (function () {
     };
 
     CollegeCtrl.prototype.transformCollegeChip = function (chip) {
-        return chip;
+        return chip.id;
     };
     CollegeCtrl.prototype.querySearchCollege = function (query) {
         var results = query ? this.filter.college.every.filter(createFilterObjFor(query)) : this.filter.college.every.filter(createFilterObjFor(''));
@@ -457,7 +457,7 @@ var CollegeCtrl = (function () {
     };
 
     CollegeCtrl.prototype.transformEditCollegeIdChip = function (chip) {
-        return chip;
+        return chip.id;
     };
     CollegeCtrl.prototype.querySearchEditCollegeId = function (query) {
         var results = query ? this.edit.collegeId.every.filter(createFilterObjFor(query)) : this.edit.collegeId.every.filter(createFilterObjFor(''));
