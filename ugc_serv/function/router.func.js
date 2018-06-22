@@ -38,8 +38,10 @@ var _postCollege = require("../handler/POST/college/postCollege.handler");
 
 var _getReportdataPaid = require("../handler/GET/reportdata/paid/getReportdataPaid.handler");
 var _putReportdataPaid = require("../handler/PUT/reportdata/paid/putReportdataPaid.handler");
+var _postReportdataPaid = require("../handler/POST/reportdata/paid/postReportdataPaid.handler");
 
 var logger = require("../function/logger.func");
+
 
 exports.route = function (method, pathname) {
     if (method == 'POST' && /^\/user\/login\/auto\//.test(pathname))
@@ -114,6 +116,8 @@ exports.route = function (method, pathname) {
         return _getReportdataPaid;
     else if (method == "PUT" && /^\/reportdata\/paid\//.test(pathname))
         return _putReportdataPaid;
+    else if (method == "POST" && /^\/reportdata\/paid\//.test(pathname))
+        return _postReportdataPaid;
 
     else {
         logger.error(pathname + " (" + method + ") Not found.", { method: "router()" });
