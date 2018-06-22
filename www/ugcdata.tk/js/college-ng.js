@@ -75,21 +75,6 @@ var CollegeCtrl = (function () {
             naacValidity: null,
             bsrInterest: null
         };
-
-        var _this = this;
-        this.$timeout(function () {
-            _this.$http({
-                method: "GET",
-                url: "/ugc_serv/data/global/college/"
-            }).then(function successCallback(response) {
-                _this.filter.college.every = response.data;
-                if (response.data.indexOf("(Blank)") >= 0)
-                    _this.filter.college.hasBlanks = true;
-                _this.edit.collegeId.every = response.data;
-            }, function errorCallback(response) {
-                _this.httpResponseError(response);
-            });
-        }, 100);
     }
 
     CollegeCtrl.prototype.showNotif = function (message, timeout = 3000, errorToast = false) {
@@ -162,11 +147,38 @@ var CollegeCtrl = (function () {
         $$mdMenu.open($$event);
     };
 
+    CollegeCtrl.prototype.selectedTabIndexChanged = function () {
+        var _this = this;
+        console.log(_this.selectedTabIndex);
+        if (_this.selectedTabIndex == 0) {
+            _this.$http({
+                method: "GET",
+                url: "/ugc_serv/data/global/college/"
+            }).then(function successCallback(response) {
+                _this.filter.college.every = response.data;
+                if (response.data.indexOf("(Blank)") >= 0)
+                    _this.filter.college.hasBlanks = true;
+            }, function errorCallback(response) {
+                _this.httpResponseError(response);
+            });
+        }
+        else if (_this.selectedTabIndex == 1) {
+            _this.$http({
+                method: "GET",
+                url: "/ugc_serv/data/global/college/"
+            }).then(function successCallback(response) {
+                _this.edit.collegeId.every = response.data;
+            }, function errorCallback(response) {
+                _this.httpResponseError(response);
+            });
+        }
+    };
+
     CollegeCtrl.prototype.transformCollegeChip = function (chip) {
         return chip;
     };
     CollegeCtrl.prototype.querySearchCollege = function (query) {
-        var results = query ? this.filter.college.every.filter(createFilterFor(query)) : this.filter.college.every.filter(createFilterFor(''));
+        var results = query ? this.filter.college.every.filter(createFilterObjFor(query)) : this.filter.college.every.filter(createFilterObjFor(''));
         return results;
     };
 
@@ -448,7 +460,7 @@ var CollegeCtrl = (function () {
         return chip;
     };
     CollegeCtrl.prototype.querySearchEditCollegeId = function (query) {
-        var results = query ? this.edit.collegeId.every.filter(createFilterFor(query)) : this.edit.collegeId.every.filter(createFilterFor(''));
+        var results = query ? this.edit.collegeId.every.filter(createFilterObjFor(query)) : this.edit.collegeId.every.filter(createFilterObjFor(''));
         return results;
     };
     CollegeCtrl.prototype.editCollegeIdChanged = function () {

@@ -158,7 +158,7 @@
         <br />
         <div class="w3-card w3-white">
             <md-tabs md-dynamic-height md-selected="vm.selectedTabIndex" class="md-primary">
-                <md-tab label="View">
+                <md-tab label="View" md-on-select="vm.selectedTabIndexChanged()">
                     <md-content class="w3-white">
                         <h1 class="w3-xlarge w3-padding w3-margin-0">View Report</h1>
                         <div class="w3-theme-primary-l5 w3-card">
@@ -188,9 +188,9 @@
                                             <md-chips ng-model="vm.filter.college.selected" md-autocomplete-snap md-transform-chip="vm.transformCollegeChip($chip)" md-require-match="true"
                                                 style="width: 100%;">
                                                 <md-autocomplete md-selected-item="vm.filter.college.selectedItem" md-search-text="vm.filter.college.search" md-min-length="0"
-                                                    md-items="college in vm.querySearchCollege(vm.filter.college.search)" md-item-text="college"
+                                                    md-items="college in vm.querySearchCollege(vm.filter.college.search)" md-item-text="college.id"
                                                     placeholder="Search College ID">
-                                                    <span class="w3-small" md-highlight-text="vm.filter.college.search">{{college}}</span>
+                                                    <span class="w3-small" md-highlight-text="vm.filter.college.search">{{college.id}} ({{college.name}})</span>
                                                 </md-autocomplete>
                                                 <md-chip-template>
                                                     <span>
@@ -241,7 +241,7 @@
                         </div>
                     </md-content>
                 </md-tab>
-                <md-tab label="Edit">
+                <md-tab label="Edit" md-on-select="vm.selectedTabIndexChanged()">
                     <md-content class="w3-padding w3-white">
                         <h1 class="w3-xlarge">Edit College</h1>
                         <div class="w3-row w3-margin-bottom">
@@ -250,9 +250,9 @@
                                     md-require-match="true" md-max-chips="1" style="width: 100%;" md-on-add="vm.editCollegeIdChanged()"
                                     md-on-remove="vm.editCollegeIdChanged()">
                                     <md-autocomplete md-selected-item="vm.edit.collegeId.selectedItem" md-search-text="vm.edit.collegeId.search" md-min-length="0"
-                                        md-items="college in vm.querySearchEditCollegeId(vm.edit.collegeId.search)" md-item-text="college"
+                                        md-items="college in vm.querySearchEditCollegeId(vm.edit.collegeId.search)" md-item-text="college.id"
                                         placeholder="Search College ID">
-                                        <span class="w3-small" md-highlight-text="vm.edit.collegeId.search">{{college}}</span>
+                                        <span class="w3-small" md-highlight-text="vm.edit.collegeId.search">{{college.id}} ({{college.name}})</span>
                                     </md-autocomplete>
                                     <md-chip-template>
                                         <span>
@@ -356,7 +356,7 @@
                         </form>
                     </md-content>
                 </md-tab>
-                <md-tab label="Add">
+                <md-tab label="Add" md-on-select="vm.selectedTabIndexChanged()">
                     <md-content class="w3-padding w3-white">
                         <h1 class="w3-xlarge">Add College</h1>
                         <form name="addForm">
