@@ -29,7 +29,7 @@ exports.handler = function (req, res, qpaths, qdata) {
                     }
                 }
                 else {
-                    var sql = "SELECT DISTINCT college_id, college_name FROM college ORDER BY college_id asc";
+                    var sql = "SELECT DISTINCT entry_num FROM plan_11_12_paid ORDER BY entry_num asc";
                     db_conn.query(sql, function (err, result, fields) {
                         if (err) {
                             logger.error(err);
@@ -39,10 +39,7 @@ exports.handler = function (req, res, qpaths, qdata) {
                         } else {
                             var responseObj = [];
                             for (var i = 0; i < result.length; i++)
-                                responseObj.push({
-                                    id: result[i].college_id,
-                                    name: result[i].college_name
-                                });
+                                responseObj.push("" + result[i].entry_num);
                             res.write(JSON.stringify(responseObj));
                             res.statusCode = 200;
                             res.statusMessage = "OK";

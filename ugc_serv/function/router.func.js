@@ -11,6 +11,7 @@ var _getDataPaidYear = require("../handler/GET/data/paid/year/getDataPaidYear.ha
 var _getDataPaidPaid = require("../handler/GET/data/paid/paid/getDataPaidPaid.handler");
 var _getDataPaidUc = require("../handler/GET/data/paid/uc/getDataPaidUc.handler");
 var _getDataPaidPlan = require("../handler/GET/data/paid/plan/getDataPaidPlan.handler");
+var _getDataPaidEntrynum = require("../handler/GET/data/paid/entrynum/getDataPaidEntrynum.handler");
 
 var _getReportPaidCount = require("../handler/GET/report/paid/count/getReportPaidCount.handler");
 var _getReportPaid = require("../handler/GET/report/paid/getReportPaid.handler");
@@ -34,6 +35,9 @@ var _getDatatableCollegeCount = require("../handler/GET/datatable/college/count/
 var _getCollege = require("../handler/GET/college/getCollege.handler");
 var _putCollege = require("../handler/PUT/college/putCollege.handler");
 var _postCollege = require("../handler/POST/college/postCollege.handler");
+
+var _getReportdataPaid = require("../handler/GET/reportdata/paid/getReportdataPaid.handler");
+var _putReportdataPaid = require("../handler/PUT/reportdata/paid/putReportdataPaid.handler");
 
 var logger = require("../function/logger.func");
 
@@ -62,6 +66,8 @@ exports.route = function (method, pathname) {
         return _getDataPaidUc;
     else if (method == "GET" && /^\/data\/paid\/plan\//.test(pathname))
         return _getDataPaidPlan;
+    else if (method == "GET" && /^\/data\/paid\/entrynum\//.test(pathname))
+        return _getDataPaidEntrynum;
 
     else if (method == "GET" && /^\/report\/paid\/count\//.test(pathname))
         return _getReportPaidCount;
@@ -103,6 +109,11 @@ exports.route = function (method, pathname) {
         return _putCollege;
     else if (method == "POST" && /^\/college\//.test(pathname))
         return _postCollege;
+
+    else if (method == "GET" && /^\/reportdata\/paid/.test(pathname))
+        return _getReportdataPaid;
+    else if (method == "PUT" && /^\/reportdata\/paid\//.test(pathname))
+        return _putReportdataPaid;
 
     else {
         logger.error(pathname + " (" + method + ") Not found.", { method: "router()" });
