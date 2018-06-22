@@ -46,8 +46,8 @@ exports.handler = function (req, res, qpaths, qdata) {
                         ]);
                         var sql = "UPDATE plan_11_12_paid ";
                         sql += "SET ";
-                        sql += "file_num = '" + reqBodyObj.fileNum ? reqBodyObj.fileNum.replace(/'/g, "\\'") : null + "', ";
-                        sql += "master_file_num = '" + reqBodyObj.masterFileNum ? reqBodyObj.masterFileNum.replace(/'/g, "\\'") : null + "', ";
+                        sql += "file_num = '" + (reqBodyObj.fileNum ? reqBodyObj.fileNum.replace(/'/g, "\\'") : null) + "', ";
+                        sql += "master_file_num = '" + (reqBodyObj.masterFileNum ? reqBodyObj.masterFileNum.replace(/'/g, "\\'") : null) + "', ";
                         sql += "college_id = '" + reqBodyObj.collegeId + "', ";
                         sql += "year = '" + reqBodyObj.year + "', ";
                         sql += "paid = " + reqBodyObj.paid + ", ";
