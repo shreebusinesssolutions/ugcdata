@@ -760,14 +760,14 @@ var PaidCtrl = (function () {
         _this.mode.edit.getting = true;
         if (_this.edit.entryNum.selected.length == 0) {
             _this.edit.fileNum = null;
-            _this.edit.masterFileNum=null;
+            _this.edit.masterFileNum = null;
             _this.edit.collegeId.selectedItem = null;
-            _this.edit.paid= null;
-            _this.edit.uc= null;
-            _this.edit.schemeId.selectedItem=null;
-            _this.edit.subSchemeId.selectedItem= null;
-            _this.edit.year= null;
-            _this.edit.plan= null;
+            _this.edit.paid = null;
+            _this.edit.uc = null;
+            _this.edit.schemeId.selectedItem = null;
+            _this.edit.subSchemeId.selectedItem = null;
+            _this.edit.year = null;
+            _this.edit.plan = null;
             _this.mode.edit.getting = false;
         }
         else {
@@ -791,22 +791,23 @@ var PaidCtrl = (function () {
             });
         }
     };
-    PaidCtrl.prototype.editSave = function() {
+    PaidCtrl.prototype.editSave = function () {
         var _this = this;
         _this.mode.edit.saving = true;
         _this.$http({
             method: "PUT",
-            url: "/ugc_serv/college/",
+            url: "/ugc_serv/reportdata/paid/",
             data: {
-                collegeId: _this.edit.collegeId.selected[0],
-                oldCollegeId: _this.edit.oldCollegeId ? _this.edit.oldCollegeId : null,
-                collegeName: _this.edit.collegeName,
-                address1: _this.edit.address1,
-                address2: _this.edit.address2,
-                pin: _this.edit.pin,
-                pfmsCode: _this.edit.pfmsCode ? _this.edit.pfmsCode : null,
-                naacValidity: _this.edit.naacValidity ? moment(_this.edit.naacValidity).format("YYYY-MM-DD") : null,
-                bsrInterest: _this.edit.bsrInterest ? _this.edit.bsrInterest : null
+                entryNum: _this.edit.entryNum.selected[0],
+                fileNum: _this.edit.fileNum,
+                masterFileNum: _this.edit.masterFileNum,
+                collegeId: _this.edit.collegeId.selectedItem.id,
+                paid: _this.edit.paid,
+                uc: _this.edit.uc,
+                schemeId: _this.edit.schemeId.selectedItem.id,
+                subSchemeId: _this.edit.subSchemeId.selectedItem.id,
+                year: _this.edit.year,
+                plan: _this.edit.plan
             }
         }).then(function successCallback(response) {
             _this.showNotif("College data updated successfully.");
