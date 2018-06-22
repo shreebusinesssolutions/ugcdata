@@ -55,8 +55,8 @@ exports.handler = function (req, res, qpaths, qdata) {
                                 var sql = "INSERT INTO plan_11_12_paid (entry_num, file_num, master_file_num, college_id, year, paid, uc, scheme_id, subscheme_id, plan_files) ";
                                 sql += "VALUES (";
                                 sql += new_entry_num + ", ";
-                                sql += "'" + reqBodyObj.fileNum.replace(/'/g,"\\'") + "', ";
-                                sql += "'" + reqBodyObj.masterFileNum.replace(/'/g,"\\'") + "', ";
+                                sql += "'" + (reqBodyObj.fileNum ? reqBodyObj.fileNum.replace(/'/g, "\\'") : null) + "', ";
+                                sql += "'" + (reqBodyObj.masterFileNum ? reqBodyObj.masterFileNum.replace(/'/g, "\\'") : null) + "', ";
                                 sql += "'" + reqBodyObj.collegeId + "', ";
                                 sql += "'" + reqBodyObj.year + "', ";
                                 sql += "" + reqBodyObj.paid + ", ";
@@ -66,7 +66,6 @@ exports.handler = function (req, res, qpaths, qdata) {
                                 sql += "'" + reqBodyObj.plan + "'";
                                 sql += ")";
                                 sql = sql.replace(/'null'/g, "null");
-                                console.log(sql);
                                 db_conn.query(sql, function (err, result, fields) {
                                     if (err) {
                                         logger.error(err);
