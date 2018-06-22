@@ -848,15 +848,15 @@ var PaidCtrl = (function () {
             method: "PUT",
             url: "/ugc_serv/reportdata/paid/",
             data: {
-                fileNum: _this.add.fileNum,
-                masterFileNum: _this.add.masterFileNum,
-                collegeId: _this.add.collegeId.selectedItem.id,
-                paid: _this.add.paid,
-                uc: _this.add.uc,
-                schemeId: _this.add.schemeId.selectedItem.id,
-                subSchemeId: _this.add.subSchemeId.selectedItem.id,
-                year: _this.add.year,
-                plan: _this.add.plan
+                fileNum: _this.edit.fileNum,
+                masterFileNum: _this.edit.masterFileNum,
+                collegeId: _this.edit.collegeId.selectedItem.id,
+                paid: _this.edit.paid,
+                uc: _this.edit.uc,
+                schemeId: _this.edit.schemeId.selectedItem.id,
+                subSchemeId: _this.edit.subSchemeId.selectedItem.id,
+                year: _this.edit.year,
+                plan: _this.edit.plan
             }
         }).then(function successCallback(response) {
             _this.showNotif("New entry added successfully.");
@@ -888,15 +888,15 @@ var PaidCtrl = (function () {
             method: "POST",
             url: "/ugc_serv/reportdata/paid/",
             data: {
-                collegeId: _this.add.collegeId,
-                oldCollegeId: _this.add.oldCollegeId ? _this.add.oldCollegeId : "null",
-                collegeName: _this.add.collegeName,
-                address1: _this.add.address1,
-                address2: _this.add.address2,
-                pin: _this.add.pin,
-                pfmsCode: _this.add.pfmsCode ? _this.add.pfmsCode : "null",
-                naacValidity: _this.add.naacValidity ? moment(_this.add.naacValidity).format("YYYY-MM-DD") : "null",
-                bsrInterest: _this.add.bsrInterest ? _this.add.bsrInterest : "null"
+                fileNum: _this.add.fileNum,
+                masterFileNum: _this.add.masterFileNum,
+                collegeId: _this.add.collegeId.selectedItem.id,
+                paid: _this.add.paid,
+                uc: _this.add.uc,
+                schemeId: _this.add.schemeId.selectedItem.id,
+                subSchemeId: _this.add.subSchemeId.selectedItem.id,
+                year: _this.add.year,
+                plan: _this.add.plan
             }
         }).then(function successCallback(response) {
             _this.showNotif("College added successfully.");
