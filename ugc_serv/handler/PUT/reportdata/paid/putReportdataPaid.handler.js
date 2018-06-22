@@ -57,7 +57,6 @@ exports.handler = function (req, res, qpaths, qdata) {
                         sql += "plan_files = '" + reqBodyObj.plan + "' ";
                         sql += "WHERE entry_num = '" + reqBodyObj.entryNum.replace(/'/g, "\\'") + "'";
                         sql = sql.replace(/'null'/g, "null");
-                        console.log(sql);
                         db_conn.query(sql, function (err, result, fields) {
                             if (err) {
                                 logger.error(err);
