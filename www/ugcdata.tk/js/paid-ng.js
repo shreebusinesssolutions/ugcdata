@@ -920,7 +920,7 @@ var PaidCtrl = (function () {
             if (item.id != null && item.name != null)
                 return (item.id.toLowerCase().indexOf(lowercaseQuery) === 0) || (item.name.toLowerCase().indexOf(lowercaseQuery) === 0);
             else
-                return (item.id.toLowerCase().indexOf(lowercaseQuery) === 0)
+                return (item.id.toLowerCase().indexOf(lowercaseQuery) === 0);
         };
     }
 

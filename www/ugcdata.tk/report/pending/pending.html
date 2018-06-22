@@ -271,9 +271,9 @@
                                             <md-chips ng-model="vm.filter.college.selected" md-autocomplete-snap md-transform-chip="vm.transformCollegeChip($chip)" md-require-match="true"
                                                 style="width: 100%;" md-on-add="vm.filterChanged('college')" md-on-remove="vm.filterChanged('college')">
                                                 <md-autocomplete md-selected-item="vm.filter.college.selectedItem" md-search-text="vm.filter.college.search" md-min-length="0"
-                                                    md-items="college in vm.querySearchCollege(vm.filter.college.search)" md-item-text="college"
+                                                    md-items="college in vm.querySearchCollege(vm.filter.college.search)" md-item-text="college.id"
                                                     placeholder="Search College ID">
-                                                    <span class="w3-small" md-highlight-text="vm.filter.college.search">{{college}}</span>
+                                                    <span class="w3-small" md-highlight-text="vm.filter.college.search">{{college.id}} ({{college.name}})</span>
                                                 </md-autocomplete>
                                                 <md-chip-template>
                                                     <span>

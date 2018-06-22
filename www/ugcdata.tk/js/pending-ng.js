@@ -396,10 +396,10 @@ var PendingCtrl = (function () {
         return results;
     };
     PendingCtrl.prototype.transformCollegeChip = function (chip) {
-        return chip
+        return chip.id
     };
     PendingCtrl.prototype.querySearchCollege = function (query) {
-        var results = query ? this.filter.college.every.filter(createFilterFor(query)) : this.filter.college.every.filter(createFilterFor(''));
+        var results = query ? this.filter.college.every.filter(createFilterObjFor(query)) : this.filter.college.every.filter(createFilterObjFor(''));
         return results;
     };
     PendingCtrl.prototype.transformRemarksChip = function (chip) {
@@ -780,7 +780,10 @@ var PendingCtrl = (function () {
         var lowercaseQuery = angular.lowercase(query);
 
         return function filterFn(item) {
-            return (item.id.toLowerCase().indexOf(lowercaseQuery) === 0) || (item.name.toLowerCase().indexOf(lowercaseQuery) === 0);
+            if (item.id != null && item.name != null)
+                return (item.id.toLowerCase().indexOf(lowercaseQuery) === 0) || (item.name.toLowerCase().indexOf(lowercaseQuery) === 0);
+            else
+                return (item.id.toLowerCase().indexOf(lowercaseQuery) === 0);
         };
     }
 

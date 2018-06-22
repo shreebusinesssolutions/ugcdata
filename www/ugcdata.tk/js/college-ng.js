@@ -563,7 +563,10 @@ var CollegeCtrl = (function () {
         var lowercaseQuery = angular.lowercase(query);
 
         return function filterFn(item) {
-            return (item.id.toLowerCase().indexOf(lowercaseQuery) === 0) || (item.name.toLowerCase().indexOf(lowercaseQuery) === 0);
+            if (item.id != null && item.name != null)
+                return (item.id.toLowerCase().indexOf(lowercaseQuery) === 0) || (item.name.toLowerCase().indexOf(lowercaseQuery) === 0);
+            else
+                return (item.id.toLowerCase().indexOf(lowercaseQuery) === 0);
         };
     }
     CollegeCtrl.prototype.httpResponseError = function (response) {
