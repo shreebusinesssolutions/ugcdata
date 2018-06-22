@@ -19,6 +19,9 @@ var PaidCtrl = (function () {
             edit: {
                 getting: false,
                 saving: false
+            },
+            add: {
+                savinng: false
             }
         };
 
@@ -133,6 +136,30 @@ var PaidCtrl = (function () {
             year: null,
             plan: null
         };
+
+        this.add = {
+            fileNum: null,
+            masterFileNum: null,
+            collegeId: {
+                selectedItem: null,
+                search: "",
+                every: null
+            },
+            paid: null,
+            uc: null,
+            schemeId: {
+                selectedItem: null,
+                search: "",
+                every: null
+            },
+            subSchemeId: {
+                selectedItem: null,
+                search: "",
+                every: null
+            },
+            year: null,
+            plan: null
+        }
     }
 
     PaidCtrl.prototype.showNotif = function (message, timeout = 3000, errorToast = false) {
@@ -333,7 +360,30 @@ var PaidCtrl = (function () {
             });
         }
         else if (_this.selectedTabIndex == 2) {
-            console.log(_this.selectedTabIndex);
+            _this.$http({
+                method: "GET",
+                url: "/ugc_serv/data/global/college/"
+            }).then(function successCallback(response) {
+                _this.add.collegeId.every = response.data;
+            }, function errorCallback(response) {
+                _this.httpResponseError(response);
+            });
+            _this.$http({
+                method: "GET",
+                url: "/ugc_serv/data/global/scheme/"
+            }).then(function successCallback(response) {
+                _this.add.schemeId.every = response.data;
+            }, function errorCallback(response) {
+                _this.httpResponseError(response);
+            });
+            _this.$http({
+                method: "GET",
+                url: "/ugc_serv/data/global/subscheme/"
+            }).then(function successCallback(response) {
+                _this.add.subSchemeId.every = response.data;
+            }, function errorCallback(response) {
+                _this.httpResponseError(response);
+            });
         }
     };
 
@@ -798,7 +848,6 @@ var PaidCtrl = (function () {
             method: "PUT",
             url: "/ugc_serv/reportdata/paid/",
             data: {
-                entryNum: _this.edit.entryNum.selected[0],
                 fileNum: _this.edit.fileNum,
                 masterFileNum: _this.edit.masterFileNum,
                 collegeId: _this.edit.collegeId.selectedItem.id,
@@ -810,11 +859,51 @@ var PaidCtrl = (function () {
                 plan: _this.edit.plan
             }
         }).then(function successCallback(response) {
-            _this.showNotif("College data updated successfully.");
+            _this.showNotif("Report entry updated successfully.");
             _this.mode.edit.saving = false;
         }, function errorCallback(response) {
             _this.httpResponseError(response);
             _this.mode.edit.saving = false;
+        });
+    }
+
+
+    PaidCtrl.prototype.querySearchAddCollegeId = function (query) {
+        var results = query ? this.add.collegeId.every.filter(createFilterObjFor(query)) : this.add.collegeId.every.filter(createFilterObjFor(''));
+        return results;
+    };
+    PaidCtrl.prototype.querySearchAddSchemeId = function (query) {
+        var results = query ? this.add.schemeId.every.filter(createFilterObjFor(query)) : this.add.schemeId.every.filter(createFilterObjFor(''));
+        return results;
+    };
+    PaidCtrl.prototype.querySearchAddSubSchemeId = function (query) {
+        var results = query ? this.add.subSchemeId.every.filter(createFilterObjFor(query)) : this.add.subSchemeId.every.filter(createFilterObjFor(''));
+        return results;
+    };
+    PaidCtrl.prototype.addSave = function () {
+        var _this = this;
+        _this.mode.add.saving = true;
+        _this.$http({
+            method: "POST",
+            url: "/ugc_serv/reportdata/paid/",
+            data: {
+                fileNum: _this.add.fileNum,
+                masterFileNum: _this.add.masterFileNum,
+                collegeId: _this.add.collegeId.selectedItem.id,
+                paid: _this.add.paid,
+                uc: _this.add.uc,
+                schemeId: _this.add.schemeId.selectedItem.id,
+                subSchemeId: _this.add.subSchemeId.selectedItem.id,
+                year: _this.add.year,
+                plan: _this.add.plan
+            }
+        }).then(function successCallback(response) {
+            _this.showNotif("New entry added successfully.");
+            _this.showAlert("New Entry Added", "New entry added with entry number: " + response.data.entryNum + ".");
+            _this.mode.add.saving = false;
+        }, function errorCallback(response) {
+            _this.httpResponseError(response);
+            _this.mode.add.saving = false;
         });
     }
 
