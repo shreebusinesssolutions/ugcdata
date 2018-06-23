@@ -15,6 +15,10 @@ var PendingCtrl = (function () {
             report: {
                 getting: false,
                 loaded: false
+            },
+            edit: {
+                getting: false,
+                saving: false
             }
         };
 
@@ -127,6 +131,15 @@ var PendingCtrl = (function () {
             },
             data: []
         };
+
+        this.edit = {
+            entryNum: {
+                selected: [],
+                selectedItem: null,
+                search: "",
+                every: null
+            },
+        }
     }
 
     PendingCtrl.prototype.showNotif = function (message, timeout = 3000, errorToast = false) {
@@ -331,7 +344,14 @@ var PendingCtrl = (function () {
             });
         }
         else if (_this.selectedTabIndex == 1) {
-            
+            _this.$http({
+                method: "GET",
+                url: "/ugc_serv/data/pending/entrynum/"
+            }).then(function successCallback(response) {
+                _this.edit.entryNum.every = response.data;
+            }, function errorCallback(response) {
+                _this.httpResponseError(response);
+            });
         }
     };
 
@@ -475,7 +495,7 @@ var PendingCtrl = (function () {
                                                 <th>Sanction Date</th>\
                                                 <th>Paid</th>\
                                                 <th>UC</th>\
-                                                <th>Pendgin UC</th>\
+                                                <th>Pending UC</th>\
                                                 <th>Scheme ID</th>\
                                                 <th>Sub-scheme ID</th>\
                                                 <th>Year</th>\
@@ -493,7 +513,7 @@ var PendingCtrl = (function () {
                                                 <th>Sanction Date</th>\
                                                 <th>Paid</th>\
                                                 <th>UC</th>\
-                                                <th>Pendgin UC</th>\
+                                                <th>Pending UC</th>\
                                                 <th>Scheme ID</th>\
                                                 <th>Sub-scheme ID</th>\
                                                 <th>Year</th>\
@@ -613,7 +633,7 @@ var PendingCtrl = (function () {
                                     <th>Sanction Date</th>\
                                     <th>Paid</th>\
                                     <th>UC</th>\
-                                    <th>Pendgin UC</th>\
+                                    <th>Pending UC</th>\
                                     <th>Scheme ID</th>\
                                     <th>Sub-scheme ID</th>\
                                     <th>Year</th>\
@@ -631,7 +651,7 @@ var PendingCtrl = (function () {
                                     <th>Sanction Date</th>\
                                     <th>Paid</th>\
                                     <th>UC</th>\
-                                    <th>Pendgin UC</th>\
+                                    <th>Pending UC</th>\
                                     <th>Scheme ID</th>\
                                     <th>Sub-scheme ID</th>\
                                     <th>Year</th>\
