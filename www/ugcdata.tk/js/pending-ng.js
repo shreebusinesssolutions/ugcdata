@@ -429,7 +429,6 @@ var PendingCtrl = (function () {
         var results = query ? this.filter.year.every.filter(createFilterFor(query)) : this.filter.year.every.filter(createFilterFor(''));
         return results;
     };
-
     PendingCtrl.prototype.getReport = function (min, max) {
         var _this = this;
         _this.mode.report.getting = true;
@@ -766,6 +765,15 @@ var PendingCtrl = (function () {
             _this.httpResponseError(response);
         });
     };
+
+    PendingCtrl.prototype.transformEditEntryNumChip = function (chip) {
+        return chip
+    };
+    PendingCtrl.prototype.querySearchEditEntryNum = function (query) {
+        var results = query ? this.edit.entryNum.every.filter(createFilterFor(query)) : this.edit.entryNum.every.filter(createFilterFor(''));
+        return results;
+    };
+
 
     function createFilterFor(query) {
         var lowercaseQuery = angular.lowercase(query);
