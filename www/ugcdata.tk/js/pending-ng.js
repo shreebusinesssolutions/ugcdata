@@ -212,7 +212,7 @@ var PendingCtrl = (function () {
         $$mdMenu.open($$event);
     };
 
-    CollegeCtrl.prototype.selectedTabIndexChanged = function () {
+    PendingCtrl.prototype.selectedTabIndexChanged = function () {
         var _this = this;
         console.log(_this.selectedTabIndex);
         if (_this.selectedTabIndex == 0) {
