@@ -9,6 +9,8 @@ var PendingCtrl = (function () {
         this.accent = 'red';
         this.white = 'white';
 
+        this.selectedTabIndex = 0;
+
         this.mode = {
             report: {
                 getting: false,
@@ -125,152 +127,6 @@ var PendingCtrl = (function () {
             },
             data: []
         };
-
-        var _this = this;
-        this.$timeout(function () {
-            _this.$http({
-                method: "GET",
-                url: "/ugc_serv/data/pending/autonum/"
-            }).then(function successCallback(response) {
-                _this.filter.autoNum.every = response.data;
-                if (response.data.indexOf("(Blank)") >= 0)
-                    _this.filter.autoNum.hasBlanks = true;
-            }, function errorCallback(response) {
-                _this.httpResponseError(response);
-            });
-        }, 100);
-        this.$timeout(function () {
-            _this.$http({
-                method: "GET",
-                url: "/ugc_serv/data/pending/filenum/"
-            }).then(function successCallback(response) {
-                _this.filter.fileNum.every = response.data;
-                if (response.data.indexOf("(Blank)") >= 0)
-                    _this.filter.fileNum.hasBlanks = true;
-            }, function errorCallback(response) {
-                _this.httpResponseError(response);
-            });
-        }, 100);
-        this.$timeout(function () {
-            _this.$http({
-                method: "GET",
-                url: "/ugc_serv/data/pending/masterfilenum/"
-            }).then(function successCallback(response) {
-                _this.filter.masterFileNum.every = response.data;
-                if (response.data.indexOf("(Blank)") >= 0)
-                    _this.filter.masterFileNum.hasBlanks = true;
-            }, function errorCallback(response) {
-                _this.httpResponseError(response);
-            });
-        }, 100);
-        this.$timeout(function () {
-            _this.$http({
-                method: "GET",
-                url: "/ugc_serv/data/global/college/"
-            }).then(function successCallback(response) {
-                _this.filter.college.every = response.data;
-                if (response.data.indexOf("(Blank)") >= 0)
-                    _this.filter.college.hasBlanks = true;
-            }, function errorCallback(response) {
-                _this.httpResponseError(response);
-            });
-        }, 100);
-        this.$timeout(function () {
-            _this.$http({
-                method: "GET",
-                url: "/ugc_serv/data/pending/remarks/"
-            }).then(function successCallback(response) {
-                _this.filter.remarks.every = response.data;
-                if (response.data.indexOf("(Blank)") >= 0)
-                    _this.filter.remarks.hasBlanks = true;
-            }, function errorCallback(response) {
-                _this.httpResponseError(response);
-            });
-        }, 100);
-        this.$timeout(function () {
-            _this.$http({
-                method: "GET",
-                url: "/ugc_serv/data/pending/sanctiondate/"
-            }).then(function successCallback(response) {
-                _this.filter.sanctionDate.scaleMin = new Date(response.data.min);
-                _this.filter.sanctionDate.scaleMax = new Date(response.data.max);
-                _this.filter.sanctionDate.min = new Date(response.data.min);
-                _this.filter.sanctionDate.max = new Date(response.data.max);
-            }, function errorCallback(response) {
-                _this.httpResponseError(response);
-            });
-        }, 100);
-        this.$timeout(function () {
-            _this.$http({
-                method: "GET",
-                url: "/ugc_serv/data/pending/paid/"
-            }).then(function successCallback(response) {
-                _this.filter.paid.scaleMin = response.data.min;
-                _this.filter.paid.scaleMax = response.data.max;
-                _this.filter.paid.min = response.data.min;
-                _this.filter.paid.max = response.data.max;
-            }, function errorCallback(response) {
-                _this.httpResponseError(response);
-            });
-        }, 100);
-        this.$timeout(function () {
-            _this.$http({
-                method: "GET",
-                url: "/ugc_serv/data/pending/uc/"
-            }).then(function successCallback(response) {
-                _this.filter.uc.scaleMin = response.data.min;
-                _this.filter.uc.scaleMax = response.data.max;
-                _this.filter.uc.min = response.data.min;
-                _this.filter.uc.max = response.data.max;
-            }, function errorCallback(response) {
-                _this.httpResponseError(response);
-            });
-        }, 100);
-        this.$timeout(function () {
-            _this.$http({
-                method: "GET",
-                url: "/ugc_serv/data/pending/pendinguc/"
-            }).then(function successCallback(response) {
-                _this.filter.pendingUc.scaleMin = response.data.min;
-                _this.filter.pendingUc.scaleMax = response.data.max;
-                _this.filter.pendingUc.min = response.data.min;
-                _this.filter.pendingUc.max = response.data.max;
-            }, function errorCallback(response) {
-                _this.httpResponseError(response);
-            });
-        }, 100);
-        this.$timeout(function () {
-            _this.$http({
-                method: "GET",
-                url: "/ugc_serv/data/global/scheme/"
-            }).then(function successCallback(response) {
-                _this.filter.scheme.every = response.data;
-            }, function errorCallback(response) {
-                _this.httpResponseError(response);
-            });
-        }, 100);
-        this.$timeout(function () {
-            _this.$http({
-                method: "GET",
-                url: "/ugc_serv/data/global/subscheme/"
-            }).then(function successCallback(response) {
-                _this.filter.subScheme.every = response.data;
-            }, function errorCallback(response) {
-                _this.httpResponseError(response);
-            });
-        }, 100);
-        this.$timeout(function () {
-            _this.$http({
-                method: "GET",
-                url: "/ugc_serv/data/pending/year/"
-            }).then(function successCallback(response) {
-                _this.filter.year.every = response.data;
-                if (response.data.indexOf("(Blank)") >= 0)
-                    _this.filter.year.hasBlanks = true;
-            }, function errorCallback(response) {
-                _this.httpResponseError(response);
-            });
-        }, 100);
     }
 
     PendingCtrl.prototype.showNotif = function (message, timeout = 3000, errorToast = false) {
@@ -342,20 +198,143 @@ var PendingCtrl = (function () {
     PendingCtrl.prototype.openMenu = function ($$mdMenu, $$event) {
         $$mdMenu.open($$event);
     };
-    // PendingCtrl.prototype.clearSearchFileNumber = function () {
-    //     this.filter.fileNum.search = "";
-    // };
-    // PendingCtrl.prototype.loadFileNumbers = function () {
-    //     var _this = this;
-    //     return _this.$http({
-    //         method: "GET",
-    //         url: "/ugc_serv/data/paid/filenum/"
-    //     }).then(function successCallback(response) {
-    //         _this.filter.fileNum.every = response.data;
-    //     }, function errorCallback(response) {
-    //         console.log("error", response);
-    //     });
-    // }
+
+    CollegeCtrl.prototype.selectedTabIndexChanged = function () {
+        var _this = this;
+        console.log(_this.selectedTabIndex);
+        if (_this.selectedTabIndex == 0) {
+            _this.$http({
+                method: "GET",
+                url: "/ugc_serv/data/pending/autonum/"
+            }).then(function successCallback(response) {
+                _this.filter.autoNum.every = response.data;
+                if (response.data.indexOf("(Blank)") >= 0) {
+                    _this.filter.autoNum.hasBlanks = true;
+                    _this.filter.autoNum.includeBlanks = true;
+                }
+                else {
+                    _this.filter.autoNum.hasBlanks = false;
+                    _this.filter.autoNum.includeBlanks = false;
+                }
+            }, function errorCallback(response) {
+                _this.httpResponseError(response);
+            });
+            _this.$http({
+                method: "GET",
+                url: "/ugc_serv/data/pending/filenum/"
+            }).then(function successCallback(response) {
+                _this.filter.fileNum.every = response.data;
+                if (response.data.indexOf("(Blank)") >= 0)
+                    _this.filter.fileNum.hasBlanks = true;
+            }, function errorCallback(response) {
+                _this.httpResponseError(response);
+            });
+            _this.$http({
+                method: "GET",
+                url: "/ugc_serv/data/pending/masterfilenum/"
+            }).then(function successCallback(response) {
+                _this.filter.masterFileNum.every = response.data;
+                if (response.data.indexOf("(Blank)") >= 0)
+                    _this.filter.masterFileNum.hasBlanks = true;
+            }, function errorCallback(response) {
+                _this.httpResponseError(response);
+            });
+            _this.$http({
+                method: "GET",
+                url: "/ugc_serv/data/global/college/"
+            }).then(function successCallback(response) {
+                _this.filter.college.every = response.data;
+                if (response.data.indexOf("(Blank)") >= 0)
+                    _this.filter.college.hasBlanks = true;
+            }, function errorCallback(response) {
+                _this.httpResponseError(response);
+            });
+            _this.$http({
+                method: "GET",
+                url: "/ugc_serv/data/pending/remarks/"
+            }).then(function successCallback(response) {
+                _this.filter.remarks.every = response.data;
+                if (response.data.indexOf("(Blank)") >= 0)
+                    _this.filter.remarks.hasBlanks = true;
+            }, function errorCallback(response) {
+                _this.httpResponseError(response);
+            });
+            _this.$http({
+                method: "GET",
+                url: "/ugc_serv/data/pending/sanctiondate/"
+            }).then(function successCallback(response) {
+                _this.filter.sanctionDate.scaleMin = new Date(response.data.min);
+                _this.filter.sanctionDate.scaleMax = new Date(response.data.max);
+                _this.filter.sanctionDate.min = new Date(response.data.min);
+                _this.filter.sanctionDate.max = new Date(response.data.max);
+            }, function errorCallback(response) {
+                _this.httpResponseError(response);
+            });
+            _this.$http({
+                method: "GET",
+                url: "/ugc_serv/data/pending/paid/"
+            }).then(function successCallback(response) {
+                _this.filter.paid.scaleMin = response.data.min;
+                _this.filter.paid.scaleMax = response.data.max;
+                _this.filter.paid.min = response.data.min;
+                _this.filter.paid.max = response.data.max;
+            }, function errorCallback(response) {
+                _this.httpResponseError(response);
+            });
+            _this.$http({
+                method: "GET",
+                url: "/ugc_serv/data/pending/uc/"
+            }).then(function successCallback(response) {
+                _this.filter.uc.scaleMin = response.data.min;
+                _this.filter.uc.scaleMax = response.data.max;
+                _this.filter.uc.min = response.data.min;
+                _this.filter.uc.max = response.data.max;
+            }, function errorCallback(response) {
+                _this.httpResponseError(response);
+            });
+            _this.$http({
+                method: "GET",
+                url: "/ugc_serv/data/pending/pendinguc/"
+            }).then(function successCallback(response) {
+                _this.filter.pendingUc.scaleMin = response.data.min;
+                _this.filter.pendingUc.scaleMax = response.data.max;
+                _this.filter.pendingUc.min = response.data.min;
+                _this.filter.pendingUc.max = response.data.max;
+            }, function errorCallback(response) {
+                _this.httpResponseError(response);
+            });
+            _this.$http({
+                method: "GET",
+                url: "/ugc_serv/data/global/scheme/"
+            }).then(function successCallback(response) {
+                _this.filter.scheme.every = response.data;
+            }, function errorCallback(response) {
+                _this.httpResponseError(response);
+            });
+            _this.$http({
+                method: "GET",
+                url: "/ugc_serv/data/global/subscheme/"
+            }).then(function successCallback(response) {
+                _this.filter.subScheme.every = response.data;
+            }, function errorCallback(response) {
+                _this.httpResponseError(response);
+            });
+            _this.$http({
+                method: "GET",
+                url: "/ugc_serv/data/pending/year/"
+            }).then(function successCallback(response) {
+                _this.filter.year.every = response.data;
+                if (response.data.indexOf("(Blank)") >= 0)
+                    _this.filter.year.hasBlanks = true;
+            }, function errorCallback(response) {
+                _this.httpResponseError(response);
+            });
+        }
+        else if (_this.selectedTabIndex == 1) {
+            
+        }
+    };
+
     PendingCtrl.prototype.toggleBlanks = function (filter) {
         var _this = this;
         if (_this.filter[filter].hasBlanks) {
