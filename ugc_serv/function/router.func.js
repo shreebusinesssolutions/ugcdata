@@ -25,6 +25,7 @@ var _getDataPendingPaid = require("../handler/GET/data/pending/paid/getDataPendi
 var _getDataPendingUc = require("../handler/GET/data/pending/uc/getDataPendingUc.handler");
 var _getDataPendingPendinguc = require("../handler/GET/data/pending/pendinguc/getDataPendingPendinguc.handler");
 var _getDataPendingYear = require("../handler/GET/data/pending/year/getDataPendingYear.handler");
+var _getDataPendingEntrynum = require("../handler/GET/data/pending/entrynum/getDataPendingEntrynum.handler");
 
 var _getReportPendingCount = require("../handler/GET/report/pending/count/getReportPendingCount.handler");
 var _getReportPending = require("../handler/GET/report/pending/gerReportPending.handler");
@@ -94,6 +95,8 @@ exports.route = function (method, pathname) {
         return _getDataPendingPendinguc;
     else if (method == "GET" && /^\/data\/pending\/year\//.test(pathname))
         return _getDataPendingYear;
+    else if (method == "GET" && /^\/data\/pending\/entrynum\//.test(pathname))
+        return _getDataPendingEntrynum;
 
     else if (method == "GET" && /^\/report\/pending\/count\//.test(pathname))
         return _getReportPendingCount;
