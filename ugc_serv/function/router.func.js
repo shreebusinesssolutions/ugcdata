@@ -42,6 +42,7 @@ var _putReportdataPaid = require("../handler/PUT/reportdata/paid/putReportdataPa
 var _postReportdataPaid = require("../handler/POST/reportdata/paid/postReportdataPaid.handler");
 
 var _getReportdataPending = require("../handler/GET/reportdata/pending/getReportdataPending.handler");
+var _putReportdataPending = require("../handler/PUT/reportdata/pending/putReportdataPending.handler");
 
 var logger = require("../function/logger.func");
 
@@ -126,6 +127,10 @@ exports.route = function (method, pathname) {
 
     else if (method == "GET" && /^\/reportdata\/pending/.test(pathname))
         return _getReportdataPending;
+
+    else if (method == "GET" && /^\/reportdata\/pending/.test(pathname))
+        return _putReportdataPending;
+    
     else {
         logger.error(pathname + " (" + method + ") Not found.", { method: "router()" });
         return false;
