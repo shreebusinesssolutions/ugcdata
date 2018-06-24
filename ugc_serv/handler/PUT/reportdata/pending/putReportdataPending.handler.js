@@ -47,9 +47,9 @@ exports.handler = function (req, res, qpaths, qdata) {
                             "sanctionDate",
                             "caseCleared"
                         ]);
-                        var sql = "UPDATE plan_11_12_paid ";
+                        var sql = "UPDATE plan_11_pending ";
                         sql += "SET ";
-                        sql += "auto_num = '" + reqBodyObj.autoNum + "' ";
+                        sql += "auto_num = " + reqBodyObj.autoNum + ", ";
                         sql += "file_num = '" + (reqBodyObj.fileNum ? reqBodyObj.fileNum.replace(/'/g, "\\'") : null) + "', ";
                         sql += "master_file_num = '" + (reqBodyObj.masterFileNum ? reqBodyObj.masterFileNum.replace(/'/g, "\\'") : null) + "', ";
                         sql += "college_id = '" + reqBodyObj.collegeId + "', ";
@@ -61,9 +61,8 @@ exports.handler = function (req, res, qpaths, qdata) {
                         sql += "subscheme_id = '" + reqBodyObj.subSchemeId + "', ";
                         sql += "sanction_date = '" + (reqBodyObj.sanctionDate?reqBodyObj.sanctionDate:null) + "', ";
                         sql += "case_cleared = " + reqBodyObj.caseCleared + " ";
-                        sql += "WHERE entry_num = '" + reqBodyObj.entryNum + "'";
+                        sql += "WHERE entry_num = " + reqBodyObj.entryNum + "";
                         sql = sql.replace(/'null'/g, "null");
-                        console.log(sql);
                         db_conn.query(sql, function (err, result, fields) {
                             if (err) {
                                 logger.error(err);

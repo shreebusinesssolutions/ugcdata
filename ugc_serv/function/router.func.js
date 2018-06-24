@@ -128,7 +128,7 @@ exports.route = function (method, pathname) {
     else if (method == "GET" && /^\/reportdata\/pending/.test(pathname))
         return _getReportdataPending;
 
-    else if (method == "GET" && /^\/reportdata\/pending/.test(pathname))
+    else if (method == "PUT" && /^\/reportdata\/pending/.test(pathname))
         return _putReportdataPending;
     
     else {
