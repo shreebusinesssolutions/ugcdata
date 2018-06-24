@@ -848,6 +848,7 @@ var PaidCtrl = (function () {
             method: "PUT",
             url: "/ugc_serv/reportdata/paid/",
             data: {
+                entryNum: _this.edit.entryNum.selected[0],
                 fileNum: _this.edit.fileNum,
                 masterFileNum: _this.edit.masterFileNum,
                 collegeId: _this.edit.collegeId.selectedItem.id,
