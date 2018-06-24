@@ -918,7 +918,7 @@ var PendingCtrl = (function () {
                 _this.edit.subSchemeId.selectedItem = response.data.subScheme ? response.data.subScheme : null;
                 _this.edit.sanctionDate = response.data.sanctionDate ? new Date(response.data.sanctionDate) : null;
                 _this.edit.year = response.data.year ? response.data.year : "";
-                _this.edit.caseCleared = response.data.caseCleared ? response.data.caseCleared : fasle;
+                _this.edit.caseCleared = response.data.caseCleared ? response.data.caseCleared : false;
                 _this.mode.edit.getting = false;
             }, function errorCallback(response) {
                 _this.httpResponseError(response);
