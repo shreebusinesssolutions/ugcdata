@@ -882,6 +882,53 @@ var PendingCtrl = (function () {
         var results = query ? this.edit.subSchemeId.every.filter(createFilterObjFor(query)) : this.edit.subSchemeId.every.filter(createFilterObjFor(''));
         return results;
     };
+    PendingCtrl.prototype.editEntryNumChanged = function () {
+        var _this = this;
+        _this.mode.edit.getting = true;
+        if (_this.edit.entryNum.selected.length == 0) {
+            _this.edit.autoNum = null;
+            _this.edit.fileNum = null;
+            _this.edit.masterFileNum = null;
+            _this.edit.collegeId.selectedItem = null;
+            _this.edit.remarks = null;
+            _this.edit.paid = null;
+            _this.edit.uc = null;
+            _this.edit.pendingUc = null;
+            _this.edit.schemeId.selectedItem = null;
+            _this.edit.subSchemeId.selectedItem = null;
+            _this.edit.sanctionDate = null;
+            _this.edit.year = null;
+            _this.edit.caseCleared = false;
+            _this.mode.edit.getting = false;
+        }
+        else {
+            _this.$http({
+                method: "GET",
+                url: "/ugc_serv/reportdata/pending?entry_num=" + _this.edit.entryNum.selected[0]
+            }).then(function successCallback(response) {
+                _this.edit.autoNum = response.data.autoNum;
+                _this.edit.fileNum = response.data.fileNum ? response.data.fileNum : "";
+                _this.edit.masterFileNum = response.data.masterFileNum ? response.data.masterFileNum : "";
+                _this.edit.collegeId.selectedItem = response.data.college ? response.data.college : null;
+                _this.edit.remarks = response.data.remarks ? response.data.remarks : "";
+                _this.edit.paid = response.data.paid ? response.data.paid : "";
+                _this.edit.uc = response.data.uc ? response.data.uc : "";
+                _this.edit.pendingUc = response.data.pendingUc ? response.data.pendingUc : "";
+                _this.edit.schemeId.selectedItem = response.data.scheme ? response.data.scheme : null;
+                _this.edit.subSchemeId.selectedItem = response.data.subScheme ? response.data.subScheme : null;
+                _this.edit.sanctionDate = response.data.sanctionDate ? new Date(response.data.sanctionDate) : null;
+                _this.edit.year = response.data.year ? response.data.year : "";
+                _this.edit.caseCleared = response.data.caseCleared ? response.data.caseCleared : false;
+                _this.mode.edit.getting = false;
+            }, function errorCallback(response) {
+                _this.httpResponseError(response);
+                _this.mode.edit.getting = false;
+            });
+        }
+    };
+    PendingCtrl.prototype.editSave = function () {
+
+    };
 
 
     function createFilterFor(query) {
