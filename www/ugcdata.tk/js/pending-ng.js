@@ -19,6 +19,10 @@ var PendingCtrl = (function () {
             edit: {
                 getting: false,
                 saving: false
+            },
+            add: {
+                checkingAutoNum: false,
+                saving: false
             }
         };
 
@@ -139,6 +143,33 @@ var PendingCtrl = (function () {
                 search: "",
                 every: null
             },
+            autoNum: null,
+            fileNum: null,
+            masterFileNum: null,
+            collegeId: {
+                selectedItem: null,
+                search: "",
+                every: null
+            },
+            remarks: null,
+            paid: null,
+            uc: null,
+            pendingUc: null,
+            schemeId: {
+                selectedItem: null,
+                search: "",
+                every: null
+            },
+            subSchemeId: {
+                selectedItem: null,
+                search: "",
+                every: null
+            },
+            sanctionDate: null,
+            caseCleared: false
+        };
+
+        this.add ={
             autoNum: null,
             fileNum: null,
             masterFileNum: null,
@@ -397,6 +428,32 @@ var PendingCtrl = (function () {
                 url: "/ugc_serv/data/global/subscheme/"
             }).then(function successCallback(response) {
                 _this.edit.subSchemeId.every = response.data;
+            }, function errorCallback(response) {
+                _this.httpResponseError(response);
+            });
+        }
+        else if(_this.selectedTabIndex == 2) {
+            _this.$http({
+                method: "GET",
+                url: "/ugc_serv/data/global/college/"
+            }).then(function successCallback(response) {
+                _this.add.collegeId.every = response.data;
+            }, function errorCallback(response) {
+                _this.httpResponseError(response);
+            });
+            _this.$http({
+                method: "GET",
+                url: "/ugc_serv/data/global/scheme/"
+            }).then(function successCallback(response) {
+                _this.add.schemeId.every = response.data;
+            }, function errorCallback(response) {
+                _this.httpResponseError(response);
+            });
+            _this.$http({
+                method: "GET",
+                url: "/ugc_serv/data/global/subscheme/"
+            }).then(function successCallback(response) {
+                _this.add.subSchemeId.every = response.data;
             }, function errorCallback(response) {
                 _this.httpResponseError(response);
             });
@@ -945,6 +1002,7 @@ var PendingCtrl = (function () {
                 schemeId: _this.edit.schemeId.selectedItem.id,
                 subSchemeId: _this.edit.subSchemeId.selectedItem.id,
                 sanctionDate: _this.edit.sanctionDate ? moment(_this.edit.sanctionDate).format("YYYY-MM-DD") : null,
+                year: _this.edit.year,
                 caseCleared: _this.edit.caseCleared ? 1 : 0
             }
         }).then(function successCallback(response) {
@@ -955,6 +1013,50 @@ var PendingCtrl = (function () {
             _this.mode.edit.saving = false;
         });
     };
+
+
+    PendingCtrl.prototype.querySearchAddCollegeId = function (query) {
+        var results = query ? this.add.collegeId.every.filter(createFilterObjFor(query)) : this.add.collegeId.every.filter(createFilterObjFor(''));
+        return results;
+    };
+    PendingCtrl.prototype.querySearchAddSchemeId = function (query) {
+        var results = query ? this.add.schemeId.every.filter(createFilterObjFor(query)) : this.add.schemeId.every.filter(createFilterObjFor(''));
+        return results;
+    };
+    PendingCtrl.prototype.querySearchAddSubSchemeId = function (query) {
+        var results = query ? this.add.subSchemeId.every.filter(createFilterObjFor(query)) : this.add.subSchemeId.every.filter(createFilterObjFor(''));
+        return results;
+    };
+    PendingCtrl.prototype.addSave = function() {
+        var _this = this;
+        _this.mode.add.saving = true;
+        _this.$http({
+            method: "POST",
+            url: "/ugc_serv/reportdata/pending/",
+            data: {
+                autoNum: _this.add.autoNum,
+                fileNum: _this.add.fileNum,
+                masterFileNum: _this.add.fileNum,
+                collegeId: _this.add.collegeId.selectedItem.id,
+                remarks: _this.add.remarks,
+                paid: _this.add.paid,
+                uc: _this.add.uc,
+                pendingUc: _this.add.pendingUc,
+                schemeId: _this.add.schemeId.selectedItem.id,
+                subSchemeId: _this.add.subSchemeId.selectedItem.id,
+                sanctionDate: _this.add.sanctionDate ? moment(_this.add.sanctionDate).format("YYYY-MM-DD") : null,
+                year: _this.add.year,
+                caseCleared: _this.add.caseCleared ? 1 : 0
+            }
+        }).then(function successCallback(response) {
+            _this.showNotif("New entry added successfully.");
+            _this.showAlert("New Entry Added", "New entry added with entry number: " + response.data.entryNum + ".");
+            _this.mode.add.saving = false;
+        }, function errorCallback(response) {
+            _this.httpResponseError(response);
+            _this.mode.add.saving = false;
+        });
+    }
 
 
     function createFilterFor(query) {
@@ -1012,6 +1114,33 @@ angular
             .accentPalette('yellow').dark();
         $mdThemingProvider.theme('dark-primary').backgroundPalette('blue').dark();
         $mdThemingProvider.theme('dark-accent').backgroundPalette('red').dark();
+    })
+    .directive('ngCustvalidatorAutonum', function () {
+        return {
+            require: 'ngModel',
+            link: function (scope, element, attrs, ngModel) {
+                ngModel.$parsers.push(function (value) {
+                    if (/^[0-9]+$/.test(value)) {
+                        scope.vm.mode.add.checkingAutoNum = true;
+                        scope.vm.$http({
+                            method: "GET",
+                            url: "/ugc_serv/reportdata/pending?auto_num=" + value
+                        }).then(function successCallback(response) {
+                            ngModel.$setValidity("auto-num-exists", false);
+                            scope.vm.mode.add.checkingAutoNum = false;
+                        }, function errorCallback(response) {
+                            if (response.status == 404 && /^[0-9]+ Not Found$/.test(response.statusText))
+                                ngModel.$setValidity("auto-num-exists", true);
+                            else
+                                scope.vm.httpResponseError(response);
+                            scope.vm.mode.add.checkingAutoNum = false;
+                        });
+                    }
+                    
+                    return value;
+                });
+            }
+        }
     })
     .config(function ($mdDateLocaleProvider) {
         $mdDateLocaleProvider.formatDate = function (date) {
