@@ -209,7 +209,7 @@ var CollegeCtrl = (function () {
                                 console.log("Destrying", dtTable);
                                 dtTable.destroy(true);
                                 document.getElementById("divDataTable").innerHTML = '\
-                                    <table id="dataTable" class="table table-striped table-bordered compact hover order-column" style="width:100%">\
+                                    <table id="dataTable" class="table table-striped table-bordered compact hover order-column w3-responsive" style="width:100%">\
                                         <thead>\
                                             <tr>\
                                                 <th>College ID</th>\
@@ -330,7 +330,7 @@ var CollegeCtrl = (function () {
                         console.log("Destrying", dtTable);
                         dtTable.destroy(true);
                         document.getElementById("divDataTable").innerHTML = '\
-                            <table id="dataTable" class="table table-striped table-bordered compact hover order-column" style="width:100%">\
+                            <table id="dataTable" class="table table-striped table-bordered compact hover order-column w3-responsive" style="width:100%">\
                                 <thead>\
                                     <tr>\
                                         <th>College ID</th>\

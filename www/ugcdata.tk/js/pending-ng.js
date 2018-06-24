@@ -139,6 +139,30 @@ var PendingCtrl = (function () {
                 search: "",
                 every: null
             },
+            autoNum: null,
+            fileNum: null,
+            masterFileNum: null,
+            collegeId: {
+                selectedItem: null,
+                search: "",
+                every: null
+            },
+            remarks: null,
+            paid: null,
+            uc: null,
+            pendingUc: null,
+            schemeId: {
+                selectedItem: null,
+                search: "",
+                every: null
+            },
+            subSchemeId: {
+                selectedItem: null,
+                search: "",
+                every: null
+            },
+            sanctionDate: null,
+            caseCleared: false
         }
     }
 
@@ -352,6 +376,30 @@ var PendingCtrl = (function () {
             }, function errorCallback(response) {
                 _this.httpResponseError(response);
             });
+            _this.$http({
+                method: "GET",
+                url: "/ugc_serv/data/global/college/"
+            }).then(function successCallback(response) {
+                _this.edit.collegeId.every = response.data;
+            }, function errorCallback(response) {
+                _this.httpResponseError(response);
+            });
+            _this.$http({
+                method: "GET",
+                url: "/ugc_serv/data/global/scheme/"
+            }).then(function successCallback(response) {
+                _this.edit.schemeId.every = response.data;
+            }, function errorCallback(response) {
+                _this.httpResponseError(response);
+            });
+            _this.$http({
+                method: "GET",
+                url: "/ugc_serv/data/global/subscheme/"
+            }).then(function successCallback(response) {
+                _this.edit.subSchemeId.every = response.data;
+            }, function errorCallback(response) {
+                _this.httpResponseError(response);
+            });
         }
     };
 
@@ -482,7 +530,7 @@ var PendingCtrl = (function () {
                                 console.log("Destrying", dtTable);
                                 dtTable.destroy(true);
                                 document.getElementById("divDataTable").innerHTML = '\
-                                    <table id="dataTable" class="table table-striped table-bordered compact hover order-column" style="width:100%">\
+                                    <table id="dataTable" class="table table-striped table-bordered compact hover order-column w3-responsive" style="width:100%">\
                                         <thead>\
                                             <tr>\
                                                 <th>Entry Num</th>\
@@ -531,15 +579,36 @@ var PendingCtrl = (function () {
                                         $(nRow).on('click', function () {
                                             scope = angular.element(document.getElementById("ng-app")).scope();
                                             scope.$apply(function () {
-                                                scope.vm.edit.collegeId.selected = [aData[0]];
-                                                scope.vm.edit.oldCollegeId = aData[1];
-                                                scope.vm.edit.collegeName = aData[2];
-                                                scope.vm.edit.address1 = aData[3];
-                                                scope.vm.edit.address2 = aData[4];
-                                                scope.vm.edit.pin = aData[5];
-                                                scope.vm.edit.pfmsCode = aData[6];
-                                                scope.vm.edit.naacValidity = new Date(aData[7]);
-                                                scope.vm.edit.bsrInterest = aData[8];
+                                                scope.vm.edit.entryNum.selected = [aData[0]];
+                                                scope.vm.edit.autoNum = [aData[1]];
+                                                for (var i = 0; i < scope.vm.filter.college.every.length; i++) {
+                                                    if (scope.vm.filter.college.every[i].id == aData[2]) {
+                                                        scope.vm.edit.collegeId.selectedItem = scope.vm.filter.college.every[i]
+                                                        break;
+                                                    }
+                                                }
+                                                scope.vm.edit.fileNum = aData[3];
+                                                scope.vm.edit.remarks = aData[4];
+                                                scope.vm.edit.masterFileNum = aData[5];
+                                                scope.vm.edit.sanctionDate = aData[6] ? new Date(aData[6]) : null;
+                                                scope.vm.edit.paid = aData[7];
+                                                scope.vm.edit.uc = aData[8];
+                                                scope.vm.edit.pendingUc = aData[9];
+                                                for (var i = 0; i < scope.vm.filter.scheme.every.length; i++) {
+                                                    if (scope.vm.filter.scheme.every[i].id == aData[10]) {
+                                                        scope.vm.edit.schemeId.selectedItem = scope.vm.filter.scheme.every[i]
+                                                        break;
+                                                    }
+                                                }
+                                                for (var i = 0; i < scope.vm.filter.subScheme.every.length; i++) {
+                                                    if (scope.vm.filter.subScheme.every[i].id == aData[11]) {
+                                                        scope.vm.edit.subSchemeId.selectedItem = scope.vm.filter.subScheme.every[i]
+                                                        break;
+                                                    }
+                                                }
+                                                scope.vm.edit.year = aData[12];
+                                                scope.vm.edit.caseCleared = aData[13] == 0 ? false : true;
+
                                                 scope.vm.selectedTabIndex = 1;
                                             })
                                         });
@@ -620,7 +689,7 @@ var PendingCtrl = (function () {
                         console.log("Destrying", dtTable);
                         dtTable.destroy(true);
                         document.getElementById("divDataTable").innerHTML = '\
-                        <table id="dataTable" class="table table-striped table-bordered compact hover order-column" style="width:100%">\
+                        <table id="dataTable" class="table table-striped table-bordered compact hover order-column w3-responsive" style="width:100%">\
                             <thead>\
                                 <tr>\
                                     <th>Entry Num</th>\
@@ -669,15 +738,36 @@ var PendingCtrl = (function () {
                                 $(nRow).on('click', function () {
                                     scope = angular.element(document.getElementById("ng-app")).scope();
                                     scope.$apply(function () {
-                                        scope.vm.edit.collegeId.selected = [aData[0]];
-                                        scope.vm.edit.oldCollegeId = aData[1];
-                                        scope.vm.edit.collegeName = aData[2];
-                                        scope.vm.edit.address1 = aData[3];
-                                        scope.vm.edit.address2 = aData[4];
-                                        scope.vm.edit.pin = aData[5];
-                                        scope.vm.edit.pfmsCode = aData[6];
-                                        scope.vm.edit.naacValidity = new Date(aData[7]);
-                                        scope.vm.edit.bsrInterest = aData[8];
+                                        scope.vm.edit.entryNum.selected = [aData[0]];
+                                        scope.vm.edit.autoNum = [aData[1]];
+                                        for (var i = 0; i < scope.vm.filter.college.every.length; i++) {
+                                            if (scope.vm.filter.college.every[i].id == aData[2]) {
+                                                scope.vm.edit.collegeId.selectedItem = scope.vm.filter.college.every[i]
+                                                break;
+                                            }
+                                        }
+                                        scope.vm.edit.fileNum = aData[3];
+                                        scope.vm.edit.remarks = aData[4];
+                                        scope.vm.edit.masterFileNum = aData[5];
+                                        scope.vm.edit.sanctionDate = aData[6] ? new Date(aData[6]) : null;
+                                        scope.vm.edit.paid = aData[7];
+                                        scope.vm.edit.uc = aData[8];
+                                        scope.vm.edit.pendingUc = aData[9];
+                                        for (var i = 0; i < scope.vm.filter.scheme.every.length; i++) {
+                                            if (scope.vm.filter.scheme.every[i].id == aData[10]) {
+                                                scope.vm.edit.schemeId.selectedItem = scope.vm.filter.scheme.every[i]
+                                                break;
+                                            }
+                                        }
+                                        for (var i = 0; i < scope.vm.filter.subScheme.every.length; i++) {
+                                            if (scope.vm.filter.subScheme.every[i].id == aData[11]) {
+                                                scope.vm.edit.subSchemeId.selectedItem = scope.vm.filter.subScheme.every[i]
+                                                break;
+                                            }
+                                        }
+                                        scope.vm.edit.year = aData[12];
+                                        scope.vm.edit.caseCleared = aData[13] == 0 ? false : true;
+
                                         scope.vm.selectedTabIndex = 1;
                                     })
                                 });
@@ -773,6 +863,25 @@ var PendingCtrl = (function () {
         var results = query ? this.edit.entryNum.every.filter(createFilterFor(query)) : this.edit.entryNum.every.filter(createFilterFor(''));
         return results;
     };
+    PendingCtrl.prototype.transformEditAutoNumChip = function (chip) {
+        return chip
+    };
+    PendingCtrl.prototype.querySearchEditAutoNum = function (query) {
+        var results = query ? this.edit.autoNum.every.filter(createFilterFor(query)) : this.edit.autoNum.every.filter(createFilterFor(''));
+        return results;
+    };
+    PendingCtrl.prototype.querySearchEditCollegeId = function (query) {
+        var results = query ? this.edit.collegeId.every.filter(createFilterObjFor(query)) : this.edit.collegeId.every.filter(createFilterObjFor(''));
+        return results;
+    };
+    PendingCtrl.prototype.querySearchEditSchemeId = function (query) {
+        var results = query ? this.edit.schemeId.every.filter(createFilterObjFor(query)) : this.edit.schemeId.every.filter(createFilterObjFor(''));
+        return results;
+    };
+    PendingCtrl.prototype.querySearchEditSubSchemeId = function (query) {
+        var results = query ? this.edit.subSchemeId.every.filter(createFilterObjFor(query)) : this.edit.subSchemeId.every.filter(createFilterObjFor(''));
+        return results;
+    };
 
 
     function createFilterFor(query) {
@@ -782,7 +891,6 @@ var PendingCtrl = (function () {
             return (item.toLowerCase().indexOf(lowercaseQuery) === 0);
         };
     }
-
     function createFilterObjFor(query) {
         var lowercaseQuery = angular.lowercase(query);
 
@@ -793,7 +901,6 @@ var PendingCtrl = (function () {
                 return (item.id.toLowerCase().indexOf(lowercaseQuery) === 0);
         };
     }
-
     PendingCtrl.prototype.httpResponseError = function (response) {
         var _this = this;
         console.log("error", response);

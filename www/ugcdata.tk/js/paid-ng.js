@@ -498,7 +498,7 @@ var PaidCtrl = (function () {
                             if ($.fn.dataTable.isDataTable('#dataTable')) {
                                 console.log("Destrying", dtTable);
                                 dtTable.destroy(true);
-                                document.getElementById("divDataTable").innerHTML = '<table id="dataTable" class="table table-striped table-bordered compact hover order-column" style="width:100%">\
+                                document.getElementById("divDataTable").innerHTML = '<table id="dataTable" class="table table-striped table-bordered compact hover order-column w3-responsive" style="width:100%">\
                                         <thead>\
                                             <tr>\
                                                 <th>Entry Num</th>\
@@ -636,7 +636,7 @@ var PaidCtrl = (function () {
                     if ($.fn.dataTable.isDataTable('#dataTable')) {
                         console.log("Destrying", dtTable);
                         dtTable.destroy(true);
-                        document.getElementById("divDataTable").innerHTML = '<table id="dataTable" class="table table-striped table-bordered compact hover order-column" style="width:100%">\
+                        document.getElementById("divDataTable").innerHTML = '<table id="dataTable" class="table table-striped table-bordered compact hover order-column w3-responsive" style="width:100%">\
                                 <thead>\
                                     <tr>\
                                         <th>Entry Num</th>\
