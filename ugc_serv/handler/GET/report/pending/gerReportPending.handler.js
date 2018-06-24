@@ -18,9 +18,9 @@ exports.handler = function (req, res, qpaths, qdata) {
             qdata.uc[2] = qdata.uc[2] == "true" ? true : false;
         else if (key == "pendingUc")
             qdata.pendingUc[2] = qdata.pendingUc[2] == "true" ? true : false;
-        else if (key == "pendingUc") {
-            qdata.pendingUc[0] = qdata.pendingUc[0] == "true" ? true : false;
-            qdata.pendingUc[1] = qdata.pendingUc[1] == "true" ? true : false;
+        else if (key == "caseCleared") {
+            qdata.caseCleared[0] = qdata.caseCleared[0] == "true" ? true : false;
+            qdata.caseCleared[1] = qdata.caseCleared[1] == "true" ? true : false;
         }
         else {
             if (qdata[key].length == 1 && qdata[key][0] == '')
