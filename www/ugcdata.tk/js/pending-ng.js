@@ -1026,13 +1026,13 @@ angular
                         scope.vm.mode.add.checkingAutoNum = true;
                         scope.vm.$http({
                             method: "GET",
-                            url: "/ugc_serv/college?college_id=" + value
+                            url: "/ugc_serv/reportdata/pending?auto_num=" + value
                         }).then(function successCallback(response) {
-                            ngModel.$setValidity("college-id-exists", false);
+                            ngModel.$setValidity("auto-num-exists", false);
                             scope.vm.mode.add.checkingAutoNum = false;
                         }, function errorCallback(response) {
-                            if (response.status == 404 && /^[A-Z0-9]+ Not Found$/.test(response.statusText))
-                                ngModel.$setValidity("college-id-exists", true);
+                            if (response.status == 404 && /^[0-9]+ Not Found$/.test(response.statusText))
+                                ngModel.$setValidity("auto-num-exists", true);
                             else
                                 scope.vm.httpResponseError(response);
                             scope.vm.mode.add.checkingAutoNum = false;

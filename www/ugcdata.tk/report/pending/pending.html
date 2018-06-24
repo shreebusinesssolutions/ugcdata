@@ -728,9 +728,10 @@
                                 <div class="w3-col m6">
                                     <md-input-container class="md-icon-float md-icon-right md-block">
                                         <label>Auto Number</label>
-                                        <input ng-model="vm.add.autoNum" number ng-custvalidator-autonum required>
+                                        <input name="autoNum" ng-model="vm.add.autoNum" number ng-custvalidator-autonum required ng-pattern="/[0-9]+/">
                                         <div ng-messages="addForm.autoNum.$error">
                                             <div ng-message="required">This is required.</div>
+                                            <div ng-message="pattern">Must contain only digits.</div>
                                             <div ng-message="auto-num-exists">Auto Number aldready exists.</div>
                                         </div>
                                         <md-icon>
