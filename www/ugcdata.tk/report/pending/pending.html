@@ -728,7 +728,7 @@
                                 <div class="w3-col m6">
                                     <md-input-container class="md-icon-float md-icon-right md-block">
                                         <label>Auto Number</label>
-                                        <input name="autoNum" ng-model="vm.add.autoNum" number ng-custvalidator-autonum required ng-pattern="/[0-9]+/">
+                                        <input name="autoNum" ng-model="vm.add.autoNum" number ng-custvalidator-autonum required ng-pattern="/^[0-9]+$/">
                                         <div ng-messages="addForm.autoNum.$error">
                                             <div ng-message="required">This is required.</div>
                                             <div ng-message="pattern">Must contain only digits.</div>
@@ -741,6 +741,123 @@
                                         </md-icon>
                                     </md-input-container>
                                 </div>
+                            </div>
+                            <div class="w3-row w3-margin-top">
+                                <div class="w3-col m6">
+                                    <md-input-container style="width: 100%;">
+                                        <label>File Number</label>
+                                        <input name="fileNum" ng-model="vm.add.fileNum">
+                                    </md-input-container>
+                                </div>
+                                <div class="w3-col m6">
+                                    <md-input-container style="width: 100%;">
+                                        <label>Master File Number</label>
+                                        <input name="masterFileNum" ng-model="vm.add.masterFileNum">
+                                    </md-input-container>
+                                </div>
+                            </div>
+                            <div class="w3-row">
+                                <div class="w3-col m6">
+                                    <md-autocomplete class="md-block" required md-input-name="collegeId" md-input-minlength="0" md-no-cache="false" md-selected-item="vm.add.collegeId.selectedItem"
+                                        md-search-text="vm.add.collegeId.search" md-min-length="0" md-items="college in vm.querySearchAddCollegeId(vm.add.collegeId.search)"
+                                        md-item-text="college.id" md-floating-label="College ID" md-require-match>
+                                        <md-item-template>
+                                            <span md-highlight-text="ctrl.searchText">{{college.id}} ({{college.name}})</span>
+                                        </md-item-template>
+                                        <div ng-messages="addForm.collegeId.$error">
+                                            <div ng-message="required">This is required.</div>
+                                            <div ng-message="md-require-match">Please select an existing college.</div>
+                                        </div>
+                                    </md-autocomplete>
+                                </div>
+                                <div class="w3-col m6">
+                                    <md-input-container style="width: 100%;">
+                                        <label>Remarks</label>
+                                        <input name="remarks" ng-model="vm.add.remarks">
+                                    </md-input-container>
+                                </div>
+                            </div>
+                            <div class="w3-row">
+                                <div class="w3-col m4">
+                                    <md-input-container style="width: 100%;">
+                                        <label>Paid</label>
+                                        <input name="paid" ng-model="vm.add.paid" type="number">
+                                    </md-input-container>
+                                </div>
+                                <div class="w3-col m4">
+                                    <md-input-container style="width: 100%;">
+                                        <label>UC</label>
+                                        <input name="uc" ng-model="vm.add.uc" type="number">
+                                    </md-input-container>
+                                </div>
+                                <div class="w3-col m4">
+                                    <md-input-container style="width: 100%;">
+                                        <label>Pending UC</label>
+                                        <input name="uc" ng-model="vm.add.pendingUc" type="number">
+                                    </md-input-container>
+                                </div>
+                            </div>
+                            <div class="w3-row">
+                                <div class="w3-col m6">
+                                    <md-autocomplete class="md-block" required md-input-name="schemeId" md-input-minlength="0" md-no-cache="false" md-selected-item="vm.add.schemeId.selectedItem"
+                                        md-search-text="vm.add.schemeId.search" md-min-length="0" md-items="scheme in vm.querySearchAddSchemeId(vm.add.schemeId.search)"
+                                        md-item-text="scheme.id" md-floating-label="Scheme ID" md-require-match>
+                                        <md-item-template>
+                                            <span md-highlight-text="ctrl.searchText">{{scheme.id}} ({{scheme.name}})</span>
+                                        </md-item-template>
+                                        <div ng-messages="addForm.schemeId.$error">
+                                            <div ng-message="required">This is required.</div>
+                                            <div ng-message="md-require-match">Please select an existing Scheme ID.</div>
+                                        </div>
+                                    </md-autocomplete>
+                                </div>
+                                <div class="w3-col m6">
+                                    <md-autocomplete class="md-block" required md-input-name="subSchemeId" md-input-minlength="0" md-no-cache="false" md-selected-item="vm.add.subSchemeId.selectedItem"
+                                        md-search-text="vm.add.subSchemeId.search" md-min-length="0" md-items="subscheme in vm.querySearchAddSubSchemeId(vm.add.subSchemeId.search)"
+                                        md-item-text="subscheme.id" md-floating-label="Sub Scheme ID" md-require-match>
+                                        <md-item-template>
+                                            <span md-highlight-text="ctrl.searchText">{{subscheme.id}} ({{subscheme.name}})</span>
+                                        </md-item-template>
+                                        <div ng-messages="addForm.subSchemeId.$error">
+                                            <div ng-message="required">This is required.</div>
+                                            <div ng-message="md-require-match">Please select an existing Subscheme ID.</div>
+                                        </div>
+                                    </md-autocomplete>
+                                </div>
+                            </div>
+                            <div class="w3-row">
+                                <div class="w3-col m4">
+                                    <md-input-container class="md-icon-float md-button-right md-block">
+                                        <label>Sanction Date</label>
+                                        <md-datepicker ng-model="vm.add.sanctionDate"></md-datepicker>
+                                        <div class="button-group" style="position: absolute; right: 0px; top: 0px; margin: 0;" ng-click="vm.add.sanctionDate = null">
+                                            <md-button class="md-icon-button md-accent" ng-disabled="vm.add.sanctionDate == null" aria-label="Clear">
+                                                <i class="fas fa-trash-alt w3-medium"></i>
+                                            </md-button>
+                                        </div>
+                                    </md-input-container>
+                                </div>
+                                <div class="w3-col m4">
+                                    <md-input-container style="width: 100%;">
+                                        <label>Year</label>
+                                        <input name="year" ng-model="vm.add.year" ng-pattern="/\d{2}-\d{2}/">
+                                        <div ng-messages="addForm.year.$error">
+                                            <div ng-message="pattern">Year must be like 16-17.</div>
+                                        </div>
+                                    </md-input-container>
+                                </div>
+                                <div class="w3-col m4">
+                                    <md-checkbox ng-model="vm.add.caseCleared" aria-label="Case Cleared">
+                                        Case Cleared ({{vm.add.caseCleared}})
+                                    </md-checkbox>
+                                </div>
+                            </div>
+                            <div class="w3-row">
+                                <md-button class="md-primary md-raised w3-right" ng-disabled="vm.mode.add.saving || addForm.$invalid" ng-click="vm.addSave()">
+                                    Add Entry&nbsp;
+                                    <i class="fas fa-plus" ng-show="!vm.mode.add.saving"></i>
+                                    <i class="fas fa-circle-notch fa-spin" ng-show="vm.mode.add.saving"></i>
+                                </md-button>
                             </div>
                         </form>
                     </md-content>
