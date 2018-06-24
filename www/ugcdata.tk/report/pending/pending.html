@@ -723,7 +723,25 @@
                 <md-tab label="Add" md-on-select="vm.selectedTabIndexChanged()">
                     <md-content class="w3-padding w3-white">
                         <h1 class="w3-xlarge">Add Entry</h1>
-
+                        <form name="addForm">
+                            <div class="w3-row">
+                                <div class="w3-col m6">
+                                    <md-input-container class="md-icon-float md-icon-right md-block">
+                                        <label>Auto Number</label>
+                                        <input ng-model="vm.add.autoNum" number ng-custvalidator-autonum required>
+                                        <div ng-messages="addForm.autoNum.$error">
+                                            <div ng-message="required">This is required.</div>
+                                            <div ng-message="auto-num-exists">Auto Number aldready exists.</div>
+                                        </div>
+                                        <md-icon>
+                                            <i ng-show="addForm.autoNum.$invalid && !vm.mode.add.checkingAutoNum" class="fas fa-times w3-text-red"></i>
+                                            <i ng-show="!addForm.autoNum.$invalid && !vm.mode.add.checkingAutoNum" class="fas fa-check w3-text-green"></i>
+                                            <i ng-show="!addForm.autoNum.$invalid && vm.mode.add.checkingAutoNum" class="fas fa-circle-notch fa-spin w3-text-grey"></i>
+                                        </md-icon>
+                                    </md-input-container>
+                                </div>
+                            </div>
+                        </form>
                     </md-content>
                 </md-tab>
             </md-tabs>

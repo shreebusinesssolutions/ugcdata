@@ -19,6 +19,10 @@ var PendingCtrl = (function () {
             edit: {
                 getting: false,
                 saving: false
+            },
+            add: {
+                checkingAutoNum: false,
+                saving: false
             }
         };
 
@@ -1012,6 +1016,32 @@ angular
             .accentPalette('yellow').dark();
         $mdThemingProvider.theme('dark-primary').backgroundPalette('blue').dark();
         $mdThemingProvider.theme('dark-accent').backgroundPalette('red').dark();
+    })
+    .directive('ngCustvalidatorAutonum', function () {
+        return {
+            require: 'ngModel',
+            link: function (scope, element, attrs, ngModel) {
+                ngModel.$parsers.push(function (value) {
+                    if (/^[0-9]+$/.test(value)) {
+                        scope.vm.mode.add.checkingAutoNum = true;
+                        scope.vm.$http({
+                            method: "GET",
+                            url: "/ugc_serv/college?college_id=" + value
+                        }).then(function successCallback(response) {
+                            ngModel.$setValidity("college-id-exists", false);
+                            scope.vm.mode.add.checkingAutoNum = false;
+                        }, function errorCallback(response) {
+                            if (response.status == 404 && /^[A-Z0-9]+ Not Found$/.test(response.statusText))
+                                ngModel.$setValidity("college-id-exists", true);
+                            else
+                                scope.vm.httpResponseError(response);
+                            scope.vm.mode.add.checkingAutoNum = false;
+                        });
+                    }
+                    return value;
+                });
+            }
+        }
     })
     .config(function ($mdDateLocaleProvider) {
         $mdDateLocaleProvider.formatDate = function (date) {
