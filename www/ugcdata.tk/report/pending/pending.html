@@ -550,7 +550,7 @@
                 <md-tab label="Edit" md-on-select="vm.selectedTabIndexChanged()">
                     <md-content class="w3-padding w3-white">
                         <h1 class="w3-xlarge">Edit Report</h1>
-                        <div class="w3-row w3-margin-bottom">
+                        <div class="w3-row">
                             <div class="w3-col m6">
                                 <md-chips ng-model="vm.edit.entryNum.selected" md-autocomplete-snap md-transform-chip="vm.transformEditEntryNumChip($chip)"
                                     md-require-match="true" md-max-chips="1" style="width: 100%;" md-on-add="vm.editEntryNumChanged()"
@@ -635,28 +635,19 @@
                                 <div class="w3-col m4">
                                     <md-input-container style="width: 100%;">
                                         <label>Paid</label>
-                                        <input name="paid" ng-model="vm.edit.paid" type="number" required ng-disabled="!(vm.edit.entryNum.selected.length > 0) && !(vm.edit.autoNum.selected.length > 0)">
-                                        <div ng-messages="editForm.paid.$error">
-                                            <div ng-message="required">This is required.</div>
-                                        </div>
+                                        <input name="paid" ng-model="vm.edit.paid" type="number" ng-disabled="!(vm.edit.entryNum.selected.length > 0) && !(vm.edit.autoNum.selected.length > 0)">
                                     </md-input-container>
                                 </div>
                                 <div class="w3-col m4">
                                     <md-input-container style="width: 100%;">
                                         <label>UC</label>
-                                        <input name="uc" ng-model="vm.edit.uc" type="number" required ng-disabled="!(vm.edit.entryNum.selected.length > 0) && !(vm.edit.autoNum.selected.length > 0)">
-                                        <div ng-messages="editForm.uc.$error">
-                                            <div ng-message="required">This is required.</div>
-                                        </div>
+                                        <input name="uc" ng-model="vm.edit.uc" type="number" ng-disabled="!(vm.edit.entryNum.selected.length > 0) && !(vm.edit.autoNum.selected.length > 0)">
                                     </md-input-container>
                                 </div>
                                 <div class="w3-col m4">
                                     <md-input-container style="width: 100%;">
                                         <label>Pending UC</label>
-                                        <input name="uc" ng-model="vm.edit.pendingUc" type="number" required ng-disabled="!(vm.edit.entryNum.selected.length > 0) && !(vm.edit.autoNum.selected.length > 0)">
-                                        <div ng-messages="editForm.pendingUc.$error">
-                                            <div ng-message="required">This is required.</div>
-                                        </div>
+                                        <input name="uc" ng-model="vm.edit.pendingUc" type="number" ng-disabled="!(vm.edit.entryNum.selected.length > 0) && !(vm.edit.autoNum.selected.length > 0)">
                                     </md-input-container>
                                 </div>
                             </div>
