@@ -82,6 +82,33 @@ exports.handler = function (req, res, qpaths, qdata) {
                             }
                         })
                     }
+                    else if(qdata.auto_num) {
+                        var sql = "SELECT COUNT(*) as count FROM plan_11_pending WHERE auto_num = " + qdata.auto_num;
+                        db_conn.query(sql, function (err, result, fields) {
+                            if (err) {
+                                logger.error(err);
+                                res.statusCode = 500;
+                                res.statusMessage = "Internal Server Error";
+                                res.end();
+                            } else {
+                                if (result[0].count == 0) {
+                                    res.statusCode = 404;
+                                    res.statusMessage = qdata.auto_num + " Not Found";
+                                    res.end();
+                                }
+                                else if (result[0].count == 1) {
+                                    res.statusCode = 200;
+                                    res.statusMessage = "OK";
+                                    res.end();
+                                }
+                                else {
+                                    res.statusCode = 500;
+                                    res.statusMessage = "Internal Server Error";
+                                    res.end();
+                                }
+                            }
+                        })
+                    }
                     else {
                         res.statusCode = 400;
                         res.statusMessage = "Bad Request";

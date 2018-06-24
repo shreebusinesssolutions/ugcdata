@@ -45,6 +45,7 @@ exports.handler = function (req, res, qpaths, qdata) {
                             "schemeId",
                             "subSchemeId",
                             "sanctionDate",
+                            "year",
                             "caseCleared"
                         ]);
                         var sql = "UPDATE plan_11_pending ";
@@ -60,6 +61,7 @@ exports.handler = function (req, res, qpaths, qdata) {
                         sql += "scheme_id = '" + reqBodyObj.schemeId + "', ";
                         sql += "subscheme_id = '" + reqBodyObj.subSchemeId + "', ";
                         sql += "sanction_date = '" + (reqBodyObj.sanctionDate?reqBodyObj.sanctionDate:null) + "', ";
+                        sql += "year = '" + (reqBodyObj.year?reqBodyObj.year:null) + "', ";
                         sql += "case_cleared = " + reqBodyObj.caseCleared + " ";
                         sql += "WHERE entry_num = " + reqBodyObj.entryNum + "";
                         sql = sql.replace(/'null'/g, "null");
