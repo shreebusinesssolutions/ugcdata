@@ -33,15 +33,19 @@ exports.handler = function (req, res, qpaths, qdata) {
                     });
                     req.on('end', function () {
                         reqBodyObj = sanitizeJson(reqBodyStr, [
+                            "autoNum",
                             "fileNum",
                             "masterFileNum",
                             "collegeId",
+                            "remarks",
                             "paid",
                             "uc",
+                            "pendingUc",
                             "schemeId",
                             "subSchemeId",
+                            "sanctionDate",
                             "year",
-                            "plan"
+                            "caseCleared"
                         ]);
                         var sqlmax = "SELECT MAX(entry_num) as max_entry_num FROM plan_11_pending";
                         db_conn.query(sqlmax, function (err, result, fields) {
@@ -52,7 +56,7 @@ exports.handler = function (req, res, qpaths, qdata) {
                                 res.end();
                             } else {
                                 var new_entry_num = result[0].max_entry_num + 1;
-                                var sql = "INSERT INTO plan_11pending (entry_num, auto_num, college_id, file_num, remarks, master_file_num, sanction_date, paid, uc, pending_uc, scheme_id, subscheme_id, year, case_cleared) ";
+                                var sql = "INSERT INTO plan_11_pending (entry_num, auto_num, college_id, file_num, remarks, master_file_num, sanction_date, paid, uc, pending_uc, scheme_id, subscheme_id, year, case_cleared) ";
                                 sql += "VALUES (";
                                 sql += new_entry_num + ", ";
                                 sql += reqBodyObj.autoNum + ", ";
@@ -66,8 +70,8 @@ exports.handler = function (req, res, qpaths, qdata) {
                                 sql += "" + (reqBodyObj.pendingUc ? reqBodyObj.pendingUc : null) + ", ";
                                 sql += "'" + reqBodyObj.schemeId + "', ";
                                 sql += "'" + reqBodyObj.subSchemeId + "', ";
-                                sql += "'" + (reqBodyObj.year?reqBodyObj.year:null) + "'";
-                                sql += "'" + reqBodyObj.caseCleared + "'";
+                                sql += "'" + (reqBodyObj.year?reqBodyObj.year:null) + "', ";
+                                sql += "" + reqBodyObj.caseCleared + "";
                                 sql += ")";
                                 sql = sql.replace(/'null'/g, "null");
                                 db_conn.query(sql, function (err, result, fields) {
