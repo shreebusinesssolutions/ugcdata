@@ -927,7 +927,33 @@ var PendingCtrl = (function () {
         }
     };
     PendingCtrl.prototype.editSave = function () {
-
+        var _this = this;
+        _this.mode.edit.saving = true;
+        _this.$http({
+            method: "PUT",
+            url: "/ugc_serv/reportdata/pending/",
+            data: {
+                entryNum: _this.edit.entryNum.selected[0],
+                autoNum: _this.edit.autoNum,
+                fileNum: _this.edit.fileNum,
+                masterFileNum: _this.edit.fileNum,
+                collegeId: _this.edit.collegeId.selectedItem.id,
+                remarks: _this.edit.remarks,
+                paid: _this.edit.paid,
+                uc: _this.edit.uc,
+                pendingUc: _this.edit.pendingUc,
+                schemeId: _this.edit.schemeId.selectedItem.id,
+                subSchemeId: _this.edit.subSchemeId.selectedItem.id,
+                sanctionDate: _this.edit.sanctionDate ? moment(_this.edit.sanctionDate).format("YYYY-MM-DD") : null,
+                caseCleared: _this.edit.caseCleared ? 1 : 0
+            }
+        }).then(function successCallback(response) {
+            _this.showNotif("Report entry updated successfully.");
+            _this.mode.edit.saving = false;
+        }, function errorCallback(response) {
+            _this.httpResponseError(response);
+            _this.mode.edit.saving = false;
+        });
     };
 
 
