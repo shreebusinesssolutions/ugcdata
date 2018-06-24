@@ -43,7 +43,7 @@ exports.handler = function (req, res, qpaths, qdata) {
                             "year",
                             "plan"
                         ]);
-                        var sqlmax = "SELECT MAX(entry_num) as max_entry_num FROM plan_11_12_paid";
+                        var sqlmax = "SELECT MAX(entry_num) as max_entry_num FROM plan_11_pending";
                         db_conn.query(sqlmax, function (err, result, fields) {
                             if (err) {
                                 logger.error(err);
@@ -52,18 +52,22 @@ exports.handler = function (req, res, qpaths, qdata) {
                                 res.end();
                             } else {
                                 var new_entry_num = result[0].max_entry_num + 1;
-                                var sql = "INSERT INTO plan_11_12_paid (entry_num, file_num, master_file_num, college_id, year, paid, uc, scheme_id, subscheme_id, plan_files) ";
+                                var sql = "INSERT INTO plan_11pending (entry_num, auto_num, college_id, file_num, remarks, master_file_num, sanction_date, paid, uc, pending_uc, scheme_id, subscheme_id, year, case_cleared) ";
                                 sql += "VALUES (";
                                 sql += new_entry_num + ", ";
-                                sql += "'" + (reqBodyObj.fileNum ? reqBodyObj.fileNum.replace(/'/g, "\\'") : null) + "', ";
-                                sql += "'" + (reqBodyObj.masterFileNum ? reqBodyObj.masterFileNum.replace(/'/g, "\\'") : null) + "', ";
+                                sql += reqBodyObj.autoNum + ", ";
                                 sql += "'" + reqBodyObj.collegeId + "', ";
-                                sql += "'" + reqBodyObj.year + "', ";
-                                sql += "" + reqBodyObj.paid + ", ";
-                                sql += "" + reqBodyObj.uc + ", ";
+                                sql += "'" + (reqBodyObj.fileNum ? reqBodyObj.fileNum.replace(/'/g, "\\'") : null) + "', ";
+                                sql += "'" + (reqBodyObj.remarks ? reqBodyObj.remarks.replace(/'/g, "\\'") : null) + "', ";
+                                sql += "'" + (reqBodyObj.masterFileNum ? reqBodyObj.masterFileNum.replace(/'/g, "\\'") : null) + "', ";
+                                sql += "'" + (reqBodyObj.sanctionDate ? reqBodyObj.sanctionDate.replace(/'/g, "\\'") : null) + "', ";
+                                sql += "" + (reqBodyObj.paid ? reqBodyObj.paid : null) + ", ";
+                                sql += "" + (reqBodyObj.uc ? reqBodyObj.uc : null) + ", ";
+                                sql += "" + (reqBodyObj.pendingUc ? reqBodyObj.pendingUc : null) + ", ";
                                 sql += "'" + reqBodyObj.schemeId + "', ";
                                 sql += "'" + reqBodyObj.subSchemeId + "', ";
-                                sql += "'" + reqBodyObj.plan + "'";
+                                sql += "'" + (reqBodyObj.year?reqBodyObj.year:null) + "'";
+                                sql += "'" + reqBodyObj.caseCleared + "'";
                                 sql += ")";
                                 sql = sql.replace(/'null'/g, "null");
                                 db_conn.query(sql, function (err, result, fields) {
