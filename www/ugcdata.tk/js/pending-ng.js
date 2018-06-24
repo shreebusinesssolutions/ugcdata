@@ -1002,6 +1002,7 @@ var PendingCtrl = (function () {
                 schemeId: _this.edit.schemeId.selectedItem.id,
                 subSchemeId: _this.edit.subSchemeId.selectedItem.id,
                 sanctionDate: _this.edit.sanctionDate ? moment(_this.edit.sanctionDate).format("YYYY-MM-DD") : null,
+                year: _this.edit.year,
                 caseCleared: _this.edit.caseCleared ? 1 : 0
             }
         }).then(function successCallback(response) {
@@ -1044,6 +1045,7 @@ var PendingCtrl = (function () {
                 schemeId: _this.add.schemeId.selectedItem.id,
                 subSchemeId: _this.add.subSchemeId.selectedItem.id,
                 sanctionDate: _this.add.sanctionDate ? moment(_this.add.sanctionDate).format("YYYY-MM-DD") : null,
+                year: _this.add.year,
                 caseCleared: _this.add.caseCleared ? 1 : 0
             }
         }).then(function successCallback(response) {
