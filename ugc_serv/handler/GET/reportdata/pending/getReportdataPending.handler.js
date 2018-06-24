@@ -93,7 +93,7 @@ exports.handler = function (req, res, qpaths, qdata) {
                             } else {
                                 if (result[0].count == 0) {
                                     res.statusCode = 404;
-                                    res.statusMessage = qdata.college_id + " Not Found";
+                                    res.statusMessage = qdata.auto_num + " Not Found";
                                     res.end();
                                 }
                                 else if (result[0].count == 1) {
