@@ -944,7 +944,7 @@ var PendingCtrl = (function () {
                 pendingUc: _this.edit.pendingUc,
                 schemeId: _this.edit.schemeId.selectedItem.id,
                 subSchemeId: _this.edit.subSchemeId.selectedItem.id,
-                sanctionDate: _this.edit.sanctionDate,
+                sanctionDate: _this.edit.sanctionDate ? moment(_this.edit.sanctionDate).format("YYYY-MM-DD") : null,
                 caseCleared: _this.edit.caseCleared ? 1 : 0
             }
         }).then(function successCallback(response) {
